@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
+import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/screens/auth/signup_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 import 'colors.dart' as colors;
