@@ -11,4 +11,6 @@ class AppColor {
   static Color onboardSubtext = const Color(0xFFFFF621);
   static Color onboardSubtextBack = Color.fromARGB(255, 190, 92, 0);
   static Color grayTitleButton = Color.fromARGB(255, 100, 93, 60);
+  static Color inputTextBack = Color.fromARGB(255, 176, 164, 112);
+  static Color red = Color.fromARGB(255, 250, 108, 108);
 }
