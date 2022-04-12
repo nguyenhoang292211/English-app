@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning/colors.dart' as colors;
+import 'package:vocabulary_learning/colors.dart';
 
 class SignupScreen extends StatefulWidget {
   SignupScreen({Key? key}) : super(key: key);
@@ -17,8 +17,8 @@ class _SignupScreenState extends State<SignupScreen> {
       decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
-                colors.AppColor.firstGradientBack,
-                colors.AppColor.secondGradientBack.withOpacity(0.9)
+                kfirstGradientBack,
+                ksecondGradientBack.withOpacity(0.9)
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -45,7 +45,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   Text("PANDA",
                       style: TextStyle(
-                          color: colors.AppColor.mainOrange,
+                          color: kmainOrange,
                           fontSize: 40,
                           fontFamily: "PoetsenOne"),
                       textAlign: TextAlign.center),
@@ -55,9 +55,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Text(
                     "english",
                     style: TextStyle(
-                        color: colors.AppColor.white,
-                        fontSize: 35,
-                        fontFamily: "PoetsenOne"),
+                        color: kwhite, fontSize: 35, fontFamily: "PoetsenOne"),
                   ),
                 ],
               ),
@@ -68,7 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 "Join with us now!",
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                    color: colors.AppColor.white,
+                    color: kwhite,
                     fontSize: 18,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w300),

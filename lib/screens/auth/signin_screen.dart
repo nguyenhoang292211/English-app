@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning/colors.dart' as colors;
+import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/input_field.dart';
 import 'package:vocabulary_learning/components/main_button.dart';
-import 'package:vocabulary_learning/utils/utils.dart';
 
 class SigninScreen extends StatefulWidget {
   SigninScreen({Key? key}) : super(key: key);
@@ -23,8 +22,8 @@ class _SigninScreenState extends State<SigninScreen> {
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [
-                  colors.AppColor.firstGradientBack,
-                  colors.AppColor.secondGradientBack.withOpacity(0.9)
+                  kfirstGradientBack,
+                  ksecondGradientBack.withOpacity(0.9)
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -34,7 +33,7 @@ class _SigninScreenState extends State<SigninScreen> {
             children: [
               Text("PANDA",
                   style: TextStyle(
-                      color: colors.AppColor.mainOrange,
+                      color: kmainOrange,
                       fontSize: 40,
                       fontFamily: "PoetsenOne"),
                   textAlign: TextAlign.center),
@@ -44,20 +43,18 @@ class _SigninScreenState extends State<SigninScreen> {
               Text(
                 "english",
                 style: TextStyle(
-                    color: colors.AppColor.white,
-                    fontSize: 35,
-                    fontFamily: "PoetsenOne"),
+                    color: kwhite, fontSize: 35, fontFamily: "PoetsenOne"),
               ),
             ],
           ),
           const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
             "Welcome to come back!",
             textAlign: TextAlign.left,
             style: TextStyle(
-                color: colors.AppColor.white,
+                color: kwhite,
                 fontSize: 18,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w300),
@@ -75,9 +72,7 @@ class _SigninScreenState extends State<SigninScreen> {
               ),
               Text("Sign in",
                   style: TextStyle(
-                      color: colors.AppColor.white,
-                      fontSize: 35,
-                      fontFamily: "PoetsenOne"),
+                      color: kwhite, fontSize: 35, fontFamily: "PoetsenOne"),
                   textAlign: TextAlign.center),
               const SizedBox(
                 height: 20,
@@ -129,13 +124,11 @@ class _SigninScreenState extends State<SigninScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         "You haven’t have an account? ",
                         style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            color: colors.AppColor.white),
+                            fontFamily: 'Poppins', fontSize: 16, color: kwhite),
                       ),
                       InkWell(
                         child: Text(
@@ -144,7 +137,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               fontFamily: 'Poppins',
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: colors.AppColor.white),
+                              color: kwhite),
                         ),
                       )
                     ],

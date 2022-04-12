@@ -1,16 +1,14 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
-class AppColor {
-  static Color firstGradientBack = const Color(0xFF015D00);
-  static Color secondGradientBack = const Color(0xFF04BF00);
-  static Color mainOrange = const Color(0xFFFF9900);
-  static Color mainBrown = const Color(0xFF9A490D);
-  static Color white = const Color(0xFFFFFFFF);
-  static Color black = const Color(0xFF000000);
-  static Color lightWhite = const Color(0xFFE5E5E5);
-  static Color onboardSubtext = const Color(0xFFFFF621);
-  static Color onboardSubtextBack = Color.fromARGB(255, 190, 92, 0);
-  static Color grayTitleButton = Color.fromARGB(255, 100, 93, 60);
-  static Color inputTextBack = Color.fromARGB(255, 176, 164, 112);
-  static Color red = Color.fromARGB(255, 250, 108, 108);
-}
+const kfirstGradientBack = Color(0xFF015D00);
+const ksecondGradientBack = Color(0xFF04BF00);
+const kmainOrange = Color(0xFFFF9900);
+const kmainBrown = Color(0xFF9A490D);
+const kwhite = Color(0xFFFFFFFF);
+const kblack = Color(0xFF000000);
+const klightWhite = Color(0xFFE5E5E5);
+const konboardSubtext = Color(0xFFFFF621);
+const konboardSubtextBack = Color.fromARGB(255, 190, 92, 0);
+const kgrayTitleButton = Color.fromARGB(255, 100, 93, 60);
+const kinputTextBack = Color.fromARGB(255, 176, 164, 112);
+const kred = Color.fromARGB(255, 250, 108, 108);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning/colors.dart' as colors;
+import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/utils/utils.dart';
 
 class InputField extends StatelessWidget {
@@ -24,7 +24,7 @@ class InputField extends StatelessWidget {
       width: size.width * 0.7,
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
-        color: colors.AppColor.inputTextBack.withOpacity(0.45),
+        color: kinputTextBack.withOpacity(0.45),
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
@@ -40,15 +40,12 @@ class InputField extends StatelessWidget {
         onChanged: onChange,
         decoration: InputDecoration(
             fillColor: Colors.grey[500],
-            errorStyle: TextStyle(
-                fontFamily: 'Poppins',
-                color: colors.AppColor.red,
-                fontSize: 14),
-            icon: Icon(icon, color: colors.AppColor.mainBrown.withOpacity(0.8)),
+            errorStyle: const TextStyle(
+                fontFamily: 'Poppins', color: kred, fontSize: 14),
+            icon: Icon(icon, color: kmainBrown.withOpacity(0.8)),
             hintText: hintText,
             hintStyle: TextStyle(
-                color: colors.AppColor.lightWhite.withOpacity(0.5),
-                fontFamily: 'Poppins'),
+                color: klightWhite.withOpacity(0.5), fontFamily: 'Poppins'),
             border: InputBorder.none),
       ),
     );
