@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning/colors.dart' as colors;
+import 'package:vocabulary_learning/colors.dart';
 
 class MainButton extends StatelessWidget {
   final String text;
@@ -26,7 +26,7 @@ class MainButton extends StatelessWidget {
       onPressed: () => {onPressed()},
       style: ElevatedButton.styleFrom(
           alignment: Alignment.center,
-          shadowColor: colors.AppColor.grayTitleButton,
+          shadowColor: kgrayTitleButton,
           elevation: 8,
           fixedSize: Size(width, height),
           primary: background,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning/colors.dart' as colors;
+import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/main_button.dart';
 
 class OnboardScreen extends StatelessWidget {
@@ -14,8 +14,8 @@ class OnboardScreen extends StatelessWidget {
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [
-                  colors.AppColor.firstGradientBack,
-                  colors.AppColor.secondGradientBack.withOpacity(0.9)
+                  kfirstGradientBack,
+                  ksecondGradientBack.withOpacity(0.9)
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -50,16 +50,16 @@ class OnboardScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("PANDA",
+                    const Text("PANDA",
                         style: TextStyle(
-                            color: colors.AppColor.mainOrange,
+                            color: kmainOrange,
                             fontSize: 50,
                             fontFamily: "PoetsenOne"),
                         textAlign: TextAlign.center),
-                    Text(
+                    const Text(
                       "English",
                       style: TextStyle(
-                          color: colors.AppColor.white,
+                          color: kwhite,
                           fontSize: 40,
                           fontFamily: "PoetsenOne"),
                       textAlign: TextAlign.center,
@@ -67,10 +67,10 @@ class OnboardScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    Text(
+                    const Text(
                       "English connect us together!",
                       style: TextStyle(
-                          color: colors.AppColor.white,
+                          color: kwhite,
                           fontSize: 20,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.w300),
@@ -86,26 +86,25 @@ class OnboardScreen extends StatelessWidget {
                           const EdgeInsets.only(top: 20, left: 8, right: 8),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: colors.AppColor.onboardSubtextBack
-                              .withOpacity(0.6),
+                          color: konboardSubtextBack.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(20)),
-                      child: Column(children: [
+                      child: Column(children: const [
                         Text(
                           "Learning english by easy way",
                           style: TextStyle(
-                              color: colors.AppColor.onboardSubtext,
+                              color: konboardSubtext,
                               fontSize: 16,
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.w300),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
                         Text(
                           "Play game help you remeber new word well",
                           style: TextStyle(
-                              color: colors.AppColor.onboardSubtext,
+                              color: konboardSubtext,
                               fontSize: 15,
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.w300),
@@ -121,8 +120,8 @@ class OnboardScreen extends StatelessWidget {
                       onPressed: () => {},
                       text: "Sign up",
                       width: size.width * 0.85,
-                      background: colors.AppColor.white,
-                      textColor: colors.AppColor.black.withOpacity(0.9),
+                      background: kwhite,
+                      textColor: kblack.withOpacity(0.9),
                     ),
                     const SizedBox(
                       height: 15,
@@ -131,7 +130,7 @@ class OnboardScreen extends StatelessWidget {
                       onPressed: () => {},
                       text: "Sign in",
                       width: size.width * 0.85,
-                      textColor: colors.AppColor.white,
+                      textColor: kwhite,
                     ),
                   ],
                 )),

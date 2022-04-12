@@ -3,7 +3,7 @@ import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/screens/auth/signup_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
-import 'colors.dart' as colors;
+import 'colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           fontFamily: "Poppins",
-          primaryColor: colors.AppColor.firstGradientBack),
+          primaryColor: kfirstGradientBack),
       home: SignupScreen(),
     );
   }
