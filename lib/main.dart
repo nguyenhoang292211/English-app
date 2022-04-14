@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
-import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
-import 'package:vocabulary_learning/screens/auth/signup_screen.dart';
+import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 import 'colors.dart';
 
-void main() {
+Future<void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   FirebaseApp defaultApp = await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyCBaSPkpnTCTvSYaRXitV-bXn9bq9ZBj0s",
+      appId: "1:954274166254:android:2d20ac29e61ccda3034aff",
+      messagingSenderId: "954274166254",
+      projectId: "flutter-todo-b6ad9",
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -15,7 +24,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'English Vobabulary',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -30,7 +39,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           fontFamily: "Poppins",
           primaryColor: kfirstGradientBack),
-      home: SignupScreen(),
+      home: GrammarAllScreen(),
     );
   }
 }
