@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "954274166254",
+    "project_id": "flutter-todo-b6ad9",
+    "storage_bucket": "flutter-todo-b6ad9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954274166254:android:2d20ac29e61ccda3034aff",
+        "android_client_info": {
+          "package_name": "com.example.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954274166254-darlck4p6piot2rsvd7lpjauvs53e0cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBaSPkpnTCTvSYaRXitV-bXn9bq9ZBj0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954274166254-darlck4p6piot2rsvd7lpjauvs53e0cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954274166254:android:f13af406c8d39ffc034aff",
+        "android_client_info": {
+          "package_name": "com.example.vocabulary_learning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954274166254-darlck4p6piot2rsvd7lpjauvs53e0cm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBaSPkpnTCTvSYaRXitV-bXn9bq9ZBj0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954274166254-darlck4p6piot2rsvd7lpjauvs53e0cm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
