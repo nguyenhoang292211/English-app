@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/colors.dart' as colors;
+import 'package:vocabulary_learning/components/input_field.dart';
+
+import 'package:vocabulary_learning/components/main_button.dart';
+import 'package:vocabulary_learning/utils/utils.dart';
 
 class SignupScreen extends StatefulWidget {
   SignupScreen({Key? key}) : super(key: key);
@@ -13,7 +18,8 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Container(
+    return Scaffold(
+        body: Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
@@ -71,10 +77,70 @@ class _SignupScreenState extends State<SignupScreen> {
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w300),
               ),
+              Container(
+                height: size.height * 0.6,
+                width: size.width,
+                child: Column(children: [
+               
+                  Text("Sign in",
+                      style: TextStyle(
+                          color: kwhite,
+                          fontSize: 35,
+                          fontFamily: "PoetsenOne"),
+                      textAlign: TextAlign.center),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InputField(
+                    hintText: "Email",
+                    icon: Icons.person,
+                    onChange: (value) {},
+                    isEmailText: true,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  InputField(
+                    hintText: "Full name",
+                    icon: Icons.lock,
+                    onChange: (value) {},
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                     InputField(
+                    hintText: "Password",
+                    icon: Icons.lock,
+                    onChange: (value) {},
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                     InputField(
+                    hintText: "Password confirm",
+                    icon: Icons.lock,
+                    onChange: (value) {},
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  InkWell(
+                    child: Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                          color: Colors.yellow.shade600, fontFamily: 'Poppins'),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                ]),
+              )
             ]),
           ),
         ],
       ),
-    );
+    ));
   }
 }
