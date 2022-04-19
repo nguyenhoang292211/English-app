@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
+import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
+
+import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 import 'colors.dart';
 

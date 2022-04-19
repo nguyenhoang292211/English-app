@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning/colors.dart';
-import 'package:vocabulary_learning/colors.dart' as colors;
+
 import 'package:vocabulary_learning/components/input_field.dart';
 
 import 'package:vocabulary_learning/components/main_button.dart';
@@ -132,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       width: size.width * 0.85,
                       onPressed: () {}),
                   const SizedBox(
-                    height:7,
+                    height: 7,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

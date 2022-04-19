@@ -78,6 +78,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+<<<<<<< HEAD
   firebase_auth:
     dependency: "direct main"
     description:
@@ -120,6 +121,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
+=======
+  flip_card:
+    dependency: "direct main"
+    description:
+      name: flip_card
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.0"
+>>>>>>> 7f5c5dd (flash_card)
   flutter:
     dependency: "direct main"
     description: flutter
@@ -137,6 +147,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -149,6 +160,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.0.9"
+=======
+>>>>>>> 7f5c5dd (flash_card)
   get:
     dependency: "direct main"
     description:
@@ -156,6 +169,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.1"
+<<<<<<< HEAD
   http_parser:
     dependency: transitive
     description:
@@ -177,6 +191,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+=======
+>>>>>>> 7f5c5dd (flash_card)
   lints:
     dependency: transitive
     description:
@@ -191,6 +207,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.11"
+  material:
+    dependency: "direct main"
+    description:
+      name: material
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+2"
   material_color_utilities:
     dependency: transitive
     description:
