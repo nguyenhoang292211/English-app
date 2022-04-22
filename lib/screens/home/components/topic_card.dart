@@ -21,15 +21,15 @@ class TopicCard extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.only(top: 30, right: 10, bottom: 10),
             child: Container(
-                height: size.width * 0.55,
-                width: size.width * 0.45,
+                height: size.height * 0.4,
+                width: size.width * 0.46,
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 186, 209, 248),
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 5,
-                        color: const Color.fromARGB(255, 90, 85, 85)
+                        color: const Color.fromARGB(64, 19, 18, 18)
                             .withOpacity(0.3),
                         offset: const Offset(3, 3),
                       )

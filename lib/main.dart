@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:vocabulary_learning/controllers/bottom_tab_controller.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
+import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
+import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/home_screen.dart';
 
 import 'colors.dart';
@@ -11,7 +13,7 @@ import 'colors.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseApp defaultApp = await Firebase.initializeApp(
-    options: FirebaseOptions(
+    options: const FirebaseOptions(
       apiKey: "AIzaSyCBaSPkpnTCTvSYaRXitV-bXn9bq9ZBj0s",
       appId: "1:954274166254:android:2d20ac29e61ccda3034aff",
       messagingSenderId: "954274166254",
@@ -27,11 +29,11 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
   final controller = Get.put(BottomTabController());
 
-  final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen()
-  ];
+  // final List<Widget> _widgetOptions = <Widget>[
+  //   HomeScreen(),
+  //   FlashCard(),
+  //   const GrammarAllScreen()
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,35 +42,32 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         title: 'English Vobabulary',
         debugShowCheckedModeBanner: false,
-        theme:
-            ThemeData(fontFamily: "Poppins", primaryColor: kfirstGradientBack),
+        theme: ThemeData(fontFamily: "Poppins", primaryColor: kmainBrown),
         home: GetBuilder<BottomTabController>(
           init: BottomTabController(),
           builder: (tabController) {
             return Scaffold(
                 bottomNavigationBar: _buildBottomBar(),
-                body: _widgetOptions[tabController.currentTabIndex]);
+                body:
+                    tabController.widgetOptions[tabController.currentTabIndex]);
           },
         ));
   }
 
   Widget _buildBottomBar() {
-    TextStyle bottomTextStyle = TextStyle(
-        fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 18);
-
     return SalomonBottomBar(
       currentIndex: controller.currentTabIndex,
       onTap: (index) {
         controller.updateIndex(index);
-        debugPrint(index.toString());
       },
       selectedItemColor: kfirstGradientBack,
       items: [
         /// Home
         SalomonBottomBarItem(
           icon: const Icon(
-            Icons.home,
-            size: 32,
+            Icons.home_rounded,
+            size: 30,
+            color: ksecondGradientBack,
           ),
           title: const Text(
             "Home",
@@ -83,8 +82,9 @@ class MyApp extends StatelessWidget {
         /// Likes
         SalomonBottomBarItem(
           icon: const Icon(
-            Icons.favorite_border,
-            size: 32,
+            Icons.favorite_border_rounded,
+            size: 30,
+            color: ksecondGradientBack,
           ),
           title: const Text(
             "Favorites",
@@ -98,8 +98,9 @@ class MyApp extends StatelessWidget {
         /// Profile
         SalomonBottomBarItem(
           icon: const Icon(
-            Icons.person,
-            size: 32,
+            Icons.person_outline,
+            size: 30,
+            color: ksecondGradientBack,
           ),
           title: const Text(
             "Profile",
