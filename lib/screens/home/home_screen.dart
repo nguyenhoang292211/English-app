@@ -1,7 +1,53 @@
+// ignore_for_file: unnecessary_const
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_card.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import '../../models/topic.dart';
+
+// ignore: unnecessary_new
+const List topic = [
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 243, 223, 152),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(248, 245, 180, 180),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 185, 208, 218),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 218, 182, 106),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 159, 206, 145),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 163, 165, 196),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  }
+];
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -156,22 +202,22 @@ class HomeScreen extends StatelessWidget {
       SizedBox(
         height: size.height * 0.4,
         child: GridView.count(
-          padding: const EdgeInsets.only(right: 5),
-          scrollDirection: Axis.horizontal,
-          primary: false,
-          crossAxisCount: 2,
-          mainAxisSpacing: size.width * 0.06,
-          crossAxisSpacing: 5,
-          children: const [
-            TopicCard(),
-            TopicCard(),
-            TopicCard(),
-            TopicCard(),
-            TopicCard(),
-            TopicCard(),
-            TopicCard(),
-          ],
-        ),
+            padding: const EdgeInsets.only(right: 5),
+            scrollDirection: Axis.horizontal,
+            primary: false,
+            crossAxisCount: 2,
+            mainAxisSpacing: size.width * 0.06,
+            crossAxisSpacing: 5,
+            children: [
+              TopicCard(),
+              TopicCard(),
+              TopicCard(),
+              TopicCard(),
+              TopicCard(),
+              TopicCard(),
+              TopicCard(),
+              TopicCard(),
+            ]),
       ),
     ]);
   }

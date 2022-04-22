@@ -15,7 +15,7 @@ import 'package:vocabulary_learning/screens/flashCard/flashcard_view.dart';
 // }
 
 class FlashCard extends GetWidget<FlashCardController> {
-  final flashCardCtrl = Get.find<FlashCardController>();
+  final flashCardCtrl = Get.put(FlashCardController());
 
   final List<Vocabulary> _flashcards = [];
 
@@ -41,6 +41,7 @@ class FlashCard extends GetWidget<FlashCardController> {
     return Scaffold(
       backgroundColor: kGreenGrammar,
       body: Container(
+          padding: EdgeInsets.only(top: 40),
           height: size.height,
           decoration: const BoxDecoration(color: kGreenGrammar),
           child: Stack(
@@ -50,11 +51,15 @@ class FlashCard extends GetWidget<FlashCardController> {
                 children: [
                   SizedBox(
                     height: 35,
-                    child: Wrap(
+                    child: Row(
                       children: <Widget>[
                         IconButton(
-                          icon: const Icon(Icons.arrow_back_ios, color: kred),
+                          icon: const Icon(Icons.arrow_back_ios,
+                              color: kOrangeGrammar),
                           onPressed: () => Navigator.of(context).pop(),
+                        ),
+                        const SizedBox(
+                          width: 100,
                         ),
                         const Text("Flash card",
                             style: TextStyle(
@@ -64,7 +69,6 @@ class FlashCard extends GetWidget<FlashCardController> {
                             ),
                             textAlign: TextAlign.center)
                       ],
-                      alignment: WrapAlignment.spaceAround,
                     ),
                   ),
                   const SizedBox(height: 20),
