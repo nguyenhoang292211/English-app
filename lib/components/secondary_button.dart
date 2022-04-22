@@ -26,7 +26,7 @@ class SecondaryButton extends StatelessWidget {
       onPressed: () => {onPressed()},
       style: ElevatedButton.styleFrom(
           alignment: Alignment.center,
-          shadowColor: colors.AppColor.grayTitleButton,
+          shadowColor: Colors.brown.shade300,
           elevation: 8,
           fixedSize: Size(width, height),
           primary: background,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 
 import 'package:vocabulary_learning/components/input_field.dart';
 
 import 'package:vocabulary_learning/components/main_button.dart';
+import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/utils/utils.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -141,11 +143,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       Text(
                         "Already have an account? ",
                         style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            color: kwhite),
+                            fontFamily: 'Poppins', fontSize: 16, color: kwhite),
                       ),
                       InkWell(
+                        onTap: () {
+                          Get.to(SigninScreen());
+                        },
                         child: Text(
                           "Login now",
                           style: TextStyle(

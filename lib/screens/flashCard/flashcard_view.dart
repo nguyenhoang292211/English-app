@@ -17,3 +17,4 @@ class FlashCardView extends StatelessWidget {
     );
   }
 }
+

@@ -26,7 +26,7 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
   Widget build(BuildContext context) {
     // GrammarController grammarController = Get.put(GrammarController());
     final size = MediaQuery.of(context).size;
-    return Scaffold(
+    return Scaffold( 
       backgroundColor: Color(0xFFE7FCE9),
       body: SafeArea(
         // decoration: BoxDecoration(color: Color(0xFFE7FCE9)),
