@@ -5,6 +5,7 @@ import 'package:get/state_manager.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/grammar_controller.dart';
 import 'package:vocabulary_learning/models/question_grammar.dart';
+import 'package:vocabulary_learning/screens/grammar/score_screen.dart';
  
 class QuestionGrammarController extends GetxController with SingleGetTickerProviderMixin {
 
@@ -60,44 +61,46 @@ class QuestionGrammarController extends GetxController with SingleGetTickerProvi
   }
 
    void checkAn (QuestionGrammar question, int selectIndex) {
-
     _isAnswer = true;
     _correctAns = question.answer!;
     _selectAns = selectIndex;
 
     if(_correctAns == _selectAns) _numOfCorrectAns++;
-    Get.defaultDialog(
-              titleStyle: TextStyle(fontSize: 0),
-              backgroundColor: kModalError,
-              // titleStyle: TextStyle(color: Colors.white),
-              // middleTextStyle: TextStyle(color: Colors.white),
-              // textConfirm: "Confirm",
-              // textCancel: "Cancel",
-              // cancelTextColor: Colors.white,
-              // confirmTextColor: Colors.white,
-              // buttonColor: Colors.red,
-              //cancel: Text("No", style: TextStyle(fontFamily: "PoetsenOne", fontSize: 26),),
-              confirm: Text("Yes", style: TextStyle(fontFamily: "PoetsenOne", fontSize: 26, color: kConfirmText),),
+    // Get.defaultDialog(
+    //           titleStyle: TextStyle(fontSize: 0),
+    //           backgroundColor: kModalError,
+    //           // titleStyle: TextStyle(color: Colors.white),
+    //           // middleTextStyle: TextStyle(color: Colors.white),
+    //           // textConfirm: "Confirm",
+    //           // textCancel: "Cancel",
+    //           // cancelTextColor: Colors.white,
+    //           // confirmTextColor: Colors.white,
+    //           // buttonColor: Colors.red,
+    //           //cancel: Text("No", style: TextStyle(fontFamily: "PoetsenOne", fontSize: 26),),
+    //           confirm: Text("Yes", style: TextStyle(fontFamily: "PoetsenOne", fontSize: 26, color: kConfirmText),),
               
-              barrierDismissible: true,
-              radius: 20,
-              content: Column(
-                children: [
-                  Container(child:Text("Hello 1")),
-                  Container(child:Text("Hello 2")),
-                  Container(child:Text("Hello 3")),
-                ],
-              )
-            );
+    //           barrierDismissible: true,
+    //           radius: 20,
+    //           content: Column(
+    //             children: [
+    //               Container(child:Text("Hello 1")),
+    //               Container(child:Text("Hello 2")),
+    //               Container(child:Text("Hello 3")),
+    //             ],
+    //           )
+    //         );
     _animationController.stop();
     update();
 
     Future.delayed(Duration(seconds: 3), (){
       _isAnswer = false;
-      _pageController.nextPage(duration: Duration(milliseconds: 250), curve: Curves.ease);
+        if(_questionNumber.value < lQuestion.length) {
+           _pageController.nextPage(duration: Duration(milliseconds: 250), curve: Curves.ease);
       _animationController.reset();
 
-      _animationController.forward();    });
+      _animationController.forward(); 
+        } else Get.to(ScoreScreen());
+        });
   }
 
   void nextQuestion () {

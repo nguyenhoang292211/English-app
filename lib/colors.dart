@@ -23,3 +23,4 @@ const kNudeQuestion = Color(0xFFFFF8F3);
 const kModalError = Color(0xFFFFF7CA);
 const kCancelText = Color(0xFFC01616);
 const kConfirmText = Color(0xFF04BF00);
+const kScoreScreen = Color(0xFF9EF16B);

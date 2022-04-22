@@ -4,6 +4,7 @@ import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/grammar_controller.dart';
 import 'package:vocabulary_learning/screens/grammar/components/button_detail.dart';
 import 'package:vocabulary_learning/screens/grammar/components/header_grammar.dart';
+import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
 class GrammarDetail extends StatelessWidget {
   const GrammarDetail({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class GrammarDetail extends StatelessWidget {
                   bottom: size.height*0.05,
                    left: size.width * 0.05,
                   right: size.width * 0.05,
-                  child: ButtonDetail(title: "Start test")),
+                  child: ButtonDetail(title: "Start test", onPress: (){Get.to(QuestionScreen());},)),
                  Positioned(
             bottom: size.height*0.05,
             left: size.width*0.05,
