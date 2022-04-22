@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/input_field.dart';
 import 'package:vocabulary_learning/components/main_button.dart';
+import 'package:vocabulary_learning/screens/auth/signup_screen.dart';
 
 class SigninScreen extends StatefulWidget {
   SigninScreen({Key? key}) : super(key: key);
@@ -139,6 +142,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               fontWeight: FontWeight.w600,
                               color: kwhite),
                         ),
+                      
                       )
                     ],
                   )

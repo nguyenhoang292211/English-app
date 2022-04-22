@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
+import 'package:vocabulary_learning/screens/flashCard/result_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
+import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
+
+import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 import 'colors.dart';
 
@@ -15,6 +20,8 @@ Future<void> main() async {
       projectId: "flutter-todo-b6ad9",
     ),
   );
+
+  //  final flashCardController = Get.put<FlashCardController>(FlashCardController());
   runApp(const MyApp());
 }
 
@@ -24,6 +31,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final flashCardController = Get.put<FlashCardController>(FlashCardController());
     return GetMaterialApp(
       title: 'English Vobabulary',
       debugShowCheckedModeBanner: false,
@@ -39,7 +47,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           fontFamily: "Poppins",
           primaryColor: kfirstGradientBack),
-      home: GrammarAllScreen(),
+      home: FlashCard(),
     );
   }
 }

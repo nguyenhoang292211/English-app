@@ -7,12 +7,14 @@ class InputField extends StatelessWidget {
   final IconData icon;
   final ValueChanged<String> onChange;
   final bool isEmailText;
+  final double widthSize;
   const InputField(
       {Key? key,
       required this.hintText,
       required this.icon,
       required this.onChange,
-      this.isEmailText = false})
+      this.isEmailText = false,
+      this.widthSize=0.7})
       : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class InputField extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.7,
+      width: size.width * widthSize ,
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
         color: kinputTextBack.withOpacity(0.45),

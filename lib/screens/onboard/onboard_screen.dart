@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/main_button.dart';
+import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
+import 'package:vocabulary_learning/screens/auth/signup_screen.dart';
 
 class OnboardScreen extends StatelessWidget {
   const OnboardScreen({Key? key}) : super(key: key);
@@ -117,7 +120,7 @@ class OnboardScreen extends StatelessWidget {
                       height: size.height * 0.27,
                     ),
                     MainButton(
-                      onPressed: () => {},
+                      onPressed: () => {Get.to(SignupScreen())},
                       text: "Sign up",
                       width: size.width * 0.85,
                       background: kwhite,
@@ -127,7 +130,7 @@ class OnboardScreen extends StatelessWidget {
                       height: 15,
                     ),
                     MainButton(
-                      onPressed: () => {},
+                      onPressed: () => {Get.to(SigninScreen())},
                       text: "Sign in",
                       width: size.width * 0.85,
                       textColor: kwhite,
