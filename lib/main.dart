@@ -8,6 +8,7 @@ import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
+import 'package:vocabulary_learning/screens/question/question_screen.dart';
 import 'colors.dart';
 
 Future<void> main() async {

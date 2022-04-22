@@ -19,3 +19,7 @@ const kPurpleGrammar = Color(0xFF9ba0fc);
 const kYellowGrammar = Color(0xFFF4F194);
 const kGreenGrammar = Color(0xFFA5FFA4);
 const kNudeGrammar = Color(0xFFFFCB9A);
+const kNudeQuestion = Color(0xFFFFF8F3);
+const kModalError = Color(0xFFFFF7CA);
+const kCancelText = Color(0xFFC01616);
+const kConfirmText = Color(0xFF04BF00);

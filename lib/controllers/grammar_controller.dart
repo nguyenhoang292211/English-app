@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/models/grammar.dart';
+import 'package:vocabulary_learning/models/question_grammar.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_deatail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -13,7 +13,12 @@ class GrammarController extends GetxController {
 
   RxList<Grammar> grammars = RxList<Grammar>([]);
   RxList<Grammar> grammarsSearch = RxList<Grammar>([]);
-  String collection = "grammar";
+  
+  Grammar _grammarSelected = Grammar();
+  Grammar get grammarSelected => this._grammarSelected;
+
+  String collectionGrammar = "grammar";
+  String collectionQuestion = "QuestionGrammar";
   @override
   onReady() {
     super.onReady();
@@ -30,23 +35,14 @@ class GrammarController extends GetxController {
 
   }
 
-  Stream<List<Grammar>> getAllGrammar() => firebaseFirestore.collection(collection).snapshots()
+  Stream<List<Grammar>> getAllGrammar() => firebaseFirestore.collection(collectionGrammar).snapshots()
   .map((query) => query.docs.map((item) => Grammar.fromMap(item.data())).toList());
   
 
-    List<Grammar> _lGrammarMain = grammar_data.map((e) =>Grammar(id: e['id'],
-     title: e['title'],
-      document: e['document'], 
-      questions: e['questions'])).toList();
-
-      List<Grammar> _lGrammar = grammar_data.map((e) =>Grammar(id: e['id'],
-     title: e['title'],
-      document: e['document'], 
-      questions: e['questions'])).toList();
-
-    List<Grammar> get lGrammarMain => this._lGrammarMain;
-    List<Grammar> get lGrammar => this._lGrammar;
-
+  Stream<List<QuestionGrammar>>getListQuestionGrammar() => firebaseFirestore.collection(collectionQuestion).where("id", whereIn: _grammarSelected.questions!.toList()).snapshots()
+  .map((query) => query.docs.map((item) => QuestionGrammar.fromMap(item.data())).toList());
+    
+    
     void searchGrammar(String textSearch) {
 
       List<Grammar> lTemp = [];
@@ -54,15 +50,21 @@ class GrammarController extends GetxController {
       grammars.forEach((grammar) {
         grammar.title!.toLowerCase().contains(textSearch.toLowerCase())?grammarsSearch.add(grammar):null;
       });
-     
-  
-      //this.grammars.bindStream();
       update();
     }
 
+    RxList<QuestionGrammar> _lQuestionGrammar = RxList<QuestionGrammar>([]);
+    RxList<QuestionGrammar> get lQuestionGrammar  => this._lQuestionGrammar;
+
     void goToDetailGrammar (Grammar grammar) {
-      print("index" + grammar.id.toString());
+
+      _grammarSelected = grammar;
+      getAllQuestionBySelectedGrammar();
       Get.to(GrammarDetail());
+    }
+
+    void getAllQuestionBySelectedGrammar () {
+      lQuestionGrammar.bindStream(getListQuestionGrammar());
     }
 
     Color getColorByIndex(int index) {
