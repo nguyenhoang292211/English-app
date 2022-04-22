@@ -3,7 +3,10 @@ import 'package:vocabulary_learning/models/grammar.dart';
 
 class GrammarComponent extends StatelessWidget {
   const GrammarComponent(
-      {Key? key, required this.onPress, required this.grammar, required this.color})
+      {Key? key,
+      required this.onPress,
+      required this.grammar,
+      required this.color})
       : super(key: key);
 
   final Grammar grammar;
@@ -13,7 +16,9 @@ class GrammarComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:() {this.onPress();},
+      onTap: () {
+        this.onPress();
+      },
       child: Container(
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(8),
@@ -21,13 +26,12 @@ class GrammarComponent extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
-    BoxShadow(
-        color: color.withOpacity(0.5),
-        spreadRadius: 1.0,
-        blurRadius: 1.0,
-        offset: Offset(3.0, 0)),
-        
-  ],
+            BoxShadow(
+                color: color.withOpacity(0.5),
+                spreadRadius: 1.0,
+                blurRadius: 1.0,
+                offset: Offset(3.0, 0)),
+          ],
         ),
         child: Column(children: [
           Text(
@@ -40,7 +44,7 @@ class GrammarComponent extends StatelessWidget {
           ),
           Text(
             grammar.document!,
-            maxLines: 5,
+            maxLines: 2,
             style: TextStyle(color: Colors.black54, fontSize: 16),
           )
         ]),

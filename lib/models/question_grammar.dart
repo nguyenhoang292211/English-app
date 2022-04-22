@@ -1,9 +1,18 @@
 class QuestionGrammar {
-  final String id;
-  final String question;
-  final List<String> options;
-  final int answer;
+   String? id;
+   String? question;
+   List<dynamic>? options;
+   int? answer;
 
-    QuestionGrammar({ required this.id,required this.question,required this.answer,required this.options});
+    QuestionGrammar({  this.id, this.question, this.answer, this.options});
+
+     factory QuestionGrammar.fromMap(map) {
+    return QuestionGrammar(
+      id: map['id'],
+      question: map['question'],
+      options: map['options'],
+      answer: map['answer']
+    );
+  }
 
 }
