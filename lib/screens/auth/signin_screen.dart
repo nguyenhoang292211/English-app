@@ -33,14 +33,14 @@ class _SigninScreenState extends State<SigninScreen> {
                 stops: const [0.3, 1])),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
-            children: [
+            children: const [
               Text("PANDA",
                   style: TextStyle(
                       color: kmainOrange,
                       fontSize: 40,
                       fontFamily: "PoetsenOne"),
                   textAlign: TextAlign.center),
-              const SizedBox(
+              SizedBox(
                 width: 10,
               ),
               Text(
@@ -73,7 +73,7 @@ class _SigninScreenState extends State<SigninScreen> {
               SizedBox(
                 height: size.height * 0.21,
               ),
-              Text("Sign in",
+              const Text("Sign in",
                   style: TextStyle(
                       color: kwhite, fontSize: 35, fontFamily: "PoetsenOne"),
                   textAlign: TextAlign.center),
