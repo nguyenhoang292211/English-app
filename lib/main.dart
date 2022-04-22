@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final flashCardController =
-        Get.put<FlashCardController>(FlashCardController());
+    // final flashCardController =
+    //     Get.put<FlashCardController>(FlashCardController());
     return GetMaterialApp(
         title: 'English Vobabulary',
         debugShowCheckedModeBanner: false,

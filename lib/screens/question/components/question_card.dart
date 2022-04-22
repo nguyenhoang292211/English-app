@@ -21,16 +21,16 @@ class QuestionCard extends StatelessWidget {
             Stack(
               children: [
                 Container(height: size.height*0.2,),
-                Positioned(
+                Obx(() => Positioned(
                   top: 0,
                   child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Row(children: [Text("01/10", style: TextStyle(
+                              child: Row(children: [Text(questionGrammarController.questionNumber.value.toString(), style: TextStyle(
                               fontFamily: "PoetsenOne", fontSize: 20, color: kPinkGrammar
                               ),)],),
                             ),
                 ),
-
+),
                
                 Stack(
                   alignment: Alignment.center,

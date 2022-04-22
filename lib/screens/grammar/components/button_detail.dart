@@ -4,13 +4,14 @@ import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
 class ButtonDetail extends StatelessWidget {
-  const ButtonDetail({Key? key, required this.title}) : super(key: key);
+  const ButtonDetail({Key? key, required this.title, required this.onPress}) : super(key: key);
   final String title;
+  final Function onPress;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: () {Get.to(QuestionScreen());},
+      onTap: () {onPress();},
       child: Stack(
         alignment: Alignment.center,
         children: [
