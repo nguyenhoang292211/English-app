@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Topic extends StatefulWidget {
-  Topic({Key? key}) : super(key: key);
+class TopicScreen extends StatefulWidget {
+  TopicScreen({Key? key}) : super(key: key);
 
   @override
-  State<Topic> createState() => _TopicState();
+  State<TopicScreen> createState() => _TopicScreenState();
 }
 
-class _TopicState extends State<Topic> {
+class _TopicScreenState extends State<TopicScreen> {
   @override
   Widget build(BuildContext context) {
     return Container();

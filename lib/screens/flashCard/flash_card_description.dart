@@ -24,7 +24,7 @@ class FlashCardViewDescription extends StatelessWidget {
                   text,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 SecondaryButton(

@@ -26,6 +26,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
   final controller = Get.put(BottomTabController());
+
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     HomeScreen(),
@@ -37,51 +38,76 @@ class MyApp extends StatelessWidget {
     final flashCardController =
         Get.put<FlashCardController>(FlashCardController());
     return GetMaterialApp(
-      title: 'English Vobabulary',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: "Poppins", primaryColor: kfirstGradientBack),
-      home: Scaffold(
-        bottomNavigationBar: _buildBottomBar(),
-        body: _widgetOptions[controller.currentTabIndex.obs()],
-      ),
-    );
+        title: 'English Vobabulary',
+        debugShowCheckedModeBanner: false,
+        theme:
+            ThemeData(fontFamily: "Poppins", primaryColor: kfirstGradientBack),
+        home: GetBuilder<BottomTabController>(
+          init: BottomTabController(),
+          builder: (tabController) {
+            return Scaffold(
+                bottomNavigationBar: _buildBottomBar(),
+                body: _widgetOptions[tabController.currentTabIndex]);
+          },
+        ));
   }
 
   Widget _buildBottomBar() {
+    TextStyle bottomTextStyle = TextStyle(
+        fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 18);
+
     return SalomonBottomBar(
       currentIndex: controller.currentTabIndex,
       onTap: (index) {
         controller.updateIndex(index);
         debugPrint(index.toString());
       },
-      selectedItemColor: Colors.greenAccent.shade700,
+      selectedItemColor: kfirstGradientBack,
       items: [
         /// Home
         SalomonBottomBarItem(
-          icon: const Icon(Icons.home),
-          title: const Text("Home"),
-          selectedColor: Colors.purple,
+          icon: const Icon(
+            Icons.home,
+            size: 32,
+          ),
+          title: const Text(
+            "Home",
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                fontSize: 16),
+          ),
+          selectedColor: kfirstGradientBack,
         ),
 
         /// Likes
         SalomonBottomBarItem(
-          icon: const Icon(Icons.favorite_border),
-          title: const Text("Likes"),
-          selectedColor: Colors.pink,
-        ),
-
-        /// Search
-        SalomonBottomBarItem(
-          icon: const Icon(Icons.search),
-          title: const Text("Search"),
-          selectedColor: Colors.orange,
+          icon: const Icon(
+            Icons.favorite_border,
+            size: 32,
+          ),
+          title: const Text(
+            "Favorites",
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                fontSize: 16),
+          ),
         ),
 
         /// Profile
         SalomonBottomBarItem(
-          icon: const Icon(Icons.person),
-          title: const Text("Profile"),
-          selectedColor: Colors.teal,
+          icon: const Icon(
+            Icons.person,
+            size: 32,
+          ),
+          title: const Text(
+            "Profile",
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                fontSize: 16),
+          ),
         ),
       ],
     );
