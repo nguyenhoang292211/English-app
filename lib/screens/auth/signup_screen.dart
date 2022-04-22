@@ -50,14 +50,14 @@ class _SignupScreenState extends State<SignupScreen> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
-                children: [
+                children: const [
                   Text("PANDA",
                       style: TextStyle(
                           color: kmainOrange,
                           fontSize: 40,
                           fontFamily: "PoetsenOne"),
                       textAlign: TextAlign.center),
-                  const SizedBox(
+                  SizedBox(
                     width: 10,
                   ),
                   Text(
@@ -70,7 +70,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 "Join with us now!",
                 textAlign: TextAlign.left,
                 style: TextStyle(

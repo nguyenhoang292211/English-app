@@ -2,14 +2,10 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
-import 'package:vocabulary_learning/components/main_button.dart';
 import 'package:vocabulary_learning/components/secondary_button.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
-import 'package:vocabulary_learning/screens/flashCard/circle_process_item.dart';
-import 'package:vocabulary_learning/screens/flashCard/flashcard.dart';
 import 'package:vocabulary_learning/screens/flashCard/flashcard_view.dart';
-import 'package:vocabulary_learning/colors.dart';
 
 // class FlashCard extends StatefulWidget {
 //   FlashCard({Key? key}) : super(key: key);
@@ -27,8 +23,8 @@ class FlashCard extends GetWidget<FlashCardController> {
 
   AnimatedContainer dotIndicator(index, currentIndex) {
     return AnimatedContainer(
-      margin: EdgeInsets.only(right: 5),
-      duration: Duration(milliseconds: 400),
+      margin: const EdgeInsets.only(right: 5),
+      duration: const Duration(milliseconds: 400),
       height: 10,
       width: 10,
       decoration: BoxDecoration(
@@ -46,7 +42,7 @@ class FlashCard extends GetWidget<FlashCardController> {
       backgroundColor: kGreenGrammar,
       body: Container(
           height: size.height,
-          decoration: BoxDecoration(color: kGreenGrammar),
+          decoration: const BoxDecoration(color: kGreenGrammar),
           child: Stack(
             children: [
               Column(
@@ -57,10 +53,10 @@ class FlashCard extends GetWidget<FlashCardController> {
                     child: Wrap(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.arrow_back_ios, color: kred),
+                          icon: const Icon(Icons.arrow_back_ios, color: kred),
                           onPressed: () => Navigator.of(context).pop(),
                         ),
-                        Text("Flash card",
+                        const Text("Flash card",
                             style: TextStyle(
                               color: kOrangeGrammar,
                               fontSize: 30,
@@ -103,7 +99,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                           : "",
                                     )));
                               })),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -112,7 +108,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                               flashCardCtrl.listSelectedCard.length,
                               (index) => Obx(() => dotIndicator(
                                   index, flashCardCtrl.currentIndex.value)))),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       )
                     ],
