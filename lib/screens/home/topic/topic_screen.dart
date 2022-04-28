@@ -101,14 +101,17 @@ class TopicScreen extends StatelessWidget {
   }
 
   Container renderFlashCards(Size size) {
+    return Container(
       height: size.height * 0.42,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-          return VocabFlashcardItem(vocabulary: vocabularies[index],);
+          return VocabFlashcardItem(
+            vocabulary: vocabularies[index],
+          );
         },
         itemCount: vocabularies.length,
         pagination: const SwiperPagination(
-            alignment: Alignment.bottomCenter, builder: SwiperPagination.fraction),
+            alignment: Alignment.bottomCenter, builder: SwiperPagination.dots),
         layout: SwiperLayout.STACK,
         itemWidth: size.width * 0.87,
         scale: 0.6,
