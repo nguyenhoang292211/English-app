@@ -6,10 +6,10 @@ import 'package:vocabulary_learning/screens/home/home_screen.dart';
 
 class BottomTabController extends GetxController {
   var currentTabIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
+  final List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
     FlashCard(),
-    const GrammarAllScreen()
+    GrammarAllScreen()
   ];
 
   List<Widget> get widgetOptions => this._widgetOptions;

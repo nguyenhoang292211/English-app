@@ -83,7 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: size.height * 0.8,
                 width: size.width,
                 child: Column(children: [
-                  Text("Sign in",
+                  const Text("Sign in",
                       style: TextStyle(
                           color: kwhite,
                           fontSize: 35,

@@ -11,6 +11,6 @@ class Topic {
         id: map['id'],
         name: map['name'],
         color: map['color'],
-        image: map['questions']);
+        image: map['image']);
   }
 }

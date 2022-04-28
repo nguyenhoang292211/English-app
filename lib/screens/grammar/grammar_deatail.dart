@@ -24,7 +24,7 @@ class GrammarDetail extends StatelessWidget {
                   decoration: BoxDecoration(color: kfirstGradientBack),
                 ),
                 Positioned(
-                  top: 0,
+                  top: 20,
                   left: size.width * 0.1,
                   right: size.width * 0.1,
                   child: HeaderGrammar(
@@ -35,12 +35,11 @@ class GrammarDetail extends StatelessWidget {
                       }),
                 ),
                 Positioned(
-                  top: size.height * 0.1,
-                  left: size.width * 0.1,
-                  right: size.width * 0.1,
+                  top: size.height * 0.2,
+                  left: size.width * 0.05,
+                  right: size.width * 0.05,
                   bottom: size.height * 0.2,
                   child: SingleChildScrollView(
-
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
@@ -49,8 +48,10 @@ class GrammarDetail extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 30),
                           child: Text(
-                            grammarController.grammarSelected.document.toString(),
-                            style: TextStyle(fontFamily: 'Poppins'),
+                            grammarController.grammarSelected.document
+                                .toString(),
+                            style:
+                                TextStyle(fontFamily: 'Poppins', fontSize: 17),
                           ),
                         ),
                       ),
@@ -58,18 +59,22 @@ class GrammarDetail extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: size.height*0.05,
-                   left: size.width * 0.05,
-                  right: size.width * 0.05,
-                  child: ButtonDetail(title: "Start test", onPress: (){Get.to(QuestionScreen());},)),
-                 Positioned(
-            bottom: size.height*0.05,
-            left: size.width*0.05,
-            child: Image(
-              image: AssetImage("./asset/images/fox_tree.png"),
-              ),
-          ),
-                
+                    bottom: size.height * 0.05,
+                    left: size.width * 0.05,
+                    right: size.width * 0.05,
+                    child: ButtonDetail(
+                      title: "Start test",
+                      onPress: () {
+                        Get.to(QuestionScreen());
+                      },
+                    )),
+                Positioned(
+                  bottom: size.height * 0.05,
+                  left: size.width * 0.05,
+                  child: Image(
+                    image: AssetImage("./asset/images/fox_tree.png"),
+                  ),
+                ),
               ],
             );
           }),

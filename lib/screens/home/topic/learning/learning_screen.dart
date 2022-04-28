@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/controllers/learning_controller.dart';
+import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/home/topic/learning/question_section.dart';
 
 class LearningScreen extends StatelessWidget {
@@ -9,6 +11,7 @@ class LearningScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LearningController learningController = Get.put(LearningController());
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45, left: 15, right: 15),
@@ -21,7 +24,17 @@ class LearningScreen extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Expanded(child: QuestionSection()),
+          Obx(
+            () => Expanded(
+                child: PageView.builder(
+              //physics: NeverScrollableScrollPhysics,
+              controller: learningController.pageController,
+              itemCount: learningController.count.value,
+              onPageChanged: learningController.swipePage,
+              pageSnapping: false,
+              itemBuilder: (context, index) => QuestionSection(),
+            )),
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
