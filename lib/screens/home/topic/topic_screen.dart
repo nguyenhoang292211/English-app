@@ -11,16 +11,11 @@ import 'package:vocabulary_learning/screens/home/topic/components/vocabulary_fla
 import 'package:vocabulary_learning/screens/home/topic/learning/learning_screen.dart';
 import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
-class TopicScreen extends StatefulWidget {
+class TopicScreen extends StatelessWidget {
   final List<Vocabulary> vocabularies;
 
-  TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
+  const TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
 
-  @override
-  State<TopicScreen> createState() => _TopicScreenState();
-}
-
-class _TopicScreenState extends State<TopicScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -106,15 +101,14 @@ class _TopicScreenState extends State<TopicScreen> {
   }
 
   Container renderFlashCards(Size size) {
-    return Container(
       height: size.height * 0.42,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-          return const VocabFlashcardItem();
+          return VocabFlashcardItem(vocabulary: vocabularies[index],);
         },
-        itemCount: 5,
+        itemCount: vocabularies.length,
         pagination: const SwiperPagination(
-            alignment: Alignment.bottomCenter, builder: SwiperPagination.dots),
+            alignment: Alignment.bottomCenter, builder: SwiperPagination.fraction),
         layout: SwiperLayout.STACK,
         itemWidth: size.width * 0.87,
         scale: 0.6,
