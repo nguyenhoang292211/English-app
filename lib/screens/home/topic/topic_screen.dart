@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_background.dart';
@@ -11,7 +12,9 @@ import 'package:vocabulary_learning/screens/home/topic/learning/learning_screen.
 import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
 class TopicScreen extends StatefulWidget {
-  TopicScreen({Key? key}) : super(key: key);
+  final List<Vocabulary> vocabularies;
+
+  TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
 
   @override
   State<TopicScreen> createState() => _TopicScreenState();

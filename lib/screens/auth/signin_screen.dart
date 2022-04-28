@@ -5,6 +5,7 @@ import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/input_field.dart';
 import 'package:vocabulary_learning/components/main_button.dart';
 import 'package:vocabulary_learning/screens/auth/signup_screen.dart';
+import 'package:vocabulary_learning/screens/home/index.dart';
 
 class SigninScreen extends StatefulWidget {
   SigninScreen({Key? key}) : super(key: key);
@@ -120,21 +121,26 @@ class _SigninScreenState extends State<SigninScreen> {
                   MainButton(
                       text: "Sign in",
                       width: size.width * 0.85,
-                      onPressed: () {}),
+                      onPressed: () {
+                        Get.to(HomeIndexScreen());
+                      }),
                   const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "You haven’t have an account? ",
                         style: TextStyle(
                             fontFamily: 'Poppins', fontSize: 16, color: kwhite),
                       ),
                       InkWell(
-                        child: Text(
+                        onTap: () {
+                          Get.to(SignupScreen());
+                        },
+                        child: const Text(
                           "Sign up",
                           style: TextStyle(
                               fontFamily: 'Poppins',
@@ -142,7 +148,6 @@ class _SigninScreenState extends State<SigninScreen> {
                               fontWeight: FontWeight.w600,
                               color: kwhite),
                         ),
-                      
                       )
                     ],
                   )

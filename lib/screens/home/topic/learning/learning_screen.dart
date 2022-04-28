@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
+import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/home/topic/learning/question_section.dart';
 
 class LearningScreen extends StatelessWidget {
@@ -30,6 +31,7 @@ class LearningScreen extends StatelessWidget {
               controller: learningController.pageController,
               itemCount: learningController.count.value,
               onPageChanged: learningController.swipePage,
+              pageSnapping: false,
               itemBuilder: (context, index) => QuestionSection(),
             )),
           ),

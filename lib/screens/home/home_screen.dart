@@ -3,7 +3,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_card.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -50,8 +52,8 @@ const List topic = [
 ];
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
+  HomeScreen({Key? key}) : super(key: key);
+  final topicController = Get.put<TopicController>(TopicController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -167,12 +169,12 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            vocabularySection(size),
+            vocabularySection(size, context),
           ],
         ));
   }
 
-  Column vocabularySection(Size size) {
+  Column vocabularySection(Size size, BuildContext context) {
     return Column(children: [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -200,24 +202,24 @@ class HomeScreen extends StatelessWidget {
         height: 15,
       ),
       SizedBox(
-        height: size.height * 0.4,
-        child: GridView.count(
-            padding: const EdgeInsets.only(right: 5),
+        height: size.height * 0.44,
+        child: Obx(() => GridView.builder(
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            primary: false,
-            crossAxisCount: 2,
-            mainAxisSpacing: size.width * 0.06,
-            crossAxisSpacing: 5,
-            children: [
-              TopicCard(),
-              TopicCard(),
-              TopicCard(),
-              TopicCard(),
-              TopicCard(),
-              TopicCard(),
-              TopicCard(),
-              TopicCard(),
-            ]),
+            itemCount: topicController.topics.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
+            itemBuilder: (BuildContext context, int index) {
+              return TopicCard(
+                topic: topicController.topics[index],
+                color: topicController.getColorByIndex(index),
+                onTap: () {
+                  topicController
+                      .goToDetailTopic(topicController.topics[index]);
+                },
+              );
+            })),
       ),
     ]);
   }

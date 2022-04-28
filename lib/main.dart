@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:vocabulary_learning/controllers/bottom_tab_controller.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
+import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/home_screen.dart';
+import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 
 import 'colors.dart';
 
@@ -43,15 +45,17 @@ class MyApp extends StatelessWidget {
         title: 'English Vobabulary',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: "Poppins", primaryColor: kmainBrown),
-        home: GetBuilder<BottomTabController>(
-          init: BottomTabController(),
-          builder: (tabController) {
-            return Scaffold(
-                bottomNavigationBar: _buildBottomBar(),
-                body:
-                    tabController.widgetOptions[tabController.currentTabIndex]);
-          },
-        ));
+        home: OnboardScreen()
+        // GetBuilder<BottomTabController>(
+        //   init: BottomTabController(),
+        //   builder: (tabController) {
+        //     return Scaffold(
+        //         bottomNavigationBar: _buildBottomBar(),
+        //         body:
+        //             tabController.widgetOptions[tabController.currentTabIndex]);
+        //   },
+        // )
+        );
   }
 
   Widget _buildBottomBar() {

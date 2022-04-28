@@ -9,10 +9,11 @@ class LearningController extends GetxController
 
   void swipePage(int index) {
     _pageController.nextPage(
-        duration: Duration(milliseconds: 5000), curve: Curves.ease);
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.bounceInOut);
   }
 
-  RxInt count = 4.obs;
+  RxInt count = 6.obs;
 
   @override
   void onInit() {
