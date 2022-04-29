@@ -105,9 +105,13 @@ class TopicScreen extends StatelessWidget {
       height: size.height * 0.42,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
+<<<<<<< HEAD
           return VocabFlashcardItem(
             vocabulary: vocabularies[index],
           );
+=======
+          return  VocabFlashcardItem();
+>>>>>>> bc6f083 (flash card without data firebase)
         },
         itemCount: vocabularies.length,
         pagination: const SwiperPagination(
