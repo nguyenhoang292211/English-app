@@ -2,17 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/components/secondary_button.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_description.dart';
+import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/flashCard/flashcard_view.dart';
 
 class End_FlashCard extends StatelessWidget {
   const End_FlashCard({Key? key}) : super(key: key);
-    
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-     
+    FlashCardController flashCardCtrl = Get.find();
     return Scaffold(
         backgroundColor: kGreenGrammar,
         body: Container(
@@ -39,6 +41,13 @@ class End_FlashCard extends StatelessWidget {
                     alignment: WrapAlignment.start,
                   ),
                 ),
+                SecondaryButton(
+                    text: "Again",
+                    width: 120,
+                    onPressed: () {
+                      flashCardCtrl.studyAgain();
+                      Get.to(FlashCard());
+                    }),
                 const SizedBox(height: 40),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
