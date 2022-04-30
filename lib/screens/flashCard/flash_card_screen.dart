@@ -10,18 +10,9 @@ import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flashcard_view.dart';
 
-// class FlashCard extends StatefulWidget {
-//   FlashCard({Key? key}) : super(key: key);
-
-//   @override
-//   State<FlashCard> createState() => _FlashCardState();
-// }
-
 class FlashCard extends GetWidget<FlashCardController> {
   final flashCardCtrl = Get.put(FlashCardController());
-
   final List<Vocabulary> _flashcards = [];
-
   int _currentIndex = 0;
 
   AnimatedContainer dotIndicator(index, currentIndex) {
@@ -41,16 +32,18 @@ class FlashCard extends GetWidget<FlashCardController> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     flashCardCtrl.resetData();
-    SwiperController swiperController = SwiperController();
+    SwiperController swiperController =
+        SwiperController(); //Control swipe scroll
+
     return Scaffold(
         backgroundColor: kGreenGrammar,
         body: GetBuilder<FlashCardController>(
             init: FlashCardController(),
             builder: (flashCardCtrl) {
               return Container(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.only(top: 3),
                   height: size.height,
-                  decoration: const BoxDecoration(color: kGreenGrammar),
+                  decoration: const BoxDecoration(color: kGreenFlashCard),
                   child: Stack(
                     children: [
                       Column(
@@ -62,14 +55,19 @@ class FlashCard extends GetWidget<FlashCardController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                IconButton(
-                                  icon: const Icon(Icons.arrow_back_ios,
-                                      color: kOrangeGrammar),
-                                  onPressed: () => Navigator.of(context).pop(),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.arrow_back_ios,
+                                        color: kmainBrown),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
                                 ),
                                 const Text("Flash card",
                                     style: TextStyle(
-                                      color: kOrangeGrammar,
+                                      color: kmainBrown,
                                       fontSize: 30,
                                       fontFamily: "PoetsenOne",
                                     ),
@@ -108,10 +106,13 @@ class FlashCard extends GetWidget<FlashCardController> {
                                               onPressed: () {
                                                 flashCardCtrl.studyAgain();
                                               },
-                                              background: kGreenFlashCard,
+                                              background: kred,
                                             )
                                           : const Text(
-                                              "Congratulations! You have finished everything!"),
+                                              "Congratulations! You have finished everything!",
+                                              textAlign: TextAlign.center,
+                                              maxLines: 4,
+                                            ),
                                       SizedBox(
                                         height: 20,
                                       ),
@@ -121,7 +122,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                         onPressed: () {
                                           flashCardCtrl.resetData();
                                         },
-                                        background: kred,
+                                        background: kConfirmText,
                                       )
                                     ],
                                   ),
@@ -201,28 +202,27 @@ class FlashCard extends GetWidget<FlashCardController> {
                         ],
                       ),
                       Positioned(
-                        bottom: 5,
-                        right: -5,
+                        bottom: 10,
+                        right: 5,
                         child: Container(
-                          height: size.height * 0.2,
-                          width: size.height * 0.2,
+                          height: size.width * 0.35,
+                          width: size.width * 0.3,
                           decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("asset/images/tree2.png"),
-                                  fit: BoxFit.fill)),
+                                  fit: BoxFit.cover)),
                         ),
                       ),
                       Positioned(
-                        bottom: 5,
-                        left: -5,
+                        bottom: 18,
+                        left: 2,
                         child: Container(
-                          height: size.height * 0.2,
-                          width: size.height * 0.2,
+                          height: size.width * 0.25,
+                          width: size.width * 0.5,
                           decoration: const BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(
-                                      "asset/images/fence_onboard.png"),
-                                  fit: BoxFit.fill)),
+                                  image: AssetImage("asset/images/sleep.png"),
+                                  fit: BoxFit.cover)),
                         ),
                       )
                     ],
@@ -230,10 +230,4 @@ class FlashCard extends GetWidget<FlashCardController> {
             }));
   }
 
-  Widget buildCard(int index) => Container(
-        color: kGreenGrammar,
-        width: 150,
-        height: 150,
-        child: Center(child: Text('$index')),
-      );
 }

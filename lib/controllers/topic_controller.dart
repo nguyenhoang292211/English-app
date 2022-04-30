@@ -18,7 +18,7 @@ class TopicController extends GetxController {
   Topic get topicSelected => _topicSelected;
 
   String collectionTopic = "topic";
-  String collectionVocab = "vocabulary";
+  String collectionVocab = "Vocabulary";
 
   @override
   onReady() {
@@ -47,7 +47,7 @@ class TopicController extends GetxController {
 
   Stream<List<Vocabulary>> getListVocabs() => firebaseFirestore
       .collection(collectionVocab)
-      .where("id", isEqualTo: _topicSelected.id)
+      .where("topic", isEqualTo: _topicSelected.id)
       .snapshots()
       .map((query) =>
           query.docs.map((item) => Vocabulary.fromMap(item.data())).toList());
