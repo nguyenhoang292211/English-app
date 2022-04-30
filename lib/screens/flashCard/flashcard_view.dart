@@ -40,16 +40,19 @@ class FlashCardViewBackSide extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                vocabulary.mean.toString(),
-                style: TextStyle(
-                  color: kgrayTitleButton,
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w300,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                child: Text(
+                  vocabulary.mean.toString(),
+                  style: TextStyle(
+                    color: kgrayTitleButton,
+                    fontSize: 16,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w300,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 4,
                 ),
-                textAlign: TextAlign.center,
-                maxLines: 4,
               ),
               const SizedBox(
                 height: 5,
@@ -93,13 +96,16 @@ class FlashCardViewFrontSide extends StatelessWidget {
             ]),
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            vocabulary.word.toString(),
-            style: TextStyle(
-              color: kred,
-              fontSize: 30,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w600,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+            child: Text(
+              vocabulary.word.toString(),
+              style: TextStyle(
+                color: kred,
+                fontSize: 30,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           const SizedBox(
@@ -131,10 +137,15 @@ class FlashCardViewFrontSide extends StatelessWidget {
           const SizedBox(
             height: 25,
           ),
-          Text(
-            vocabulary.translatedDefinition.toString(),
-            style:
-                TextStyle(color: kblack, fontFamily: 'Poppins', fontSize: 22),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 4, 6, 10),
+            child: Text(
+              vocabulary.translatedDefinition.toString(),
+              textAlign: TextAlign.center,
+              maxLines: 4,
+              style:
+                  TextStyle(color: kblack, fontFamily: 'Poppins', fontSize: 22),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -182,7 +193,7 @@ Container renderStudyAgainLabel() {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.arrow_circle_left_rounded, color: kwhite),
-            SizedBox(width: 5), 
+            SizedBox(width: 5),
             Text(
               'Study again',
               style: TextStyle(color: kwhite),

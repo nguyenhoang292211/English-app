@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
@@ -13,13 +14,13 @@ import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
 class TopicScreen extends StatelessWidget {
   final List<Vocabulary> vocabularies;
-
-  const TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
+  final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
+   TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    flashCardCtrl.setVocabularies(vocabularies);
     return TopicBackground(
       child: Padding(
         padding: const EdgeInsets.only(top: 45, right: 10, left: 10),
@@ -105,13 +106,9 @@ class TopicScreen extends StatelessWidget {
       height: size.height * 0.42,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-<<<<<<< HEAD
           return VocabFlashcardItem(
             vocabulary: vocabularies[index],
           );
-=======
-          return  VocabFlashcardItem();
->>>>>>> bc6f083 (flash card without data firebase)
         },
         itemCount: vocabularies.length,
         pagination: const SwiperPagination(

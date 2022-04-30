@@ -36,7 +36,7 @@ var dtaFake = [
 enum CardState { empty, studyAgain, gotIt }
 
 class FlashCardController extends GetxController {
-  RxList<Vocabulary> listVocabulary = RxList<Vocabulary>(dtaFake);
+  RxList<Vocabulary> listVocabulary = RxList<Vocabulary>();
   RxList<Vocabulary> listSelectedCard = RxList<Vocabulary>();
   RxList<CardState> listState = RxList<CardState>();
   var currentIndex = 0.obs;
@@ -54,80 +54,52 @@ class FlashCardController extends GetxController {
     resetData();
   }
 
+  void setVocabularies(vocabularies) {
+    listVocabulary = vocabularies;
+  }
+
   void resetData() {
     currentIndex = 0.obs;
     listSelectedCard = listVocabulary;
     listState = List<CardState>.generate(
         listVocabulary.length, (int index) => CardState.empty).obs;
-    log("dkfjdkfjdkf");
-    log(listState.toString());
     update();
   }
 
-  void setNextCard() {
-    if (currentIndex.value < listSelectedCard.length - 1) {
-      currentIndex.value = (currentIndex.value + 1 < listSelectedCard.length)
-          ? currentIndex.value + 1
-          : 0;
-      update();
-    } else {
-      currentIndex.value = 0;
-      update();
-      Get.off(End_FlashCard());
-    }
-  }
-
-  // void setBackIndex() {
-  //   currentIndex.value =
-  //       (currentIndex.value - 1 >= 0) ? currentIndex.value - 1 : 0;
-  //   update();
-  // }
-
-  void getData(topicId) async {
-    showLoading();
-    FirebaseFirestore.instance
-        .collection('Vocabulary')
-        .where('topic', isEqualTo: topicId)
-        .snapshots()
-        .listen((snapshot) {
-      listSelectedCard.value =
-          snapshot.docs.map((item) => Vocabulary.fromMap(item.data())).toList();
-
-      update();
-      // dismissLoadingWidget();
-    });
-  }
-
   void setIndex(index) {
-    if (index > currentIndex.value) {
+    // if (index > currentIndex.value) {
+    //   currentIndex.value = index;
+    //   //Default status update
+    //   if (listState[index - 1] == CardState.empty) {
+    //     listState[index - 1] = CardState.gotIt;
+    //   }
+    //   quantityStudyAgainWord = getQuantityStudyAgain().obs;
+    //   update();
+    // } else {
+    //   if (currentIndex.value == listSelectedCard.length - 1 && index == 0) {
+    //     currentIndex.value = listSelectedCard.length;
+    //     if (listState[listSelectedCard.length - 1] == CardState.empty) {
+    //       listState[listSelectedCard.length - 1] = CardState.gotIt;
+    //     }
+    //     quantityStudyAgainWord = getQuantityStudyAgain().obs;
+    //   } else {
+    //     currentIndex.value = index;
+    //   }
+    //   update();
+
+    // }
+    if (currentIndex.value == listSelectedCard.length - 1 && index == 0) {
+      //The last element in array
+      currentIndex.value = listSelectedCard.length;
+      if (listState[listSelectedCard.length - 1] == CardState.empty) {
+        listState[listSelectedCard.length - 1] = CardState.gotIt;
+      }
+    } else {
       currentIndex.value = index;
-      //Default status update
       if (listState[index - 1] == CardState.empty) {
         listState[index - 1] = CardState.gotIt;
       }
-      quantityStudyAgainWord = getQuantityStudyAgain().obs;
-      update();
-    } else {
-      if (currentIndex.value == listSelectedCard.length - 1 && index == 0) {
-        currentIndex.value = listSelectedCard.length;
-        if (listState[listSelectedCard.length - 1] == CardState.empty) {
-          listState[listSelectedCard.length - 1] = CardState.gotIt;
-        }
-        quantityStudyAgainWord = getQuantityStudyAgain().obs;
-      } else {
-        currentIndex.value = index;
-      }
-      update();
-      //normal
-
-      //when the last element
-
     }
-  }
-
-  void setIndexWithState(index, updateState) {
-    currentIndex.value = index;
-    listState[index] = updateState;
     update();
   }
 
@@ -155,7 +127,8 @@ class FlashCardController extends GetxController {
   int getQuantityStudyAgain() {
     return listState.where((s) => s == CardState.studyAgain).toList().length;
   }
-  bool isLastIndex(){
+
+  bool isLastIndex() {
     return currentIndex.value == listState.length;
   }
 }
