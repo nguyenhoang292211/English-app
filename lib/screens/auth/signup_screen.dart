@@ -5,10 +5,12 @@ import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/input_field.dart';
 
 import 'package:vocabulary_learning/components/main_button.dart';
+import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/utils/utils.dart';
 
 class SignupScreen extends StatefulWidget {
+  
   SignupScreen({Key? key}) : super(key: key);
 
   @override
@@ -92,40 +94,65 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  InputField(
-                    hintText: "Email",
-                    icon: Icons.person,
-                    onChange: (value) {},
-                    isEmailText: true,
-                    widthSize: 0.8,
+                  // InputField(
+                  //   hintText: "Email",
+                  //   icon: Icons.person,
+                  //   onChange: (value) {},
+                  //   // isEmailText: true,
+                  //   widthSize: 0.8,
+                  //   controllerField: authController.email,
+                  // ),
+                  TextField(
+                    controller: authController.name,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.person),
+                        fillColor: Colors.white,
+                        border: InputBorder.none,
+                        hintText: "Name"),
                   ),
+                  TextField(
+                    controller: authController.email,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.email_outlined),
+                        fillColor: Colors.white,
+                        border: InputBorder.none,
+                        hintText: "Email"),
+                  ),
+                  TextField(  controller: authController.password,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.lock),
+                        fillColor: Colors.white,
+                        border: InputBorder.none,
+                        hintText: "Password"),),
                   const SizedBox(
                     height: 3,
                   ),
-                  InputField(
-                    hintText: "Full name",
-                    icon: Icons.auto_fix_normal_outlined,
-                    onChange: (value) {},
-                    widthSize: 0.8,
-                  ),
+                  // InputField(
+                  //   hintText: "Full name",
+                  //   icon: Icons.auto_fix_normal_outlined,
+                  //   onChange: (value) {},
+                  //   widthSize: 0.8,
+                  //   controllerField: authController.name,
+                  // ),
                   const SizedBox(
                     height: 3,
                   ),
-                  InputField(
-                    hintText: "Password",
-                    icon: Icons.lock,
-                    onChange: (value) {},
-                    widthSize: 0.8,
-                  ),
+                  // InputField(
+                  //   hintText: "Password",
+                  //   icon: Icons.lock,
+                  //   onChange: (value) {},
+                  //   widthSize: 0.8,
+                  //   controllerField: authController.password,
+                  // ),
                   const SizedBox(
                     height: 3,
                   ),
-                  InputField(
-                    hintText: "Password confirm",
-                    icon: Icons.lock,
-                    onChange: (value) {},
-                    widthSize: 0.8,
-                  ),
+                  // InputField(
+                  //   hintText: "Password confirm",
+                  //   icon: Icons.lock,
+                  //   onChange: (value) {},
+                  //   widthSize: 0.8,
+                  // ),
                   const SizedBox(
                     height: 6,
                   ),
@@ -147,7 +174,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.to(SigninScreen());
+                          // Get.to(SigninScreen());
+                          authController.signUp();
                         },
                         child: Text(
                           "Login now",
