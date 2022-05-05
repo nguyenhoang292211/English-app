@@ -22,57 +22,7 @@ class QuestionScreen extends StatelessWidget {
             
             HeaderQuestion(),
             ProcessBar(),
-            
-            // Stack(
-            //   children: [
-            //     Container(height: size.height*0.4,),
-            //     Positioned(
-            //       top: 0,
-            //       child: Padding(
-            //                   padding: const EdgeInsets.symmetric(vertical: 10),
-            //                   child: Row(children: [Text("01/10", style: TextStyle(
-            //                   fontFamily: "PoetsenOne", fontSize: 20, color: kPinkGrammar
-            //                   ),)],),
-            //                 ),
-            //     ),
-
-            //     Positioned(
-            //       top: size.height*0.1,
-            //       left: 0,
-            //       right: 0,
-            //       child: Image(image: AssetImage("./asset/images/table.png"), height: size.height*0.3, width: size.width,),
-            //     ),
-
-            //     Positioned(
-            //       top: size.height*0.2,
-            //       right: size.width*0.2,
-            //       left: size.width*0.2,
-            //       child: Text("I miss you so much I miss you so muchI miss you so muchI miss you so muchI miss you so muchI miss you so much", style: TextStyle(
-            //         color: Colors.white, fontFamily: "Poppins"
-            //       ),)),
-
-            //       Positioned(
-            //         top: 0,
-            //         right: 0,
-            //         child: Image(image: AssetImage("./asset/images/sleep.png"),)),
-            //   //   Positioned(
-                  
-            //   //     child: 
-            //   //     Expanded(
-            //   //   child: PageView.builder(
-            //   //     // Block swipe to next qn
-            //   //     physics: NeverScrollableScrollPhysics(),
-            //   //     controller: questionGrammarController.pageController,
-            //   //    itemCount: questionGrammarController.lQuestion.length,
-            //   //    onPageChanged: questionGrammarController.updateNumberQuestion,
-            //   //     itemBuilder: (context, index) => QuestionCard(
-            //   //       questionGrammar: questionGrammarController.lQuestion[index],
-            //   //        ),
-            //   //   ),
-            //   // ),
-            //   //     )
-            //   ],
-            // ), 
+          
             Obx(
                 () => Expanded(
                 child: PageView.builder(
