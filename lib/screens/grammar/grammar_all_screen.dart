@@ -13,7 +13,6 @@ class GrammarAllScreen extends StatefulWidget {
 
   @override
   State<GrammarAllScreen> createState() => _GrammarAllScreenState();
-
 }
 
 class _GrammarAllScreenState extends State<GrammarAllScreen> {
@@ -21,12 +20,11 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
   late List<Grammar> lGrammar;
   late List<Grammar> lGrammarSearch;
 
- 
   @override
   Widget build(BuildContext context) {
     // GrammarController grammarController = Get.put(GrammarController());
     final size = MediaQuery.of(context).size;
-    return Scaffold( 
+    return Scaffold(
       backgroundColor: Color(0xFFE7FCE9),
       body: SafeArea(
         // decoration: BoxDecoration(color: Color(0xFFE7FCE9)),
@@ -47,21 +45,25 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    Obx(()=>
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      itemCount: gController.grammarsSearch.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 20,
-                              crossAxisSpacing: 20),
-                      itemBuilder: (BuildContext context, int index) {
-                        return GrammarComponent(grammar: gController.grammarsSearch[index], color: gController.getColorByIndex(index), onPress: () {gController.goToDetailGrammar(gController.grammarsSearch[index]);});
-                      },
-                    )
-                    ),
+                    Obx(() => GridView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          itemCount: gController.grammarsSearch.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 20,
+                                  crossAxisSpacing: 20),
+                          itemBuilder: (BuildContext context, int index) {
+                            return GrammarComponent(
+                                grammar: gController.grammarsSearch[index],
+                                color: gController.getColorByIndex(index),
+                                onPress: () {
+                                  gController.goToDetailGrammar(
+                                      gController.grammarsSearch[index]);
+                                });
+                          },
+                        )),
                     // GridView.builder(
                     //   shrinkWrap: true,
                     //   physics: ScrollPhysics(),
@@ -78,13 +80,10 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
                   ],
                 );
               },
-            )
-            ),
+            )),
       ),
     );
   }
 
   void searchTopic(query) {}
-
- 
 }

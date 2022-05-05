@@ -7,6 +7,7 @@ import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
+import 'package:vocabulary_learning/screens/grammar/grammar_deatail.dart';
 import 'package:vocabulary_learning/screens/home/home_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 
