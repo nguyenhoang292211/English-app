@@ -11,7 +11,7 @@ class GrammarDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  GrammarController grammarController = Get.put(GrammarController());
+    GrammarController gController = Get.put(GrammarController());
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: GetBuilder<GrammarController>(
@@ -28,8 +28,9 @@ class GrammarDetail extends StatelessWidget {
                   left: size.width * 0.1,
                   right: size.width * 0.1,
                   child: HeaderGrammar(
-                      headerString:
-                          grammarController.grammarSelected.title.toString(),
+                      headerString: grammarController.getSelected() != null
+                          ? grammarController.getSelected().title.toString()
+                          : "${Get.arguments['grammar'].title}",
                       goBack: () {
                         Get.back();
                       }),
@@ -48,8 +49,7 @@ class GrammarDetail extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 30),
                           child: Text(
-                            grammarController.grammarSelected.document
-                                .toString(),
+                            grammarController.getSelected().document.toString(),
                             style:
                                 TextStyle(fontFamily: 'Poppins', fontSize: 17),
                           ),
