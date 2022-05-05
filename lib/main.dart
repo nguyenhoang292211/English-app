@@ -10,6 +10,7 @@ import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_deatail.dart';
 import 'package:vocabulary_learning/screens/home/home_screen.dart';
+import 'package:vocabulary_learning/screens/home/index.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 
 import 'colors.dart';
@@ -24,7 +25,7 @@ Future<void> main() async {
       projectId: "flutter-todo-b6ad9",
     ),
   ).then((value) {
-    Get.put(AuthController());
+    // Get.put(AuthController());
   });
   
   //  final flashCardController = Get.put<FlashCardController>(FlashCardController());
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
         title: 'English Vobabulary',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: "Poppins", primaryColor: kmainBrown),
-        home: Splash()
+        home: HomeIndexScreen()
         // GetBuilder<BottomTabController>(
         //   init: BottomTabController(),
         //   builder: (tabController) {

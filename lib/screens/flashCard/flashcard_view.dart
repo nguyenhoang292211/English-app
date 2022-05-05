@@ -7,9 +7,7 @@ import 'package:vocabulary_learning/models/vocabulary.dart';
 class FlashCardViewBackSide extends StatelessWidget {
   final Vocabulary vocabulary;
   final CardState state;
-  const FlashCardViewBackSide(
-      {Key? key, required this.vocabulary, required this.state})
-      : super(key: key);
+  const FlashCardViewBackSide({Key? key, required this.vocabulary, required this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +15,21 @@ class FlashCardViewBackSide extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          decoration: BoxDecoration(
-              color: kwhite,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 10,
-                  color: kgrayTitleButton.withOpacity(0.5),
-                  offset: const Offset(3, 3),
-                )
-              ]),
+          decoration: BoxDecoration(color: kwhite, borderRadius: BorderRadius.circular(15), boxShadow: [
+            BoxShadow(
+              blurRadius: 10,
+              color: kgrayTitleButton.withOpacity(0.5),
+              offset: const Offset(3, 3),
+            )
+          ]),
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                'asset/images/elephant.png',
-                height: 80,
+              Image.network(
+                vocabulary.img!,
+                height: 125,
                 fit: BoxFit.cover,
               ),
               const SizedBox(
@@ -43,7 +38,7 @@ class FlashCardViewBackSide extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                 child: Text(
-                  vocabulary.mean.toString(),
+                  vocabulary.word.toString(),
                   style: TextStyle(
                     color: kgrayTitleButton,
                     fontSize: 16,
@@ -54,6 +49,8 @@ class FlashCardViewBackSide extends StatelessWidget {
                   maxLines: 4,
                 ),
               ),
+              const SizedBox(width: 20,height: 2,
+               child: const ColoredBox(color: kConfirmText),),
               const SizedBox(
                 height: 5,
               ),
@@ -61,8 +58,7 @@ class FlashCardViewBackSide extends StatelessWidget {
                 iconSize: 34,
                 color: Colors.blueGrey.shade200,
                 highlightColor: Colors.lightGreen.shade800,
-                icon: Icon(Icons.g_translate_rounded,
-                    color: Colors.blueAccent.shade400, size: 32),
+                icon: Icon(Icons.g_translate_rounded, color: Colors.blueAccent.shade400, size: 32),
                 onPressed: () {},
               ),
             ],
@@ -76,24 +72,19 @@ class FlashCardViewBackSide extends StatelessWidget {
 class FlashCardViewFrontSide extends StatelessWidget {
   final Vocabulary vocabulary;
   final CardState state;
-  const FlashCardViewFrontSide(
-      {Key? key, required this.vocabulary, required this.state})
-      : super(key: key);
+  const FlashCardViewFrontSide({Key? key, required this.vocabulary, required this.state}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(
-        decoration: BoxDecoration(
-            color: kwhite,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 10,
-                color: kgrayTitleButton.withOpacity(0.5),
-                offset: const Offset(3, 3),
-              )
-            ]),
+        decoration: BoxDecoration(color: kwhite, borderRadius: BorderRadius.circular(15), boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            color: kgrayTitleButton.withOpacity(0.5),
+            offset: const Offset(3, 3),
+          )
+        ]),
         alignment: Alignment.center,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
@@ -143,8 +134,7 @@ class FlashCardViewFrontSide extends StatelessWidget {
               vocabulary.translatedDefinition.toString(),
               textAlign: TextAlign.center,
               maxLines: 4,
-              style:
-                  TextStyle(color: kblack, fontFamily: 'Poppins', fontSize: 22),
+              style: TextStyle(color: kblack, fontFamily: 'Poppins', fontSize: 22),
             ),
           ),
           Row(
@@ -155,26 +145,19 @@ class FlashCardViewFrontSide extends StatelessWidget {
                 iconSize: 24,
                 color: Colors.blueGrey.shade200,
                 highlightColor: Colors.lightGreen.shade800,
-                icon: const Icon(Icons.favorite_border_outlined,
-                    color: Color.fromARGB(255, 255, 146, 95), size: 28),
+                icon: const Icon(Icons.favorite_border_outlined, color: Color.fromARGB(255, 255, 146, 95), size: 28),
                 onPressed: () {},
               ),
               const Text(
                 "Save",
-                style: TextStyle(
-                    color: kmainOrange, fontFamily: 'Poppins', fontSize: 17),
+                style: TextStyle(color: kmainOrange, fontFamily: 'Poppins', fontSize: 17),
               ),
             ],
           )
         ]),
       ),
       (state != CardState.empty)
-          ? Positioned(
-              top: 12,
-              right: 12,
-              child: (state == CardState.studyAgain)
-                  ? renderStudyAgainLabel()
-                  : renderGotItLabel())
+          ? Positioned(top: 12, right: 12, child: (state == CardState.studyAgain) ? renderStudyAgainLabel() : renderGotItLabel())
           : SizedBox(
               height: 2,
             )
@@ -184,8 +167,7 @@ class FlashCardViewFrontSide extends StatelessWidget {
 
 Container renderStudyAgainLabel() {
   return Container(
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(30), color: kred),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: kred),
       width: 150,
       child: Padding(
         padding: EdgeInsets.all(10),
@@ -205,8 +187,7 @@ Container renderStudyAgainLabel() {
 
 Container renderGotItLabel() {
   return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color: kConfirmText),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(30), color: kConfirmText),
       width: 110,
       child: Padding(
         padding: EdgeInsets.all(12),

@@ -128,7 +128,6 @@ class FlashCard extends GetWidget<FlashCardController> {
                                   ),
                                 )
                               : Container(
-                                  height: size.height * 0.5,
                                   child: Swiper(
                                     itemBuilder:
                                         (BuildContext context, int index) {
@@ -154,15 +153,15 @@ class FlashCard extends GetWidget<FlashCardController> {
                                           color: kwhite,
                                           activeColor: ksecondGradientBack),
                                     ),
-                                    itemWidth: size.width * 0.8,
-                                    itemHeight: size.height * 0.4,
+                                    itemWidth: size.width ,
+                                    itemHeight: size.height * 0.6 ,
                                     controller: swiperController,
                                     onIndexChanged: (value) {
                                       flashCardCtrl.setIndex(value);
                                     },
                                     loop: false,
                                     viewportFraction: 0.6,
-                                    scale: 0.9,
+                                    scale: 1,
                                     layout: SwiperLayout.TINDER,
                                   ),
                                 ),
