@@ -26,6 +26,7 @@ Future<void> main() async {
     ),
   ).then((value) {
     // Get.put(AuthController());
+    Get.put(FlashCardController());
   });
   
   //  final flashCardController = Get.put<FlashCardController>(FlashCardController());

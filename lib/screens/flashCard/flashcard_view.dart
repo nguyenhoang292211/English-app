@@ -29,7 +29,7 @@ class FlashCardViewBackSide extends StatelessWidget {
             children: [
               Image.network(
                 vocabulary.img!,
-                height: 125,
+                height: 150,
                 fit: BoxFit.cover,
               ),
               const SizedBox(
@@ -43,16 +43,30 @@ class FlashCardViewBackSide extends StatelessWidget {
                     color: kgrayTitleButton,
                     fontSize: 16,
                     fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines:2,
+                ),
+              ),
+              const SizedBox(width: 50,height: 2,
+               child: const ColoredBox(color: kConfirmText),),
+              const SizedBox(
+                height: 5,
+              ),
+               Padding(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                child: Text(
+                  vocabulary.definition.toString(),
+                  style: TextStyle(
+                    color: kgrayTitleButton,
+                    fontSize: 16,
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w300,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 4,
                 ),
-              ),
-              const SizedBox(width: 20,height: 2,
-               child: const ColoredBox(color: kConfirmText),),
-              const SizedBox(
-                height: 5,
               ),
               IconButton(
                 iconSize: 34,

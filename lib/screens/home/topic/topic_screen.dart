@@ -2,8 +2,10 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
+import 'package:vocabulary_learning/screens/flashCard/flash_card_all_vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_background.dart';
@@ -13,14 +15,14 @@ import 'package:vocabulary_learning/screens/home/topic/learning/learning_screen.
 import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
 class TopicScreen extends StatelessWidget {
+  // final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
   final List<Vocabulary> vocabularies;
-  final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
    TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    flashCardCtrl.setVocabularies(vocabularies);
+    flashCardController.setVocabularies(vocabularies);
     return TopicBackground(
       child: Padding(
         padding: const EdgeInsets.only(top: 45, right: 10, left: 10),
@@ -93,7 +95,7 @@ class TopicScreen extends StatelessWidget {
                 text: 'Flash card',
                 background: const Color(0xffAADB98),
                 onClick: () {
-                  Get.to(FlashCard());
+                  Get.to(AllVocabulary());
                 })
           ],
         ),
