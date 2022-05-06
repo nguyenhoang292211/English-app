@@ -48,105 +48,107 @@ class _AllVocabularyState extends State<AllVocabulary> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Color(0xffAADB98),
-      body: Column(children: [
-        SizedBox(
-          height: 35,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(2, 2, 0, 8),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: kfirstGradientBack),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ),
-              const Text("Flash card",
-                  style: TextStyle(
-                    color: kfirstGradientBack,
-                    fontSize: 30,
-                    fontFamily: "PoetsenOne",
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0xffAADB98),
+        body: Column(children: [
+          SizedBox(
+            height: 35,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 2, 0, 8),
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: kfirstGradientBack),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
-                  textAlign: TextAlign.center),
-              const SizedBox(
-                height: 20,
-                width: 20,
-              )
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 50,
-        ),
-        SafeArea(
-          child: Container(
-              padding: EdgeInsets.only(top: 3),
-              height: size.height - 100,
-              width: size.width,
-              decoration: const BoxDecoration(
-                color: Color(0xffE7FCE9),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
                 ),
-              ),
-              child: CustomScrollView(
-                controller: scrollController,
-                slivers: <Widget>[
-                  // SliverAppBar(
-                  //   title: Text('Character'),
-                  //   pinned: true,
-                  //   backgroundColor: Colors.transparent,
-                  // ),
-                  // SliverToBoxAdapter(
-                  //   child: Placeholder(fallbackHeight: 100.0),
-                  // ),
-                  // SliverPersistentHeader(
-                  //   delegate: MyCustomHeader(),
-                  // ),
-                  SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                    final mVocabulary = flashCardController.listSelectedCard[index];
-
-                    final itemPositionOffset = index * itemSize;
-                    final difference = scrollController.offset - itemPositionOffset;
-                    final percent = 1 - (difference / itemSize);
-
-                    double opacity = percent;
-                    double scale = percent;
-                    if (opacity > 1.0) opacity = 1.0;
-                    if (opacity < 0.0) opacity = 0.0;
-                    if (percent > 1.0) scale = 1.0;
-
-                    return Opacity(
-                        opacity: opacity,
-                        child: Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.identity()..scale(scale, 1.0),
-                            child: FlipCard(
-                              direction: FlipDirection.VERTICAL,
-                              front: BuildCard(
-                                image: mVocabulary.img.toString(),
-                                title: mVocabulary.word.toString(),
-                                content: mVocabulary.definition.toString(),
-                              ),
-                              back: BuildCard(image: mVocabulary.img.toString(), title: mVocabulary.mean.toString(), content: mVocabulary.translatedDefinition.toString()),
-                            )));
-                  }, childCount: flashCardController.listSelectedCard.length))
-                ],
-              )),
-        )
-      ]),
-      floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: kfirstGradientBack,
-          icon: Icon(Icons.card_giftcard),
-          onPressed: () {
-            Get.to(FlashCard());
-          },
-          label: Text("Flash card")),
+                const Text("Flash card",
+                    style: TextStyle(
+                      color: kfirstGradientBack,
+                      fontSize: 30,
+                      fontFamily: "PoetsenOne",
+                    ),
+                    textAlign: TextAlign.center),
+                const SizedBox(
+                  height: 20,
+                  width: 20,
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+          SafeArea(
+            child: Container(
+                padding: EdgeInsets.only(top: 3),
+                height: size.height - 200,
+                width: size.width,
+                decoration: const BoxDecoration(
+                  color: Color(0xffE7FCE9),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                ),
+                child: CustomScrollView(
+                  controller: scrollController,
+                  slivers: <Widget>[
+                    // SliverAppBar(
+                    //   title: Text('Character'),
+                    //   pinned: true,
+                    //   backgroundColor: Colors.transparent,
+                    // ),
+                    // SliverToBoxAdapter(
+                    //   child: Placeholder(fallbackHeight: 100.0),
+                    // ),
+                    // SliverPersistentHeader(
+                    //   delegate: MyCustomHeader(),
+                    // ),
+                    SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                      final mVocabulary = flashCardController.listSelectedCard[index];
+    
+                      final itemPositionOffset = index * itemSize;
+                      final difference = scrollController.offset - itemPositionOffset;
+                      final percent = 1 - (difference / itemSize);
+    
+                      double opacity = percent;
+                      double scale = percent;
+                      if (opacity > 1.0) opacity = 1.0;
+                      if (opacity < 0.0) opacity = 0.0;
+                      if (percent > 1.0) scale = 1.0;
+    
+                      return Opacity(
+                          opacity: opacity,
+                          child: Transform(
+                              alignment: Alignment.center,
+                              transform: Matrix4.identity()..scale(scale, 1.0),
+                              child: FlipCard(
+                                direction: FlipDirection.VERTICAL,
+                                front: BuildCard(
+                                  image: mVocabulary.img.toString(),
+                                  title: mVocabulary.word.toString(),
+                                  content: mVocabulary.definition.toString(),
+                                ),
+                                back: BuildCard(image: mVocabulary.img.toString(), title: mVocabulary.mean.toString(), content: mVocabulary.translatedDefinition.toString()),
+                              )));
+                    }, childCount: flashCardController.listSelectedCard.length))
+                  ],
+                )),
+          )
+        ]),
+        floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: kfirstGradientBack,
+            icon: Icon(Icons.card_giftcard),
+            onPressed: () {
+              Get.to(FlashCard());
+            },
+            label: Text("Flash card")),
+      ),
     );
   }
 }
