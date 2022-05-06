@@ -58,8 +58,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         title: 'English Vobabulary',
         debugShowCheckedModeBanner: false,
+<<<<<<< HEAD
         theme: ThemeData(fontFamily: "Poppins", primaryColor: kmainBrown),
         home: HomeIndexScreen()
+=======
+        theme: ThemeData(fontFamily: "Poppins", primaryColor: kOrangeGrammar),
+        home: OnboardScreen()
+>>>>>>> 274c4e2... Learning screen
         // GetBuilder<BottomTabController>(
         //   init: BottomTabController(),
         //   builder: (tabController) {

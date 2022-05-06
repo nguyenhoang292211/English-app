@@ -14,7 +14,7 @@ class TopicController extends GetxController {
   RxList<Topic> topics = RxList<Topic>([]);
   RxList<Vocabulary> vocabularys = RxList<Vocabulary>([]);
 
-  late Topic _topicSelected = Topic();
+  late Topic _topicSelected = Topic(id: "");
   Topic get topicSelected => _topicSelected;
 
   String collectionTopic = "topic";

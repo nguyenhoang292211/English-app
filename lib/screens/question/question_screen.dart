@@ -26,7 +26,7 @@ class QuestionScreen extends StatelessWidget {
                 () => Expanded(
                   child: PageView.builder(
                     // Block swipe to next qn
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: questionGrammarController.pageController,
                     itemCount: questionGrammarController.lQuestion.length,
                     onPageChanged:

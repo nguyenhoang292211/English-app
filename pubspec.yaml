@@ -81,6 +81,9 @@ flutter:
     - family: PoetsenOne
       fonts:
         - asset: fonts/PoetsenOne-Regular.ttf
+    - family: SourceCodePro
+      fonts:
+        - asset: fonts/SourceCodePro-Bold.ttf
     - family: Poppins
       fonts:
         - asset: fonts/Poppins-Bold.ttf

@@ -3,15 +3,20 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
-import 'package:vocabulary_learning/models/vocabulary.dart';
+import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/screens/home/topic/learning/question_section.dart';
+import 'package:vocabulary_learning/screens/loading/loading_screen.dart';
 
 class LearningScreen extends StatelessWidget {
-  const LearningScreen({Key? key}) : super(key: key);
+  late TopicController topicController = Get.put(TopicController());
+  late LearningController learningController = Get.put(LearningController());
+
+  LearningScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    LearningController learningController = Get.put(LearningController());
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45, left: 15, right: 15),
@@ -22,45 +27,72 @@ class LearningScreen extends StatelessWidget {
           ),
           renderProgressBar(context),
           const SizedBox(
-            height: 30,
+            height: 10,
           ),
-          Obx(
-            () => Expanded(
-                child: PageView.builder(
-              //physics: NeverScrollableScrollPhysics,
-              controller: learningController.pageController,
-              itemCount: learningController.count.value,
-              onPageChanged: learningController.swipePage,
-              pageSnapping: false,
-              itemBuilder: (context, index) => QuestionSection(),
-            )),
-          ),
+          Expanded(
+              child: PageView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: learningController.pageController,
+            itemCount: learningController.questionNumber.value,
+            pageSnapping: false,
+            itemBuilder: (context, index) =>
+                QuestionSection(learning: learningController.learnings[index]),
+          )),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(
-                width: 20,
+                width: 5,
               ),
-              InkWell(
-                onTap: () {},
-                child: const Text(
-                  "SKIP",
-                  style: TextStyle(
-                    color: kmainOrange,
-                    fontSize: 25,
-                    fontFamily: 'PoetsenOne',
-                  ),
-                ),
+              learningController.currentPage.value > 1
+                  ? InkWell(
+                      highlightColor: const Color(0xff297bff),
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () => learningController.previousPage(),
+                      child: const Text(
+                        "Back",
+                        style: TextStyle(
+                          color: Color(0xff297bff),
+                          fontSize: 25,
+                          fontFamily: 'PoetsenOne',
+                        ),
+                      ),
+                    )
+                  : SizedBox(width: size.width * 0.1),
+              SizedBox(
+                width: size.width * 0.55,
               ),
+              learningController.currentPage.value <
+                      learningController.questionNumber.value
+                  ? InkWell(
+                      onTap: () => learningController.nextQuestion(),
+                      child: const Text(
+                        "Next",
+                        style: TextStyle(
+                          color: kmainOrange,
+                          fontSize: 25,
+                          fontFamily: 'PoetsenOne',
+                        ),
+                      ),
+                    )
+                  : SizedBox(
+                      width: size.width * 0.1,
+                    ),
               const SizedBox(
                 width: 10,
               ),
-              Image.asset("asset/images/ArrowRight.png",
-                  height: 30, fit: BoxFit.cover),
+              learningController.currentPage.value <
+                      learningController.questionNumber.value
+                  ? Image.asset("asset/images/ArrowRight.png",
+                      height: 23, fit: BoxFit.cover)
+                  : const SizedBox(
+                      width: 2,
+                    ),
             ],
           ),
           const SizedBox(
-            height: 40,
+            height: 60,
           )
         ]),
       ),
@@ -75,14 +107,15 @@ class LearningScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width - 80,
           animation: true,
           lineHeight: 15.0,
-          animationDuration: 1000,
-          percent: 0.2,
+          animateFromLastPercent: true,
+          animationDuration: 500,
+          percent: learningController.currentPage.value / 6,
           linearStrokeCap: LinearStrokeCap.roundAll,
           progressColor: kfirstGradientBack,
         ),
-        const Text(
-          '5/10',
-          style: TextStyle(
+        Text(
+          '${learningController.currentPage}/${learningController.questionNumber}',
+          style: const TextStyle(
               color: kfirstGradientBack,
               fontSize: 17,
               fontFamily: 'Poppins',
@@ -105,15 +138,16 @@ class LearningScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           onTap: () {
+            learningController.resetPage();
             Get.back();
           },
         ),
         const SizedBox(
           width: 100,
         ),
-        const Text(
-          'Animal',
-          style: TextStyle(
+        Text(
+          topicController.topicSelected.name!,
+          style: const TextStyle(
               color: kmainBrown, fontSize: 28, fontFamily: 'PoetsenOne'),
         ),
       ],

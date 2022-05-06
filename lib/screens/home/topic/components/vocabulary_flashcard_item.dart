@@ -34,17 +34,18 @@ class VocabFlashcardItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            'asset/images/elephant.png',
-            height: 80,
-            fit: BoxFit.cover,
+          Image.network(
+            vocabulary.image!,
+            height: 100,
+            fit: BoxFit.fill,
           ),
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            'A very large animal with thick grey skin, large ears, two curved outer teeth called tusks and a long nose called a trunk.',
-            style: TextStyle(
+          Text(
+            vocabulary.definition!,
+            overflow: TextOverflow.fade,
+            style: const TextStyle(
               color: kgrayTitleButton,
               fontSize: 16,
               fontFamily: 'Poppins',
@@ -83,9 +84,9 @@ class VocabFlashcardItem extends StatelessWidget {
           ]),
       alignment: Alignment.center,
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Text(
-          "Elephant",
-          style: TextStyle(
+        Text(
+          vocabulary.word!,
+          style: const TextStyle(
             color: kred,
             fontSize: 30,
             fontFamily: 'Poppins',
@@ -107,13 +108,12 @@ class VocabFlashcardItem extends StatelessWidget {
               ),
               onTap: () {},
             ),
-            const Text(
-              "/'elIfənt/",
-              style: TextStyle(
+            Text(
+              vocabulary.spelling!,
+              style: const TextStyle(
                 color: Color.fromARGB(255, 41, 38, 38),
-                fontSize: 18,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w400,
+                fontSize: 20,
+                fontFamily: 'SourceCodePro',
               ),
             )
           ],
@@ -121,9 +121,13 @@ class VocabFlashcardItem extends StatelessWidget {
         const SizedBox(
           height: 25,
         ),
-        const Text(
-          "(n) con voi",
-          style: TextStyle(color: kblack, fontFamily: 'Poppins', fontSize: 22),
+        Text(
+          "(" + vocabulary.type!.substring(0, 1) + ") " + vocabulary.mean!,
+          style: const TextStyle(
+              color: kblack, fontFamily: 'Poppins', fontSize: 20),
+        ),
+        const SizedBox(
+          height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

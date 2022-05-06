@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
+import 'package:vocabulary_learning/controllers/learning_controller.dart';
+import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_all_vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
@@ -11,16 +13,18 @@ import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_background.dart';
 import 'package:vocabulary_learning/screens/home/topic/components/navigation_button.dart';
 import 'package:vocabulary_learning/screens/home/topic/components/vocabulary_flashcard_item.dart';
-import 'package:vocabulary_learning/screens/home/topic/learning/learning_screen.dart';
-import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
 class TopicScreen extends StatelessWidget {
   // final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
   final List<Vocabulary> vocabularies;
-   TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
+  final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
+  final topicCtrl = Get.put<TopicController>(TopicController());
+
+  TopicScreen({Key? key, required this.vocabularies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final learningCtrl = Get.put<LearningController>(LearningController());
     final size = MediaQuery.of(context).size;
     flashCardController.setVocabularies(vocabularies);
     return TopicBackground(
@@ -53,9 +57,10 @@ class TopicScreen extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                const Text(
-                  'Animal',
-                  style: TextStyle(
+                Text(
+                  '${topicCtrl.topicSelected.name}',
+                  overflow: TextOverflow.clip,
+                  style: const TextStyle(
                     color: kmainBrown,
                     fontSize: 27,
                     fontFamily: 'PoetsenOne',
@@ -75,7 +80,7 @@ class TopicScreen extends StatelessWidget {
                 text: 'Learning',
                 background: const Color(0xffF8C7BD),
                 onClick: () {
-                  Get.to(const LearningScreen());
+                  learningCtrl.gotoLearningScreen(topicCtrl.topicSelected.id);
                 }),
             const SizedBox(
               height: 12,
@@ -106,20 +111,26 @@ class TopicScreen extends StatelessWidget {
   Container renderFlashCards(Size size) {
     return Container(
       height: size.height * 0.42,
-      child: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return VocabFlashcardItem(
-            vocabulary: vocabularies[index],
-          );
-        },
-        itemCount: vocabularies.length,
-        pagination: const SwiperPagination(
-            alignment: Alignment.bottomCenter, builder: SwiperPagination.dots),
-        layout: SwiperLayout.STACK,
-        itemWidth: size.width * 0.87,
-        scale: 0.6,
-        itemHeight: size.height * 0.33,
-      ),
+      child: Obx(() => Swiper(
+            itemBuilder: (BuildContext context, int index) {
+              return VocabFlashcardItem(
+                vocabulary: vocabularies[index],
+              );
+            },
+            itemCount: vocabularies.length,
+            pagination: const SwiperPagination(
+              alignment: Alignment.topRight,
+              builder: SwiperPagination.fraction,
+              margin: EdgeInsets.only(
+                top: 20,
+                right: 25,
+              ),
+            ),
+            layout: SwiperLayout.STACK,
+            itemWidth: size.width * 0.87,
+            scale: 0.6,
+            itemHeight: size.height * 0.33,
+          )),
     );
   }
 }

@@ -34,15 +34,14 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
               init: GrammarController(),
               builder: (gController) {
                 return ListView(
-                  // physics: ScrollPhysics(),
                   children: [
                     WinnerComponent(size: size),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SearchComponent(
                         onChanged: gController.searchGrammar, text: query),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Obx(() => GridView.builder(

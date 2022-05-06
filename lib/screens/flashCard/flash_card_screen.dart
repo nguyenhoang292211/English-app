@@ -12,7 +12,6 @@ import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flashcard_view.dart';
 
 class FlashCard extends GetWidget<FlashCardController> {
-
   final List<Vocabulary> _flashcards = [];
   int _currentIndex = 0;
 
@@ -57,7 +56,8 @@ class FlashCard extends GetWidget<FlashCardController> {
                             SizedBox(
                               height: 35,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Padding(
@@ -95,13 +95,14 @@ class FlashCard extends GetWidget<FlashCardController> {
                                         boxShadow: [
                                           BoxShadow(
                                             blurRadius: 10,
-                                            color:
-                                                kgrayTitleButton.withOpacity(0.5),
+                                            color: kgrayTitleButton
+                                                .withOpacity(0.5),
                                             offset: const Offset(3, 3),
                                           )
                                         ]),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         flashCardCtrl.quantityStudyAgainWord > 0
                                             ? SecondaryButton(
@@ -140,14 +141,14 @@ class FlashCard extends GetWidget<FlashCardController> {
                                             front: FlashCardViewBackSide(
                                               vocabulary: flashCardCtrl
                                                   .listSelectedCard[index],
-                                              state:
-                                                  flashCardCtrl.listState[index],
+                                              state: flashCardCtrl
+                                                  .listState[index],
                                             ),
                                             back: FlashCardViewFrontSide(
                                               vocabulary: flashCardCtrl
                                                   .listSelectedCard[index],
-                                              state:
-                                                  flashCardCtrl.listState[index],
+                                              state: flashCardCtrl
+                                                  .listState[index],
                                             ));
                                       },
                                       itemCount:
@@ -158,8 +159,8 @@ class FlashCard extends GetWidget<FlashCardController> {
                                             color: kwhite,
                                             activeColor: ksecondGradientBack),
                                       ),
-                                      itemWidth: size.width*0.8 ,
-                                      itemHeight: size.height * 0.6 ,
+                                      itemWidth: size.width * 0.8,
+                                      itemHeight: size.height * 0.6,
                                       controller: swiperController,
                                       onIndexChanged: (value) {
                                         flashCardCtrl.setIndex(value);
@@ -234,6 +235,4 @@ class FlashCard extends GetWidget<FlashCardController> {
               })),
     );
   }
-
 }
-
