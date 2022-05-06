@@ -26,3 +26,8 @@ const kConfirmText = Color(0xFF04BF00);
 const kScoreScreen = Color(0xFF9EF16B);
 const kGreenFlashCard = Color(0xffAADB98);
 const kGreenLight = Color(0xffB7E9B9);
+const kDefaultShadow = BoxShadow(
+  offset: Offset(0, 15),
+  blurRadius: 27,
+  color: Colors.black12, // Black color with 12% opacity
+);

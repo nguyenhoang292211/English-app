@@ -6,6 +6,7 @@ class Vocabulary {
   String? img;
   String? topicId;
   String? spelling;
+  String? definition;
 
   Vocabulary(
       {this.id,
@@ -14,7 +15,8 @@ class Vocabulary {
       this.translatedDefinition,
       this.img,
       this.topicId,
-      this.spelling});
+      this.spelling,
+      this.definition});
 
   factory Vocabulary.fromMap(map) {
     return Vocabulary(
@@ -22,8 +24,10 @@ class Vocabulary {
         word: map['word'],
         mean: map['mean'],
         translatedDefinition: map['translated-definition'],
-        img: map['img'],
+        img: map['image'],
         topicId: map['topic'],
-        spelling: map['spelling']);
+        spelling: map['spelling'],
+        definition: map['definition'],
+        );
   }
 }

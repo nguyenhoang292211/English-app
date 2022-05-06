@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/input_field.dart';
 import 'package:vocabulary_learning/components/main_button.dart';
+import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/screens/auth/signup_screen.dart';
 import 'package:vocabulary_learning/screens/home/index.dart';
 
@@ -18,7 +19,7 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -86,6 +87,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 icon: Icons.person,
                 onChange: (value) {},
                 isEmailText: true,
+                controllerField: authController.email,
               ),
               const SizedBox(
                 height: 5,
@@ -94,6 +96,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 hintText: "Password",
                 icon: Icons.lock,
                 onChange: (value) {},
+                controllerField: authController.password,
               ),
               const SizedBox(
                 height: 5,
@@ -122,7 +125,7 @@ class _SigninScreenState extends State<SigninScreen> {
                       text: "Sign in",
                       width: size.width * 0.85,
                       onPressed: () {
-                        Get.to(HomeIndexScreen());
+                        authController.signIn();
                       }),
                   const SizedBox(
                     height: 15,

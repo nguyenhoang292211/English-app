@@ -18,7 +18,7 @@ class TopicController extends GetxController {
   Topic get topicSelected => _topicSelected;
 
   String collectionTopic = "topic";
-  String collectionVocab = "Vocabulary";
+  String collectionVocab = "vocabulary";
 
   @override
   onReady() {

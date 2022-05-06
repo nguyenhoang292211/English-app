@@ -1,19 +1,22 @@
 import 'dart:developer';
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/secondary_button.dart';
+// import 'package:vocabulary_learning/constants/controllers.dart';
+// import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flashcard_view.dart';
 
 class FlashCard extends GetWidget<FlashCardController> {
-  final flashCardCtrl = Get.put(FlashCardController());
+
   final List<Vocabulary> _flashcards = [];
   int _currentIndex = 0;
+
+  FlashCard();
 
   AnimatedContainer dotIndicator(index, currentIndex) {
     return AnimatedContainer(
@@ -31,19 +34,20 @@ class FlashCard extends GetWidget<FlashCardController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final flashCardCtrl = Get.put(FlashCardController());
     flashCardCtrl.resetData();
     SwiperController swiperController =
         SwiperController(); //Control swipe scroll
 
     return Scaffold(
-        backgroundColor: kGreenGrammar,
+        backgroundColor: Color(0xffE7FCE9),
         body: GetBuilder<FlashCardController>(
             init: FlashCardController(),
             builder: (flashCardCtrl) {
               return Container(
                   padding: EdgeInsets.only(top: 3),
                   height: size.height,
-                  decoration: const BoxDecoration(color: kGreenFlashCard),
+                  decoration: const BoxDecoration(color: Color(0xffE7FCE9)),
                   child: Stack(
                     children: [
                       Column(
@@ -106,7 +110,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                               onPressed: () {
                                                 flashCardCtrl.studyAgain();
                                               },
-                                              background: kred,
+                                              background: kfirstGradientBack,
                                             )
                                           : const Text(
                                               "Congratulations! You have finished everything!",
@@ -128,18 +132,17 @@ class FlashCard extends GetWidget<FlashCardController> {
                                   ),
                                 )
                               : Container(
-                                  height: size.height * 0.5,
                                   child: Swiper(
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return FlipCard(
-                                          back: FlashCardViewBackSide(
+                                          front: FlashCardViewBackSide(
                                             vocabulary: flashCardCtrl
                                                 .listSelectedCard[index],
                                             state:
                                                 flashCardCtrl.listState[index],
                                           ),
-                                          front: FlashCardViewFrontSide(
+                                          back: FlashCardViewFrontSide(
                                             vocabulary: flashCardCtrl
                                                 .listSelectedCard[index],
                                             state:
@@ -154,16 +157,16 @@ class FlashCard extends GetWidget<FlashCardController> {
                                           color: kwhite,
                                           activeColor: ksecondGradientBack),
                                     ),
-                                    itemWidth: size.width * 0.8,
-                                    itemHeight: size.height * 0.4,
+                                    itemWidth: size.width*0.8 ,
+                                    itemHeight: size.height * 0.6 ,
                                     controller: swiperController,
                                     onIndexChanged: (value) {
                                       flashCardCtrl.setIndex(value);
                                     },
                                     loop: false,
                                     viewportFraction: 0.6,
-                                    scale: 0.9,
-                                    layout: SwiperLayout.TINDER,
+                                    scale: 1,
+                                    layout: SwiperLayout.STACK,
                                   ),
                                 ),
                           SizedBox(
@@ -184,7 +187,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                                 CardState.studyAgain);
                                             swiperController.next();
                                           },
-                                          background: kred),
+                                          background: kfirstGradientBack),
                                       SecondaryButton(
                                           text: "Next",
                                           width: size.width * 0.8,
@@ -193,7 +196,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                                 .updateState(CardState.gotIt);
                                             swiperController.next();
                                           },
-                                          background: ksecondGradientBack),
+                                          background: Color(0xffAADB98)),
                                     ])
                               : SizedBox(
                                   height: 1,
@@ -231,3 +234,4 @@ class FlashCard extends GetWidget<FlashCardController> {
   }
 
 }
+

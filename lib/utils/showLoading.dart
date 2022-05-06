@@ -10,5 +10,6 @@ showLoading(){
 }
 
 dismissLoadingWidget(){
-  Get.back();
+  // Get.back();
+  Navigator.of(Get.overlayContext!).pop(); 
 }
