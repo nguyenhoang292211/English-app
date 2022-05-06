@@ -78,6 +78,11 @@ class FlashCardViewBackSide extends StatelessWidget {
             ],
           ),
         ),
+         (state != CardState.empty)
+          ? Positioned(top: 12, right: 12, child: (state == CardState.studyAgain) ? renderStudyAgainLabel() : renderGotItLabel())
+          : SizedBox(
+              height: 2,
+            )
       ],
     );
   }
@@ -170,11 +175,7 @@ class FlashCardViewFrontSide extends StatelessWidget {
           )
         ]),
       ),
-      (state != CardState.empty)
-          ? Positioned(top: 12, right: 12, child: (state == CardState.studyAgain) ? renderStudyAgainLabel() : renderGotItLabel())
-          : SizedBox(
-              height: 2,
-            )
+     
     ]);
   }
 }
