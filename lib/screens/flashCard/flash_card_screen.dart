@@ -16,6 +16,8 @@ class FlashCard extends GetWidget<FlashCardController> {
   final List<Vocabulary> _flashcards = [];
   int _currentIndex = 0;
 
+  FlashCard();
+
   AnimatedContainer dotIndicator(index, currentIndex) {
     return AnimatedContainer(
       margin: const EdgeInsets.only(right: 5),
@@ -38,14 +40,14 @@ class FlashCard extends GetWidget<FlashCardController> {
         SwiperController(); //Control swipe scroll
 
     return Scaffold(
-        backgroundColor: Color(0xffAADB98),
+        backgroundColor: Color(0xffE7FCE9),
         body: GetBuilder<FlashCardController>(
             init: FlashCardController(),
             builder: (flashCardCtrl) {
               return Container(
                   padding: EdgeInsets.only(top: 3),
                   height: size.height,
-                  decoration: const BoxDecoration(color: Color(0xffAADB98)),
+                  decoration: const BoxDecoration(color: Color(0xffE7FCE9)),
                   child: Stack(
                     children: [
                       Column(
@@ -108,7 +110,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                               onPressed: () {
                                                 flashCardCtrl.studyAgain();
                                               },
-                                              background: kred,
+                                              background: kfirstGradientBack,
                                             )
                                           : const Text(
                                               "Congratulations! You have finished everything!",
@@ -134,13 +136,13 @@ class FlashCard extends GetWidget<FlashCardController> {
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return FlipCard(
-                                          back: FlashCardViewBackSide(
+                                          front: FlashCardViewBackSide(
                                             vocabulary: flashCardCtrl
                                                 .listSelectedCard[index],
                                             state:
                                                 flashCardCtrl.listState[index],
                                           ),
-                                          front: FlashCardViewFrontSide(
+                                          back: FlashCardViewFrontSide(
                                             vocabulary: flashCardCtrl
                                                 .listSelectedCard[index],
                                             state:

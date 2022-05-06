@@ -13,7 +13,7 @@ class FlashCardController extends GetxController {
   static FlashCardController instance = Get.find();
   RxList<Vocabulary> listVocabulary = RxList<Vocabulary>();
   RxList<Vocabulary> listSelectedCard = RxList<Vocabulary>();
-  RxList<CardState> listState = RxList<CardState>();
+  RxList<CardState> listState = RxList<CardState>([]);
   var currentIndex = 0.obs;
   var quantityStudyAgainWord = 0.obs;
 
@@ -31,39 +31,22 @@ class FlashCardController extends GetxController {
 
   void setVocabularies(vocabularies) {
     listVocabulary = vocabularies;
+    
+    resetData();
     update();
   }
 
   void resetData() {
     currentIndex = 0.obs;
     listSelectedCard = listVocabulary;
-    listState = List<CardState>.generate(
-        listVocabulary.length, (int index) => CardState.empty).obs;
+
+    listState = List<CardState>.generate(listVocabulary.length, (index) {
+      return CardState.empty;}).obs;
     update();
+ 
   }
 
   void setIndex(index) {
-    // if (index > currentIndex.value) {
-    //   currentIndex.value = index;
-    //   //Default status update
-    //   if (listState[index - 1] == CardState.empty) {
-    //     listState[index - 1] = CardState.gotIt;
-    //   }
-    //   quantityStudyAgainWord = getQuantityStudyAgain().obs;
-    //   update();
-    // } else {
-    //   if (currentIndex.value == listSelectedCard.length - 1 && index == 0) {
-    //     currentIndex.value = listSelectedCard.length;
-    //     if (listState[listSelectedCard.length - 1] == CardState.empty) {
-    //       listState[listSelectedCard.length - 1] = CardState.gotIt;
-    //     }
-    //     quantityStudyAgainWord = getQuantityStudyAgain().obs;
-    //   } else {
-    //     currentIndex.value = index;
-    //   }
-    //   update();
-
-    // }
     if (currentIndex.value == listSelectedCard.length - 1 && index == 0) {
       //The last element in array
       currentIndex.value = listSelectedCard.length;
@@ -76,6 +59,7 @@ class FlashCardController extends GetxController {
         listState[index - 1] = CardState.gotIt;
       }
     }
+    quantityStudyAgainWord = getQuantityStudyAgain().obs;
     update();
   }
 

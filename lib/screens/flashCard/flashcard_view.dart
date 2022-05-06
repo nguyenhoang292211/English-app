@@ -15,7 +15,7 @@ class FlashCardViewBackSide extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          decoration: BoxDecoration(color: kwhite, borderRadius: BorderRadius.circular(15), boxShadow: [
+          decoration: BoxDecoration(color: const Color(0xffAADB98), borderRadius: BorderRadius.circular(15), boxShadow: [
             BoxShadow(
               blurRadius: 10,
               color: kgrayTitleButton.withOpacity(0.5),
@@ -92,7 +92,7 @@ class FlashCardViewFrontSide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(
-        decoration: BoxDecoration(color: kwhite, borderRadius: BorderRadius.circular(15), boxShadow: [
+        decoration: BoxDecoration(color: const Color(0xffAADB98), borderRadius: BorderRadius.circular(15), boxShadow: [
           BoxShadow(
             blurRadius: 10,
             color: kgrayTitleButton.withOpacity(0.5),
