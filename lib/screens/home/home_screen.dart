@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Container(
           padding:
-              const EdgeInsets.only(right: 15, left: 15, top: 50, bottom: 10),
+              const EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 10),
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [

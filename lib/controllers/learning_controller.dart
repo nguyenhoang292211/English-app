@@ -26,15 +26,13 @@ class LearningController extends GetxController
   late PageController _pageController;
   PageController get pageController => _pageController;
 
-  get questions => null;
-
   void swipePage(int index) {
     _pageController.nextPage(
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOutCirc);
   }
 
-  late RxList<Learning> _learnings = RxList<Learning>();
+  late RxList<Learning> _learnings = RxList<Learning>([]);
   RxList<Learning> get learnings => _learnings;
 
   // @override
@@ -55,7 +53,9 @@ class LearningController extends GetxController
     // _learnings = [].obs as RxList<Learning>;
     _pageController = PageController();
     questionNumber = _learnings.length.obs;
+    print(_learnings.length);
     super.onInit();
+    update();
   }
 
   void gotoLearningScreen(String topicId) {

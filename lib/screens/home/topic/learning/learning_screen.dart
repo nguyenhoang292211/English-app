@@ -5,7 +5,6 @@ import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/screens/home/topic/learning/question_section.dart';
-import 'package:vocabulary_learning/screens/loading/loading_screen.dart';
 
 class LearningScreen extends StatelessWidget {
   late TopicController topicController = Get.put(TopicController());
@@ -29,15 +28,19 @@ class LearningScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Expanded(
-              child: PageView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: learningController.pageController,
-            itemCount: learningController.questionNumber.value,
-            pageSnapping: false,
-            itemBuilder: (context, index) =>
-                QuestionSection(learning: learningController.learnings[index]),
-          )),
+          GetBuilder<LearningController>(
+              init: LearningController(),
+              builder: (learningCtrl) {
+                return Expanded(
+                    child: PageView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: learningCtrl.pageController,
+                  itemCount: learningCtrl.questionNumber.value,
+                  pageSnapping: false,
+                  itemBuilder: (context, index) =>
+                      QuestionSection(learning: learningCtrl.learnings[index]),
+                ));
+              }),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

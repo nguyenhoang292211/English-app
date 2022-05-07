@@ -26,7 +26,7 @@ class Learning {
         vocabulary: map['vocabulary'],
         topic: map['topic'],
         question: map['question']);
-
+    print('Voca :' + t.id!);
     return t;
   }
 }
