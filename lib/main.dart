@@ -28,10 +28,11 @@ Future<void> main() async {
     // Get.put(AuthController());
     Get.put(FlashCardController());
   });
-  
+
   //  final flashCardController = Get.put<FlashCardController>(FlashCardController());
   runApp(MyApp());
 }
+
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

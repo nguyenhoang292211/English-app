@@ -1,10 +1,10 @@
 class Topic {
-  String? id;
+  String id;
   String? name;
   String? color;
   String? image;
 
-  Topic({this.id, this.name, this.color, this.image});
+  Topic({required this.id, this.name, this.color, this.image});
 
   factory Topic.fromMap(map) {
     return Topic(

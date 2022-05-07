@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Container(
           padding:
-              const EdgeInsets.only(right: 15, left: 15, top: 50, bottom: 10),
+              const EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 10),
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [
@@ -212,7 +212,7 @@ class HomeScreen extends StatelessWidget {
         height: size.height * 0.44,
         child: Obx(() => GridView.builder(
             shrinkWrap: true,
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: topicController.topics.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

@@ -13,29 +13,31 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
         body: SafeArea(
       child: Container(
+        width: size.width,
         padding:
             const EdgeInsets.only(right: 15, left: 15, top: 50, bottom: 10),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 colors: [
-                  const Color.fromARGB(255, 241, 255, 179),
-                  const Color.fromARGB(255, 242, 255, 207),
-                  const Color.fromARGB(255, 109, 252, 96).withOpacity(0.28),
+                  Color.fromARGB(255, 241, 255, 179),
+                  Color.fromARGB(255, 242, 255, 207),
+                  Color.fromARGB(255, 210, 255, 206),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: const [0.2, 0.45, 0.9])),
+                stops: [0.2, 0.45, 0.9])),
         child: Column(
           children: [
-            InkWell(
-              onTap: () {
-                // Get.to(SigninScreen());
+            ElevatedButton(
+              onPressed: () {
                 authController.signOut();
               },
-              child: Text(
+              child: const Text(
                 "Sign out",
                 style: TextStyle(
                     fontFamily: 'Poppins',

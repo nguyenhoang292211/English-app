@@ -31,7 +31,7 @@ class FlashCardController extends GetxController {
 
   void setVocabularies(vocabularies) {
     listVocabulary = vocabularies;
-    
+
     resetData();
     update();
   }
@@ -41,9 +41,9 @@ class FlashCardController extends GetxController {
     listSelectedCard = listVocabulary;
 
     listState = List<CardState>.generate(listVocabulary.length, (index) {
-      return CardState.empty;}).obs;
+      return CardState.empty;
+    }).obs;
     update();
- 
   }
 
   void setIndex(index) {

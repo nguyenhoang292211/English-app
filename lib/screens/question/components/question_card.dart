@@ -35,7 +35,7 @@ class QuestionCard extends StatelessWidget {
                         Text(
                           questionGrammarController.questionNumber.value
                               .toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: "PoetsenOne",
                               fontSize: 20,
                               color: kPinkGrammar),
@@ -49,14 +49,14 @@ class QuestionCard extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   Image(
-                    image: AssetImage("./asset/images/table.png"),
+                    image: const AssetImage("./asset/images/table.png"),
                     height: size.height * 0.25,
                     width: size.width,
                   ),
                   Text(
                     questionGrammar.question!,
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: "Poppins"),
+                    style: const TextStyle(
+                        color: Colors.white, fontFamily: "Poppins"),
                   ),
                 ],
               ),
@@ -64,14 +64,14 @@ class QuestionCard extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   Image(
-                    image: AssetImage("./asset/images/table.png"),
+                    image: const AssetImage("./asset/images/table.png"),
                     height: size.height * 0.25,
                     width: size.width,
                   ),
                   Text(
                     questionGrammar.question!,
-                    style:
-                        TextStyle(color: Colors.white, fontFamily: "Poppins"),
+                    style: const TextStyle(
+                        color: Colors.white, fontFamily: "Poppins"),
                   ),
                 ],
               ),
