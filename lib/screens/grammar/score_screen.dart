@@ -52,7 +52,7 @@ class ScoreScreen extends StatelessWidget {
               ),
             ),
             child: Padding(
-                padding: const EdgeInsets.only(top: 50),
+                padding: const EdgeInsets.only(top: 80),
                 child: Obx(
                   () => Column(
                     children: [

@@ -35,6 +35,32 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
               builder: (gController) {
                 return ListView(
                   children: [
+                    Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                                    child: IconButton(
+                                      icon: const Icon(Icons.arrow_back_ios,
+                                          color: kmainBrown),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                  ),
+                                  const Text("Grammar",
+                                      style: TextStyle(
+                                        color: kmainBrown,
+                                        fontSize: 30,
+                                        fontFamily: "PoetsenOne",
+                                      ),
+                                      textAlign: TextAlign.center),
+                                  SizedBox(
+                                    height: 20,
+                                  )
+                                ],
+                              ),
                     WinnerComponent(size: size),
                     const SizedBox(
                       height: 20,

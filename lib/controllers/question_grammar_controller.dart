@@ -34,10 +34,11 @@ class QuestionGrammarController extends GetxController with SingleGetTickerProvi
    late PageController _pageController;
   PageController get pageController => this._pageController;
 
-  RxList<QuestionGrammar> lQuestion = RxList<QuestionGrammar>([]);
+  RxList<QuestionGrammar> _lQuestion = RxList<QuestionGrammar>([]);
+  RxList<QuestionGrammar> get lQuestion  => this._lQuestion;
   @override
   void onInit() {
-    lQuestion.bindStream(grammarController.getListQuestionGrammar());
+    _lQuestion.bindStream(grammarController.getListQuestionGrammar(grammarController.grammarSelected));
     _animationController =
         AnimationController(duration: Duration(seconds: 60), vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
@@ -48,6 +49,14 @@ class QuestionGrammarController extends GetxController with SingleGetTickerProvi
     _pageController = PageController();
     super.onInit();
   }
+
+   @override
+  onReady() {
+    super.onReady();
+     _lQuestion.bindStream(grammarController.getListQuestionGrammar(grammarController.grammarSelected));
+  }
+
+
 
   @override
   void onClose () {
@@ -99,7 +108,10 @@ class QuestionGrammarController extends GetxController with SingleGetTickerProvi
       _animationController.reset();
 
       _animationController.forward(); 
-        } else Get.to(ScoreScreen());
+        } else {
+          Get.to(ScoreScreen());
+        
+        };
         });
   }
 

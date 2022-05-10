@@ -122,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 8),
-                      height: 100,
+                      height: size.height*0.15,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 253, 255, 143),
