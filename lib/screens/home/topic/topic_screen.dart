@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/components/customSnackBar.dart';
 import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
@@ -51,8 +52,7 @@ class TopicScreen extends StatelessWidget {
                 ),
                 const Text(
                   'Topic:',
-                  style: TextStyle(
-                      color: kblack, fontSize: 22, fontFamily: 'PoetsenOne'),
+                  style: TextStyle(color: kblack, fontSize: 22, fontFamily: 'PoetsenOne'),
                 ),
                 const SizedBox(
                   width: 10,
@@ -101,6 +101,7 @@ class TopicScreen extends StatelessWidget {
                 background: const Color(0xffAADB98),
                 onClick: () {
                   Get.to(AllVocabulary());
+            
                 })
           ],
         ),

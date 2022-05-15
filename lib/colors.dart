@@ -31,3 +31,8 @@ const kDefaultShadow = BoxShadow(
   blurRadius: 27,
   color: Colors.black12, // Black color with 12% opacity
 );
+
+const kredLight=Color(0xffDA7568);
+const kYellowLight=Color(0xffE6DF63);
+const kGreenHightLight=Color(0xff67F0BE);
+const kGreenBold=Color(0xff29CD67);

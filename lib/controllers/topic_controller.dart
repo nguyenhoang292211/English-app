@@ -36,6 +36,7 @@ class TopicController extends GetxController {
   }
 
   Stream<List<Topic>> getAllTopic() =>
+  
       firebaseFirestore.collection(collectionTopic).snapshots().map((query) =>
           query.docs.map((item) => Topic.fromMap(item.data())).toList());
 
