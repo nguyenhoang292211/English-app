@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vocabulary_learning/colors.dart';
 
 class DraggGame extends StatefulWidget {
   DraggGame({Key? key}) : super(key: key);
@@ -45,69 +46,86 @@ class _DraggGameState extends State<DraggGame> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Text.rich(
-              TextSpan(children: [
-                const TextSpan(
-                  text: 'Score ',
-                ),
-                TextSpan(text: '$score')
-              ]),
-            ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(
+            height: size.height,
           ),
-          if (!gameOver)
-            Row(
-              children: [
-                const Spacer(),
-                Column(
-                  children: <Widget>[
-                    for (var i = 0; i < items.length; i++) ...[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: Draggable(
-                          data: i,
-                          childWhenDragging: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            backgroundImage: NetworkImage(items[i].img),
-                            radius: 50,
-                          ),
-                          feedback: SizedBox(height: 10),
-                          child: !items[i].score
-                              ? CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  backgroundImage: NetworkImage(items[i].img),
-                                  radius: 30,
-                                )
-                              : Container(
-                                  child: Text("V"),
-                                ),
-                        ),
-                      )
-                    ]
+          child: Container(
+            height: size.height,
+            decoration: BoxDecoration(color: kBlueGrammar),
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text.rich(
+                  TextSpan(children: [
+                    const TextSpan(
+                      text: 'Score ',
+                    ),
+                    TextSpan(text: '$score')
+                  ]),
+                ),
+              ),
+              if (!gameOver)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    Column(
+                      children: <Widget>[
+                        for (var i = 0; i < items.length; i++) ...[
+                          Container(
+                            margin: const EdgeInsets.all(8),
+                            child: Draggable(
+                              data: i,
+                              childWhenDragging: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                backgroundImage: NetworkImage(items[i].img),
+                                radius: 30,
+                              ),
+                              feedback: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                backgroundImage: NetworkImage(items[i].img),
+                                radius: 50,
+                              ),
+                              child: !items[i].score
+                                  ? CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      backgroundImage: NetworkImage(items[i].img),
+                                      radius: 30,
+                                    )
+                                  : Container(
+                                      child: Text("V"),
+                                    ),
+                            ),
+                          )
+                        ]
+                      ],
+                    ),
+                    Spacer(flex: 2),
+                    Column(children: [
+                      for (var j = 0; j < items.length; j++) ...[_buildDragTarget(j)]
+                    ]),
+                    const Spacer(),
                   ],
                 ),
-                Spacer(flex: 2),
-                Column(children: [
-                  for (var j = 0; j < items.length; j++) ...[_buildDragTarget(j)]
-                ])
-              ],
-            ),
-          if (gameOver)
-            Center(
-              child: Column(
-                children: [
-                  Text(
-                    "Game over",
-                  )
-                ],
-              ),
-            )
-        ]),
+              if (gameOver)
+                Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Game over",
+                      )
+                    ],
+                  ),
+                )
+            ]),
+          ),
+        ),
       )),
     );
   }
@@ -125,8 +143,7 @@ class _DraggGameState extends State<DraggGame> {
           );
         } else {
           return Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), 
-            color: items[index].accepting ? Colors.grey[400] : Colors.grey[200]),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: items[index].accepting ? Colors.grey[400] : Colors.grey[200]),
             alignment: Alignment.center,
             height: MediaQuery.of(context).size.width / 6,
             width: MediaQuery.of(context).size.width / 6,
@@ -139,7 +156,8 @@ class _DraggGameState extends State<DraggGame> {
         //   emoji.accepting = true;
         // });
         print(145);
-     
+        print(index);
+        print(receivedItem);
         return index == receivedItem;
       },
       onLeave: (receivedItem) {
@@ -149,7 +167,7 @@ class _DraggGameState extends State<DraggGame> {
       },
       onAccept: (receivedItem) {
         print("155");
-        print( receivedItem);
+        print(receivedItem);
         if (index == receivedItem) {
           // setState(() {
           //   items.remove(receivedItem);
@@ -159,11 +177,14 @@ class _DraggGameState extends State<DraggGame> {
           setState(() {
             // emoji.accepting = false;
             items[index].score = true;
+            for (int i = 0; i < items.length; i++) {
+              if (items[i].score == false) return;
+            }
+            gameOver = true;
           });
         } else {
           setState(() {
             score -= 5;
-         
           });
         }
       },
@@ -176,7 +197,7 @@ class ItemModel {
   final String name;
   final String value;
   final String img;
-  late final bool score;
+  late bool score;
   bool accepting;
   ItemModel({required this.name, required this.value, required this.img, this.accepting = false, this.score = false});
 }
