@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,6 +37,12 @@ class AuthController extends GetxController {
 
   _setInitialScreen(User? user) async {
     if (user != null) {
+      print("39 ========= user ==================");
+
+      print(user);
+      String _userId = user.uid;
+
+      _initializeUserModel(_userId);
       Get.offAll(() => HomeIndexScreen());
     } else {
       Get.offAll(() => SigninScreen());
@@ -47,9 +54,10 @@ class AuthController extends GetxController {
       showLoading();
       await auth.signInWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((result) {
         String _userId = result.user!.uid;
+
         _initializeUserModel(_userId);
         _clearControllers();
-        Get.offAll(() => const OnboardScreen());
+        Get.offAll(() => HomeIndexScreen());
       });
     } catch (e) {
       debugPrint(e.toString());
@@ -97,11 +105,24 @@ class AuthController extends GetxController {
 
   _initializeUserModel(String userId) async {
     userModel.value = await firebaseFirestore.collection(usersCollection).doc(userId).get().then((doc) => UserModel.fromSnapshot(doc));
+    print("==== 106 ====");
+    print(userModel.value);
+    update();
   }
 
   _clearControllers() {
     name.clear();
     email.clear();
     password.clear();
+  }
+
+  void updateImageUrl(urlImage) async {
+    print("108");
+    print(userModel.value.id);
+    var result = await firebaseFirestore.collection(usersCollection).doc(userModel.value.id).update({'image': urlImage}).then((value) {});
+   
+   print(result);
+    userModel.value.image = urlImage;
+    update();
   }
 }

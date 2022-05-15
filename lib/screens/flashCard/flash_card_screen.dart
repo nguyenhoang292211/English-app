@@ -35,17 +35,16 @@ class FlashCard extends GetWidget<FlashCardController> {
     final size = MediaQuery.of(context).size;
     final flashCardCtrl = Get.put(FlashCardController());
     flashCardCtrl.resetData();
-    SwiperController swiperController =
-        SwiperController(); //Control swipe scroll
+    SwiperController swiperController = SwiperController(); //Control swipe scroll
 
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xffE7FCE9),
+          backgroundColor: const Color(0xffE7FCE9),
           body: GetBuilder<FlashCardController>(
               init: FlashCardController(),
               builder: (flashCardCtrl) {
                 return Container(
-                    padding: EdgeInsets.only(top: 3),
+                    padding: const EdgeInsets.only(top: 3),
                     height: size.height,
                     decoration: const BoxDecoration(color: Color(0xffE7FCE9)),
                     child: Stack(
@@ -56,18 +55,14 @@ class FlashCard extends GetWidget<FlashCardController> {
                             SizedBox(
                               height: 35,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                                    padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
                                     child: IconButton(
-                                      icon: const Icon(Icons.arrow_back_ios,
-                                          color: kmainBrown),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
+                                      icon: const Icon(Icons.arrow_back_ios, color: kmainBrown),
+                                      onPressed: () => Navigator.of(context).pop(),
                                     ),
                                   ),
                                   const Text("Flash card",
@@ -77,37 +72,30 @@ class FlashCard extends GetWidget<FlashCardController> {
                                         fontFamily: "PoetsenOne",
                                       ),
                                       textAlign: TextAlign.center),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   )
                                 ],
                               ),
                             ),
                             const SizedBox(height: 20),
-                            flashCardCtrl.currentIndex.value ==
-                                    flashCardCtrl.listSelectedCard.length
+                            flashCardCtrl.currentIndex.value == flashCardCtrl.listSelectedCard.length
                                 ? Container(
                                     height: size.height * 0.8,
                                     width: size.width * 0.8,
-                                    decoration: BoxDecoration(
-                                        color: kwhite,
-                                        borderRadius: BorderRadius.circular(15),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 10,
-                                            color: kgrayTitleButton
-                                                .withOpacity(0.5),
-                                            offset: const Offset(3, 3),
-                                          )
-                                        ]),
+                                    decoration: BoxDecoration(color: kwhite, borderRadius: BorderRadius.circular(15), boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 10,
+                                        color: kgrayTitleButton.withOpacity(0.5),
+                                        offset: const Offset(3, 3),
+                                      )
+                                    ]),
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         flashCardCtrl.quantityStudyAgainWord > 0
                                             ? SecondaryButton(
-                                                text:
-                                                    "Study ${flashCardCtrl.quantityStudyAgainWord} word again",
+                                                text: "Study ${flashCardCtrl.quantityStudyAgainWord} word again",
                                                 width: size.width * 0.7,
                                                 onPressed: () {
                                                   flashCardCtrl.studyAgain();
@@ -119,7 +107,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                                 textAlign: TextAlign.center,
                                                 maxLines: 4,
                                               ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 20,
                                         ),
                                         SecondaryButton(
@@ -135,29 +123,23 @@ class FlashCard extends GetWidget<FlashCardController> {
                                   )
                                 : Container(
                                     child: Swiper(
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
+                                      layout: SwiperLayout.TINDER,
+
+                                      itemBuilder: (BuildContext context, int index) {
                                         return FlipCard(
                                             front: FlashCardViewBackSide(
-                                              vocabulary: flashCardCtrl
-                                                  .listSelectedCard[index],
-                                              state: flashCardCtrl
-                                                  .listState[index],
+                                              vocabulary: flashCardCtrl.listSelectedCard[index],
+                                              state: flashCardCtrl.listState[index],
                                             ),
                                             back: FlashCardViewFrontSide(
-                                              vocabulary: flashCardCtrl
-                                                  .listSelectedCard[index],
-                                              state: flashCardCtrl
-                                                  .listState[index],
+                                              vocabulary: flashCardCtrl.listSelectedCard[index],
+                                              state: flashCardCtrl.listState[index],
                                             ));
                                       },
-                                      itemCount:
-                                          flashCardCtrl.listSelectedCard.length,
+                                      itemCount: flashCardCtrl.listSelectedCard.length,
                                       pagination: const SwiperPagination(
                                         alignment: Alignment.bottomCenter,
-                                        builder: DotSwiperPaginationBuilder(
-                                            color: kwhite,
-                                            activeColor: ksecondGradientBack),
+                                        builder: DotSwiperPaginationBuilder(color: kwhite, activeColor: ksecondGradientBack),
                                       ),
                                       itemWidth: size.width * 0.8,
                                       itemHeight: size.height * 0.6,
@@ -168,25 +150,21 @@ class FlashCard extends GetWidget<FlashCardController> {
                                       loop: false,
                                       viewportFraction: 0.6,
                                       scale: 1,
-                                      layout: SwiperLayout.STACK,
                                     ),
                                   ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             !flashCardCtrl.isLastIndex()
                                 ? Wrap(
-                                    spacing:
-                                        20, // to apply margin in the main axis of the wrap
-                                    runSpacing:
-                                        20, // to apply margin in the cross axis of the wrap
+                                    spacing: 20, // to apply margin in the main axis of the wrap
+                                    runSpacing: 20, // to apply margin in the cross axis of the wrap
                                     children: <Widget>[
                                         SecondaryButton(
                                             text: "Study again",
                                             width: size.width * 0.8,
                                             onPressed: () {
-                                              flashCardCtrl.updateState(
-                                                  CardState.studyAgain);
+                                              flashCardCtrl.updateState(CardState.studyAgain);
                                               swiperController.next();
                                             },
                                             background: kfirstGradientBack),
@@ -194,13 +172,12 @@ class FlashCard extends GetWidget<FlashCardController> {
                                             text: "Next",
                                             width: size.width * 0.8,
                                             onPressed: () {
-                                              flashCardCtrl
-                                                  .updateState(CardState.gotIt);
+                                              flashCardCtrl.updateState(CardState.gotIt);
                                               swiperController.next();
                                             },
-                                            background: Color(0xffAADB98)),
+                                            background: const Color(0xffAADB98)),
                                       ])
-                                : SizedBox(
+                                : const SizedBox(
                                     height: 1,
                                   )
                             //   // ),
@@ -212,10 +189,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                           child: Container(
                             height: size.width * 0.35,
                             width: size.width * 0.3,
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage("asset/images/tree2.png"),
-                                    fit: BoxFit.cover)),
+                            decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/tree2.png"), fit: BoxFit.cover)),
                           ),
                         ),
                         Positioned(
@@ -224,10 +198,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                           child: Container(
                             height: size.width * 0.25,
                             width: size.width * 0.5,
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage("asset/images/sleep.png"),
-                                    fit: BoxFit.cover)),
+                            decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/sleep.png"), fit: BoxFit.cover)),
                           ),
                         )
                       ],

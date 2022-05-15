@@ -14,6 +14,7 @@ class FlashCardController extends GetxController {
   RxList<Vocabulary> listVocabulary = RxList<Vocabulary>();
   RxList<Vocabulary> listSelectedCard = RxList<Vocabulary>();
   RxList<CardState> listState = RxList<CardState>([]);
+   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   var currentIndex = 0.obs;
   var quantityStudyAgainWord = 0.obs;
 
@@ -91,4 +92,5 @@ class FlashCardController extends GetxController {
   bool isLastIndex() {
     return currentIndex.value == listState.length;
   }
+  // void saveWord(String id, String )
 }

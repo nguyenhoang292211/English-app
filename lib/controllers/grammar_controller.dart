@@ -37,9 +37,9 @@ class GrammarController extends GetxController {
       firebaseFirestore.collection(collectionGrammar).snapshots().map((query) =>
           query.docs.map((item) => Grammar.fromMap(item.data())).toList());
 
-  Stream<List<QuestionGrammar>> getListQuestionGrammar() => firebaseFirestore
+  Stream<List<QuestionGrammar>> getListQuestionGrammar(Grammar grammar) => firebaseFirestore
       .collection(collectionQuestion)
-      .where("id", whereIn: _grammarSelected.questions!.toList())
+      .where("id", whereIn: grammar.questions)
       .snapshots()
       .map((query) => query.docs
           .map((item) => QuestionGrammar.fromMap(item.data()))
@@ -62,7 +62,7 @@ class GrammarController extends GetxController {
   void goToDetailGrammar(Grammar grammar) {
     _grammarSelected = grammar;
     print("_grammarSelected: ${_grammarSelected.title.toString()}");
-    getAllQuestionBySelectedGrammar();
+    getAllQuestionBySelectedGrammar(grammar);
     Get.to(GrammarDetail());
   }
 
@@ -70,8 +70,8 @@ class GrammarController extends GetxController {
     return _grammarSelected;
   }
 
-  void getAllQuestionBySelectedGrammar() {
-    lQuestionGrammar.bindStream(getListQuestionGrammar());
+  void getAllQuestionBySelectedGrammar(Grammar grammar) {
+    _lQuestionGrammar.bindStream(getListQuestionGrammar(grammar));
   }
 
   Color getColorByIndex(int index) {

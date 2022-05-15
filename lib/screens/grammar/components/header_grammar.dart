@@ -24,7 +24,7 @@ class HeaderGrammar extends StatelessWidget {
               child: Image(image: AssetImage("asset/images/ArrowLeft.png"))),
           Text(this.headerString,
               style: TextStyle(
-                  fontFamily: "PoetsenOne", fontSize: 28, color: Colors.white)),
+                  fontFamily: "PoetsenOne", fontSize: 24, color: Colors.white)),
           SizedBox(
             height: 20,
           )
