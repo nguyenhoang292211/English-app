@@ -1,10 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/question_grammar_controller.dart';
 import 'package:vocabulary_learning/screens/grammar/components/button_detail.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
-import 'package:vocabulary_learning/screens/home/index.dart';
 
 class ScoreScreen extends StatelessWidget {
   const ScoreScreen({Key? key}) : super(key: key);
@@ -21,9 +22,9 @@ class ScoreScreen extends StatelessWidget {
         actions: [
           FlatButton(
               onPressed: () {
-                Get.to(GrammarAllScreen());
+                Get.to(const GrammarAllScreen());
               },
-              child: Text(
+              child: const Text(
                 "End",
                 style: TextStyle(
                     color: Color.fromARGB(31, 10, 8, 8),
@@ -37,7 +38,7 @@ class ScoreScreen extends StatelessWidget {
         Container(
           height: size.height,
           width: size.width,
-          decoration: BoxDecoration(color: kScoreScreen),
+          decoration: const BoxDecoration(color: kScoreScreen),
         ),
         Positioned(
           top: size.height * 0.3,
@@ -45,7 +46,7 @@ class ScoreScreen extends StatelessWidget {
             height: size.height * 0.5,
             width: size.width,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("./asset/images/scoreAward.png"),
                 fit: BoxFit.cover,
@@ -58,16 +59,16 @@ class ScoreScreen extends StatelessWidget {
                     children: [
                       Text(
                           "Correct: ${questionGrammarController.numOfCorrectAns}/${questionGrammarController.lQuestion.length}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Color(0xFF0DA300),
                               fontFamily: "PoetsenOne",
                               fontSize: 16)),
-                      Text("You so excellent!",
+                      const Text("You so excellent!",
                           style: TextStyle(
                               color: Color(0xFFDA0505),
                               fontFamily: "PoetsenOne",
                               fontSize: 20)),
-                      Text("Let’s try more to be perfect",
+                      const Text("Let’s try more to be perfect",
                           style: TextStyle(
                               color: Color(0xFFDA0505),
                               fontFamily: "PoetsenOne",
@@ -84,7 +85,7 @@ class ScoreScreen extends StatelessWidget {
             child: ButtonDetail(
               title: "Finish",
               onPress: () {
-                Get.to(GrammarAllScreen());
+                Get.to(const GrammarAllScreen());
               },
             ))
       ]),

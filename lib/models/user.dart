@@ -1,21 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-class UserModel {
 
+class UserModel {
   static const ID = "id";
   static const NAME = "name";
   static const EMAIL = "email";
-  static const IMAGE="image";
+  static const IMAGE = "image";
+  static const SAVE_VOCABS = "saved-vocabs";
 
-   String? id;
-   String? name;
-    String? email;
-String? image;
-  UserModel({ this.id,  this.name,  this.email, this.image});
+  String? id;
+  String? name;
+  String? email;
+  String? image;
+  String? password;
+  List<dynamic>? savedVocabs;
+
+  UserModel({this.id, this.name, this.email, this.password, this.image});
 
   UserModel.fromSnapshot(DocumentSnapshot snapshot) {
     name = snapshot[NAME];
     email = snapshot[EMAIL];
     id = snapshot[ID];
-    image= snapshot[IMAGE];
+    image = snapshot[IMAGE];
+    savedVocabs = snapshot[SAVE_VOCABS];
   }
 }
