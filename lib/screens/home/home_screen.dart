@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/screens/home/components/grammar_home.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_card.dart';
@@ -81,8 +82,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Good morning,",
                         style: TextStyle(
                           fontFamily: "PoetsenOne",
@@ -90,11 +91,12 @@ class HomeScreen extends StatelessWidget {
                           color: kblack,
                         ),
                       ),
-                      Text("Helen",
-                          style: TextStyle(
+                      Obx(() => Text(
+                          authController.userModel.value.name ?? "Helen",
+                          style: const TextStyle(
                               fontFamily: "PoetsenOne",
                               fontSize: 32,
-                              color: kmainOrange))
+                              color: kmainOrange)))
                     ],
                   ),
                   CircleAvatar(
@@ -122,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 8),
-                      height: size.height*0.15,
+                      height: size.height * 0.15,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 253, 255, 143),
@@ -195,14 +197,14 @@ class HomeScreen extends StatelessWidget {
               color: kmainBrown,
             ),
           ),
-          Text(
-            "Show all >",
-            style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 14,
-              color: kmainBrown,
-            ),
-          ),
+          // Text(
+          //   "Show all >",
+          //   style: TextStyle(
+          //     fontFamily: "Poppins",
+          //     fontSize: 14,
+          //     color: kmainBrown,
+          //   ),
+          // ),
         ],
       ),
       const SizedBox(
