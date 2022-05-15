@@ -6,103 +6,96 @@ import 'package:vocabulary_learning/controllers/learning_controller.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/screens/home/topic/learning/question_section.dart';
 
-class LearningScreen extends StatelessWidget {
+class LearningScreen extends GetWidget<LearningController> {
   late TopicController topicController = Get.put(TopicController());
-  late LearningController learningController = Get.put(LearningController());
 
   LearningScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final LearningController learningCtrl = Get.put(LearningController());
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(top: 45, left: 15, right: 15),
-        child: Column(children: [
-          renderAppBar(),
-          const SizedBox(
-            height: 20,
-          ),
-          renderProgressBar(context),
-          const SizedBox(
-            height: 10,
-          ),
-          GetBuilder<LearningController>(
-              init: LearningController(),
-              builder: (learningCtrl) {
-                return Expanded(
-                    child: PageView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: learningCtrl.pageController,
-                  itemCount: learningCtrl.questionNumber.value,
-                  pageSnapping: false,
-                  itemBuilder: (context, index) =>
-                      QuestionSection(learning: learningCtrl.learnings[index]),
-                ));
-              }),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+    return GetBuilder<LearningController>(
+      init: LearningController(),
+      builder: (learningCtrl) {
+        return Scaffold(
+          body: Container(
+            padding:
+                EdgeInsets.only(top: size.height * 0.025, left: 15, right: 15),
+            child: Column(children: [
+              renderAppBar(learningCtrl),
               const SizedBox(
-                width: 5,
+                height: 20,
               ),
-              learningController.currentPage.value > 1
-                  ? InkWell(
-                      highlightColor: const Color(0xff297bff),
-                      borderRadius: BorderRadius.circular(10),
-                      onTap: () => learningController.previousPage(),
-                      child: const Text(
-                        "Back",
-                        style: TextStyle(
-                          color: Color(0xff297bff),
-                          fontSize: 25,
-                          fontFamily: 'PoetsenOne',
+              renderProgressBar(context, learningCtrl),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                  child: PageView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: learningCtrl.pageController,
+                      itemCount: learningCtrl.learnings.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        print(learningCtrl.learnings.length);
+                        return QuestionSection(
+                            learning: learningCtrl.learnings[index]);
+                      })),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: size.width * 0.65,
+                  ),
+                  learningCtrl.currentPage.value < learningCtrl.learnings.length
+                      ? InkWell(
+                          onTap: () => learningCtrl.nextQuestion(),
+                          child: const Text(
+                            "Next",
+                            style: TextStyle(
+                              color: kmainOrange,
+                              fontSize: 25,
+                              fontFamily: 'PoetsenOne',
+                            ),
+                          ),
+                        )
+                      : InkWell(
+                          onTap: () {
+                            learningCtrl.finishLearning();
+                          },
+                          child: const Text(
+                            "Finish",
+                            style: TextStyle(
+                              color: kmainOrange,
+                              fontSize: 25,
+                              fontFamily: 'PoetsenOne',
+                            ),
+                          ),
                         ),
-                      ),
-                    )
-                  : SizedBox(width: size.width * 0.1),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  learningCtrl.currentPage.value < learningCtrl.learnings.length
+                      ? Image.asset("asset/images/ArrowRight.png",
+                          height: 23, fit: BoxFit.cover)
+                      : const SizedBox(
+                          width: 2,
+                        ),
+                ],
+              ),
               SizedBox(
-                width: size.width * 0.55,
-              ),
-              learningController.currentPage.value <
-                      learningController.questionNumber.value
-                  ? InkWell(
-                      onTap: () => learningController.nextQuestion(),
-                      child: const Text(
-                        "Next",
-                        style: TextStyle(
-                          color: kmainOrange,
-                          fontSize: 25,
-                          fontFamily: 'PoetsenOne',
-                        ),
-                      ),
-                    )
-                  : SizedBox(
-                      width: size.width * 0.1,
-                    ),
-              const SizedBox(
-                width: 10,
-              ),
-              learningController.currentPage.value <
-                      learningController.questionNumber.value
-                  ? Image.asset("asset/images/ArrowRight.png",
-                      height: 23, fit: BoxFit.cover)
-                  : const SizedBox(
-                      width: 2,
-                    ),
-            ],
+                height: size.height * 0.05,
+              )
+            ]),
           ),
-          const SizedBox(
-            height: 60,
-          )
-        ]),
-      ),
+        );
+      },
     );
   }
 
-  Row renderProgressBar(BuildContext context) {
+  Row renderProgressBar(BuildContext context, LearningController learningCtrl) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -112,23 +105,24 @@ class LearningScreen extends StatelessWidget {
           lineHeight: 15.0,
           animateFromLastPercent: true,
           animationDuration: 500,
-          percent: learningController.currentPage.value / 6,
+          percent:
+              learningCtrl.currentPage.value / learningCtrl.learnings.length,
           linearStrokeCap: LinearStrokeCap.roundAll,
           progressColor: kfirstGradientBack,
         ),
-        Text(
-          '${learningController.currentPage}/${learningController.questionNumber}',
-          style: const TextStyle(
-              color: kfirstGradientBack,
-              fontSize: 17,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w600),
-        ),
+        Obx(() => Text(
+              '${learningCtrl.currentPage}/${learningCtrl.learnings.length}',
+              style: const TextStyle(
+                  color: kfirstGradientBack,
+                  fontSize: 17,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600),
+            )),
       ],
     );
   }
 
-  Row renderAppBar() {
+  Row renderAppBar(LearningController learningCtrl) {
     return Row(
       children: [
         const SizedBox(
@@ -141,7 +135,7 @@ class LearningScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           onTap: () {
-            learningController.resetPage();
+            learningCtrl.resetPage();
             Get.back();
           },
         ),

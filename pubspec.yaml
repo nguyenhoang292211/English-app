@@ -55,6 +55,7 @@ dev_dependencies:
   get: 4.6.1
   flutter_lints: ^1.0.0
   salomon_bottom_bar: ^3.3.0
+  word_search: ^0.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

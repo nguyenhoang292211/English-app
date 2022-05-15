@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:vocabulary_learning/controllers/auth_controller.dart';
 import 'package:vocabulary_learning/controllers/bottom_tab_controller.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
@@ -12,7 +11,8 @@ import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_deatail.dart';
 import 'package:vocabulary_learning/screens/home/home_screen.dart';
 import 'package:vocabulary_learning/screens/home/index.dart';
-import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
+import 'package:vocabulary_learning/screens/home/topic/learning/learning_screen.dart';
+import 'package:vocabulary_learning/screens/home/topic/topic_screen.dart';
 
 import 'colors.dart';
 
@@ -24,7 +24,7 @@ Future<void> main() async {
       appId: "1:954274166254:android:2d20ac29e61ccda3034aff",
       messagingSenderId: "954274166254",
       projectId: "flutter-todo-b6ad9",
-       storageBucket: "flutter-todo-b6ad9.appspot.com",
+      storageBucket: "flutter-todo-b6ad9.appspot.com",
     ),
   ).then((value) {
     Get.put(AuthController());
@@ -38,8 +38,8 @@ Future<void> main() async {
 class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+    return const Scaffold(
+      body: const Center(child: CircularProgressIndicator()),
     );
   }
 }
@@ -56,8 +56,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final flashCardController =
-    //     Get.put<FlashCardController>(FlashCardController());
+    final flashCardController =
+        Get.put<FlashCardController>(FlashCardController());
     return GetMaterialApp(
         title: 'English Vobabulary',
         debugShowCheckedModeBanner: false,
