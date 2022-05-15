@@ -1,12 +1,14 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
+import 'package:vocabulary_learning/screens/save/SaveController.dart';
 
 class VocabFlashcardItem extends StatelessWidget {
   final Vocabulary vocabulary;
-  const VocabFlashcardItem({Key? key, required this.vocabulary})
-      : super(key: key);
+  final SaveController saveController = Get.put(SaveController());
+  VocabFlashcardItem({Key? key, required this.vocabulary}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +141,9 @@ class VocabFlashcardItem extends StatelessWidget {
               highlightColor: Colors.lightGreen.shade800,
               icon: const Icon(Icons.favorite_border_outlined,
                   color: Color.fromARGB(255, 255, 146, 95), size: 28),
-              onPressed: () {},
+              onPressed: () {
+                saveController.onPressSave(vocabulary.id.toString());
+              },
             ),
             const Text(
               "Save",
