@@ -4,7 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/models/learning.dart';
+import 'package:vocabulary_learning/screens/grammar/score_screen.dart';
 import 'package:vocabulary_learning/screens/home/topic/learning/learning_screen.dart';
+import 'package:vocabulary_learning/screens/home/topic/learning/result_screen.dart';
 
 class LearningController extends GetxController
     with SingleGetTickerProviderMixin {
@@ -12,6 +14,7 @@ class LearningController extends GetxController
   TopicController topicController = Get.put(TopicController());
   String learningCollection = "learning";
   RxInt currentPage = 1.obs;
+  RxInt correctAnswer = 0.obs;
 
   late RxInt questionNumber = _learnings.length.obs;
 
@@ -23,7 +26,7 @@ class LearningController extends GetxController
 
   Animation get animation => _animation;
 
-  late PageController _pageController;
+  late PageController _pageController = PageController();
   PageController get pageController => _pageController;
 
   void swipePage(int index) {
@@ -51,9 +54,8 @@ class LearningController extends GetxController
     _learnings
         .bindStream(getLearningPerTopic(topicController.topicSelected.id));
     // _learnings = [].obs as RxList<Learning>;
-    _pageController = PageController();
+
     questionNumber = _learnings.length.obs;
-    print(_learnings.length);
     super.onInit();
     update();
   }
@@ -66,6 +68,7 @@ class LearningController extends GetxController
 
   void resetPage() {
     currentPage = 1.obs;
+    correctAnswer = 0.obs;
   }
 
   Stream<List<Learning>> getLearningPerTopic(String id) => firebaseFirestore
@@ -76,29 +79,13 @@ class LearningController extends GetxController
           query.docs.map((item) => Learning.fromMap(item.data())).toList());
 
   void nextQuestion() {
-    // if (_questionNumber.value != _learnings.length) {
-    // _animationController =
-    //     AnimationController(duration: Duration(seconds: 60), vsync: this);
-    // _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
-    //   ..addListener(() {
-    //     // update like setState
-    //     update();
-    //   });
-
-    // // start our animation
-    // // Once 60s is completed go to the next qn
-    // _animationController.forward().whenComplete(nextQuestion);
-    // _isAnswered = false;
-    print(currentPage.value.toString());
-
-    if (currentPage < questionNumber.value) {
+    if (currentPage < learnings.length) {
       _pageController.nextPage(
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeInCubic);
-      currentPage = currentPage + 1;
+      currentPage++;
+      update();
     }
-
-    print(currentPage.value.toString());
 
     // Reset the counter
     // _animationController.reset();
@@ -109,12 +96,25 @@ class LearningController extends GetxController
     // } else {
   }
 
+  void finishLearning() {
+    currentPage = 1.obs;
+    Get.to(ResultLearningScreen());
+  }
+
+  void switchPage(context) {
+    Future.delayed(const Duration(seconds: 3), () {
+      nextQuestion();
+      Navigator.pop(context);
+    });
+  }
+
   void previousPage() {
     if (currentPage > 1) {
       _pageController.previousPage(
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeInOutCubic);
       currentPage = currentPage - 1;
+      update();
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/customSnackBar.dart';
 import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
+import 'package:vocabulary_learning/controllers/game_controller.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
@@ -14,6 +15,7 @@ import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_background.dart';
 import 'package:vocabulary_learning/screens/home/topic/components/navigation_button.dart';
 import 'package:vocabulary_learning/screens/home/topic/components/vocabulary_flashcard_item.dart';
+import 'package:vocabulary_learning/screens/home/topic/game/game_screen.dart';
 
 class TopicScreen extends StatelessWidget {
   // final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
@@ -26,6 +28,8 @@ class TopicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final learningCtrl = Get.put<LearningController>(LearningController());
+    final gameCtrl = Get.put<GameController>(GameController());
+
     final size = MediaQuery.of(context).size;
     flashCardController.setVocabularies(vocabularies);
     return TopicBackground(
@@ -90,7 +94,7 @@ class TopicScreen extends StatelessWidget {
                 text: 'Game',
                 background: const Color(0xffFAFC95),
                 onClick: () {
-                  Get.to(GrammarAllScreen());
+                  gameCtrl.goToGameScreen();
                 }),
             const SizedBox(
               height: 12,
