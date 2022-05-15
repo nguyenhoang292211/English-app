@@ -23,4 +23,15 @@ class UserModel {
     image = snapshot[IMAGE];
     savedVocabs = snapshot[SAVE_VOCABS];
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'image': image,
+      'password': password,
+      'saved-vocabs': savedVocabs,
+    };
+  }
 }
