@@ -4,12 +4,13 @@ import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/home_screen.dart';
 import 'package:vocabulary_learning/screens/profile/profile_screen.dart';
+import 'package:vocabulary_learning/screens/save/SaveScreen.dart';
 
 class BottomTabController extends GetxController {
   var currentTabIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    FlashCard(),
+    SaveScreen(),
     ProfileScreen()
   ];
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/models/grammar.dart';
 import 'package:vocabulary_learning/models/question_grammar.dart';
@@ -37,13 +36,14 @@ class GrammarController extends GetxController {
       firebaseFirestore.collection(collectionGrammar).snapshots().map((query) =>
           query.docs.map((item) => Grammar.fromMap(item.data())).toList());
 
-  Stream<List<QuestionGrammar>> getListQuestionGrammar(Grammar grammar) => firebaseFirestore
-      .collection(collectionQuestion)
-      .where("id", whereIn: grammar.questions)
-      .snapshots()
-      .map((query) => query.docs
-          .map((item) => QuestionGrammar.fromMap(item.data()))
-          .toList());
+  Stream<List<QuestionGrammar>> getListQuestionGrammar(Grammar grammar) =>
+      firebaseFirestore
+          .collection(collectionQuestion)
+          .where("id", whereIn: grammar.questions)
+          .snapshots()
+          .map((query) => query.docs
+              .map((item) => QuestionGrammar.fromMap(item.data()))
+              .toList());
 
   void searchGrammar(String textSearch) {
     List<Grammar> lTemp = [];
