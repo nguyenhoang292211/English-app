@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +5,6 @@ import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/main_button.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
-import 'package:vocabulary_learning/screens/home/topic/topic_screen.dart';
 
 class ResultLearningScreen extends StatelessWidget {
   ResultLearningScreen({Key? key}) : super(key: key);

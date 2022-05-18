@@ -18,6 +18,16 @@ class VocabFlashcardItem extends StatelessWidget {
     );
   }
 
+  Icon getSaveIcon() {
+    if (saveController.isSave(vocabulary.id.toString()) == true)
+      return Icon(Icons.favorite_rounded,
+          color: Color.fromARGB(255, 255, 146, 95), size: 28);
+    else {
+      return Icon(Icons.favorite_border_outlined,
+          color: Color.fromARGB(255, 255, 146, 95), size: 28);
+    }
+  }
+
   Container backSide() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -135,15 +145,21 @@ class VocabFlashcardItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            IconButton(
-              iconSize: 24,
-              color: Colors.blueGrey.shade200,
-              highlightColor: Colors.lightGreen.shade800,
-              icon: const Icon(Icons.favorite_border_outlined,
-                  color: Color.fromARGB(255, 255, 146, 95), size: 28),
-              onPressed: () {
-                saveController.onPressSave(vocabulary.id.toString());
-              },
+            Obx(
+              () => IconButton(
+                iconSize: 24,
+                color: Colors.blueGrey.shade200,
+                highlightColor: Colors.lightGreen.shade800,
+                icon: Icon(
+                    (saveController.isSave(vocabulary.id.toString()) == true)
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_outlined,
+                    color: Color.fromARGB(255, 255, 146, 95),
+                    size: 28),
+                onPressed: () {
+                  saveController.onPressSave(vocabulary.id.toString());
+                },
+              ),
             ),
             const Text(
               "Save",

@@ -1,11 +1,6 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
-import 'package:vocabulary_learning/screens/flashCard/flashcard.dart';
-import 'package:vocabulary_learning/screens/flashCard/result_screen.dart';
-import 'package:vocabulary_learning/utils/showLoading.dart';
 
 enum CardState { empty, studyAgain, gotIt }
 
@@ -14,7 +9,7 @@ class FlashCardController extends GetxController {
   RxList<Vocabulary> listVocabulary = RxList<Vocabulary>();
   RxList<Vocabulary> listSelectedCard = RxList<Vocabulary>();
   RxList<CardState> listState = RxList<CardState>([]);
-   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   var currentIndex = 0.obs;
   var quantityStudyAgainWord = 0.obs;
 

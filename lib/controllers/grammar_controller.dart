@@ -12,8 +12,8 @@ class GrammarController extends GetxController {
   RxList<Grammar> grammars = RxList<Grammar>([]);
   RxList<Grammar> grammarsSearch = RxList<Grammar>([]);
 
-  Grammar _grammarSelected = Grammar();
-  Grammar get grammarSelected => this._grammarSelected;
+  Rx<Grammar> _grammarSelected = Grammar().obs;
+  Rx<Grammar> get grammarSelected => this._grammarSelected;
 
   String collectionGrammar = "grammar";
   String collectionQuestion = "QuestionGrammar";
@@ -60,14 +60,18 @@ class GrammarController extends GetxController {
   RxList<QuestionGrammar> get lQuestionGrammar => this._lQuestionGrammar;
 
   void goToDetailGrammar(Grammar grammar) {
-    _grammarSelected = grammar;
-    print("_grammarSelected: ${_grammarSelected.title.toString()}");
+    _grammarSelected.value = grammar;
+    print("_grammarSelected: ${_grammarSelected.value.title.toString()}");
     getAllQuestionBySelectedGrammar(grammar);
-    Get.to(GrammarDetail());
+    update();
+    Get.to(GrammarDetail(
+      grammar: grammar,
+    ));
   }
 
   Grammar getSelected() {
-    return _grammarSelected;
+    update();
+    return _grammarSelected.value;
   }
 
   void getAllQuestionBySelectedGrammar(Grammar grammar) {

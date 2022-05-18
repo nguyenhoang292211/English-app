@@ -11,7 +11,6 @@ class SaveScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return GetBuilder<SaveController>(
         init: SaveController(),
         builder: (saveController) {
@@ -20,7 +19,7 @@ class SaveScreen extends StatelessWidget {
               () => HeaderSave(
                 numberTopics: '5',
                 numberWords:
-                    "${saveController.userModel.value.savedVocabs?.length ?? 0}",
+                    "${saveController.userModel.value.savedVocabs != null ? saveController.userModel.value.savedVocabs!.length : 0}",
               ),
             ),
             const SizedBox(
