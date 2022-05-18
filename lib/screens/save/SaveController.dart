@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +19,7 @@ class SaveController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
     _initializeUserModel(userCurrent['id']);
     update();
   }
@@ -29,18 +27,24 @@ class SaveController extends GetxController {
   @override
   onReady() {
     super.onReady();
+    userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
     _initializeUserModel(userCurrent['id']);
     update();
   }
 
   void onPressSave(String vocabId) {
-    print(vocabId);
     UserModel userItem = userModel.value;
     List<dynamic> saves = userModel.value.savedVocabs!.toList();
-    saves!.add(vocabId);
+    !saves.contains(vocabId) ? saves.add(vocabId) : saves.remove(vocabId);
     userItem.savedVocabs = saves;
     saveToVocabulary(userItem);
     update();
+  }
+
+  bool isSave(String vocabId) {
+    List<dynamic> saves = userModel.value.savedVocabs!.toList();
+    update();
+    return saves.contains(vocabId) ? true : false;
   }
 
   void saveToVocabulary(UserModel userItem) {
@@ -55,7 +59,6 @@ class SaveController extends GetxController {
   }
 
   Stream<List<Vocabulary>> getListVocabulary(List<dynamic>? saves) {
-    print("save: ${saves}");
     return firebaseFirestore
         .collection(COLECTION.VOCABULARY)
         .where("id", whereIn: saves)

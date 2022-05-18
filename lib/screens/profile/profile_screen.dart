@@ -1,23 +1,23 @@
 import 'dart:io';
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/constants/firebase.dart';
 import 'package:vocabulary_learning/models/user.dart';
-import 'package:intl/intl.dart';
-import 'package:ndialog/ndialog.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:math';
-
-import 'package:vocabulary_learning/screens/home/topic/components/navigation_button.dart';
+import 'package:vocabulary_learning/screens/score/ScoreAllScreen.dart';
 
 String getRandomString(int len) {
   var r = Random();
-  return String.fromCharCodes(List.generate(len, (index) => r.nextInt(33) + 89));
+  return String.fromCharCodes(
+      List.generate(len, (index) => r.nextInt(33) + 89));
 }
 
 class ProfileScreen extends StatefulWidget {
@@ -54,7 +54,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Container(
         width: size.width,
         height: size.height,
-        padding: const EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
         decoration: const BoxDecoration(
             gradient: LinearGradient(
                 colors: [
@@ -99,7 +100,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       backgroundImage: showLocalFile
                           ? FileImage(imageFile!) as ImageProvider
                           : userModel!.image == ''
-                              ? const NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGrQoGh518HulzrSYOTee8UO517D_j6h4AYQ&usqp=CAU')
+                              ? const NetworkImage(
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGrQoGh518HulzrSYOTee8UO517D_j6h4AYQ&usqp=CAU')
                               : NetworkImage(userModel?.image ?? " ")),
                 ),
               ),
@@ -171,7 +173,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             image: "asset/images/grade.png",
             text: "My score",
             background: kGreenBold,
-            onClick: () {},
+            onClick: () {
+              Get.to(ScoreAllScreen());
+            },
           ),
           const SizedBox(
             height: 16,
@@ -218,7 +222,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       var fileName = (getRandomString(10)) + '.jpg';
 
-      UploadTask uploadTask = FirebaseStorage.instance.ref().child('profile_images').child(fileName).putFile(imageFile!);
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref()
+          .child('profile_images')
+          .child(fileName)
+          .putFile(imageFile!);
 
       TaskSnapshot snapshot = await uploadTask;
 
@@ -297,7 +305,13 @@ class ProfileItem extends StatelessWidget {
   final String text;
   final Color background;
   final Function onClick;
-  const ProfileItem({Key? key, required this.image, required this.text, required this.background, required this.onClick}) : super(key: key);
+  const ProfileItem(
+      {Key? key,
+      required this.image,
+      required this.text,
+      required this.background,
+      required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -307,8 +321,15 @@ class ProfileItem extends StatelessWidget {
         margin: const EdgeInsets.only(left: 5, right: 5),
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        decoration:
-            BoxDecoration(color: background, borderRadius: BorderRadius.circular(15), boxShadow: [BoxShadow(blurRadius: 7, color: Colors.grey.shade500.withOpacity(0.4), offset: const Offset(4, 4))]),
+        decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 7,
+                  color: Colors.grey.shade500.withOpacity(0.4),
+                  offset: const Offset(4, 4))
+            ]),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -327,7 +348,11 @@ class ProfileItem extends StatelessWidget {
                 child: Text(
                   text,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: kblack, fontSize: 14, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      color: kblack,
+                      fontSize: 14,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             )

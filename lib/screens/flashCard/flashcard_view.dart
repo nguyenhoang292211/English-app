@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
@@ -44,7 +43,7 @@ class FlashCardViewBackSide extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                 child: Text(
                   vocabulary.word.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: kgrayTitleButton,
                     fontSize: 16,
                     fontFamily: 'Poppins',
@@ -57,7 +56,7 @@ class FlashCardViewBackSide extends StatelessWidget {
               const SizedBox(
                 width: 50,
                 height: 2,
-                child: const ColoredBox(color: kConfirmText),
+                child: ColoredBox(color: kConfirmText),
               ),
               const SizedBox(
                 height: 5,
@@ -66,7 +65,7 @@ class FlashCardViewBackSide extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                 child: Text(
                   vocabulary.definition.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: kgrayTitleButton,
                     fontSize: 16,
                     fontFamily: 'Poppins',
@@ -94,7 +93,7 @@ class FlashCardViewBackSide extends StatelessWidget {
                 child: (state == CardState.studyAgain)
                     ? renderStudyAgainLabel()
                     : renderGotItLabel())
-            : SizedBox(
+            : const SizedBox(
                 height: 2,
               )
       ],
@@ -129,7 +128,7 @@ class FlashCardViewFrontSide extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
             child: Text(
               vocabulary.word.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 color: kred,
                 fontSize: 30,
                 fontFamily: 'Poppins',
@@ -154,7 +153,7 @@ class FlashCardViewFrontSide extends StatelessWidget {
               ),
               Text(
                 vocabulary.spelling.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color.fromARGB(255, 41, 38, 38),
                   fontSize: 18,
                   fontFamily: 'Poppins',
@@ -172,8 +171,8 @@ class FlashCardViewFrontSide extends StatelessWidget {
               vocabulary.translatedDefinition.toString(),
               textAlign: TextAlign.center,
               maxLines: 4,
-              style:
-                  TextStyle(color: kblack, fontFamily: 'Poppins', fontSize: 22),
+              style: const TextStyle(
+                  color: kblack, fontFamily: 'Poppins', fontSize: 22),
             ),
           ),
           Row(

@@ -85,6 +85,7 @@ class ScoreScreen extends StatelessWidget {
             child: ButtonDetail(
               title: "Finish",
               onPress: () {
+                Get.deleteAll();
                 Get.to(const GrammarAllScreen());
               },
             ))

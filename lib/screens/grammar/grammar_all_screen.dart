@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/grammar_controller.dart';
 import 'package:vocabulary_learning/models/grammar.dart';
-import 'package:vocabulary_learning/models/question_grammar.dart';
 import 'package:vocabulary_learning/screens/grammar/components/SearchComponent.dart';
 import 'package:vocabulary_learning/screens/grammar/components/grammar_component.dart';
 import 'package:vocabulary_learning/screens/grammar/components/winner_component.dart';
+import 'package:vocabulary_learning/screens/home/index.dart';
 
 class GrammarAllScreen extends StatefulWidget {
   const GrammarAllScreen({Key? key}) : super(key: key);
@@ -36,31 +36,29 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
                 return ListView(
                   children: [
                     Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(8, 2, 8, 8),
-                                    child: IconButton(
-                                      icon: const Icon(Icons.arrow_back_ios,
-                                          color: kmainBrown),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                    ),
-                                  ),
-                                  const Text("Grammar",
-                                      style: TextStyle(
-                                        color: kmainBrown,
-                                        fontSize: 30,
-                                        fontFamily: "PoetsenOne",
-                                      ),
-                                      textAlign: TextAlign.center),
-                                  SizedBox(
-                                    height: 20,
-                                  )
-                                ],
-                              ),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back_ios,
+                                color: kmainBrown),
+                            onPressed: () => Get.off(HomeIndexScreen()),
+                          ),
+                        ),
+                        const Text("Grammar",
+                            style: TextStyle(
+                              color: kmainBrown,
+                              fontSize: 30,
+                              fontFamily: "PoetsenOne",
+                            ),
+                            textAlign: TextAlign.center),
+                        SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    ),
                     WinnerComponent(size: size),
                     const SizedBox(
                       height: 20,
@@ -89,19 +87,6 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
                                 });
                           },
                         )),
-                    // GridView.builder(
-                    //   shrinkWrap: true,
-                    //   physics: ScrollPhysics(),
-                    //   itemCount: gController.grammars.length,
-                    //   gridDelegate:
-                    //       const SliverGridDelegateWithFixedCrossAxisCount(
-                    //           crossAxisCount: 2,
-                    //           mainAxisSpacing: 20,
-                    //           crossAxisSpacing: 20),
-                    //   itemBuilder: (BuildContext context, int index) {
-                    //     return GrammarComponent(grammar: gController.grammars[index], color: gController.getColorByIndex(index), onPress: () {gController.goToDetailGrammar(gController.grammars[index]);});
-                    //   },
-                    // )
                   ],
                 );
               },

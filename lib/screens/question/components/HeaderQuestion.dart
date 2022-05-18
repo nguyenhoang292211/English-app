@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 
 class HeaderQuestion extends StatelessWidget {
   const HeaderQuestion({Key? key}) : super(key: key);
@@ -18,7 +19,8 @@ class HeaderQuestion extends StatelessWidget {
         children: [
           InkWell(
               onTap: () {
-                Get.back();
+                Get.deleteAll();
+                Get.off(GrammarAllScreen());
               },
               child:
                   const Image(image: AssetImage("asset/images/ArrowLeft.png"))),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/constants/font.dart';
 import 'package:vocabulary_learning/controllers/grammar_controller.dart';
 import 'package:vocabulary_learning/models/question_grammar.dart';
 import 'package:vocabulary_learning/screens/grammar/score_screen.dart';
@@ -38,7 +37,7 @@ class QuestionGrammarController extends GetxController
   @override
   void onInit() {
     _lQuestion.bindStream(grammarController
-        .getListQuestionGrammar(grammarController.grammarSelected));
+        .getListQuestionGrammar(grammarController.grammarSelected.value));
     _animationController =
         AnimationController(duration: Duration(seconds: 60), vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
@@ -54,7 +53,8 @@ class QuestionGrammarController extends GetxController
   onReady() {
     super.onReady();
     _lQuestion.bindStream(grammarController
-        .getListQuestionGrammar(grammarController.grammarSelected));
+        .getListQuestionGrammar(grammarController.grammarSelected.value));
+    update();
   }
 
   @override
@@ -75,43 +75,49 @@ class QuestionGrammarController extends GetxController
     _selectAns = selectIndex;
 
     if (_correctAns == _selectAns) _numOfCorrectAns++;
-    // Get.defaultDialog(
-    //           titleStyle: TextStyle(fontSize: 0),
-    //           backgroundColor: kModalError,
-    //           // titleStyle: TextStyle(color: Colors.white),
-    //           // middleTextStyle: TextStyle(color: Colors.white),
-    //           // textConfirm: "Confirm",
-    //           // textCancel: "Cancel",
-    //           // cancelTextColor: Colors.white,
-    //           // confirmTextColor: Colors.white,
-    //           // buttonColor: Colors.red,
-    //           //cancel: Text("No", style: TextStyle(fontFamily: "PoetsenOne", fontSize: 26),),
-    //           confirm: Text("Yes", style: TextStyle(fontFamily: "PoetsenOne", fontSize: 26, color: kConfirmText),),
+    Get.defaultDialog(
+        title: "",
+        titleStyle: TextStyle(fontSize: 0),
+        backgroundColor: kModalError,
+        confirm: InkWell(
+          onTap: () {
+            Get.back(result: true);
+          },
+          child: Text(
+            "Yes",
+            style: TextStyle(
+                fontFamily: "PoetsenOne", fontSize: 26, color: kConfirmText),
+          ),
+        ),
+        barrierDismissible: true,
+        radius: 15,
+        content: Column(
+          children: [
+            Text(
+                "${(_correctAns == _selectAns) ? "Great!! You so good!" : "Opp!, You are wrong!!"}",
+                style: TextStyle(
+                    color: kred, fontFamily: kPoetsenOne, fontSize: 25))
+          ],
+        )).then((value) => {
+          if (value)
+            {
+              Future.delayed(Duration(seconds: 3), () {
+                _isAnswer = false;
+                if (_questionNumber.value < lQuestion.length) {
+                  _pageController.nextPage(
+                      duration: Duration(milliseconds: 250),
+                      curve: Curves.ease);
+                  _animationController.reset();
 
-    //           barrierDismissible: true,
-    //           radius: 20,
-    //           content: Column(
-    //             children: [
-    //               Container(child:Text("Hello 1")),
-    //               Container(child:Text("Hello 2")),
-    //               Container(child:Text("Hello 3")),
-    //             ],
-    //           )
-    //         );
+                  _animationController.forward();
+                } else {
+                  Get.off(ScoreScreen());
+                }
+              })
+            }
+        });
     _animationController.stop();
     update();
-
-    Future.delayed(Duration(seconds: 3), () {
-      _isAnswer = false;
-      if (_questionNumber.value < lQuestion.length) {
-        _pageController.nextPage(
-            duration: Duration(milliseconds: 250), curve: Curves.ease);
-        _animationController.reset();
-
-        _animationController.forward();
-      } else
-        Get.to(ScoreScreen());
-    });
   }
 
   void nextQuestion() {
