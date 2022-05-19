@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/home_screen.dart';
+import 'package:vocabulary_learning/screens/my_topic/my_topic_screen.dart';
 import 'package:vocabulary_learning/screens/profile/profile_screen.dart';
 import 'package:vocabulary_learning/screens/save/SaveScreen.dart';
 
@@ -11,6 +12,7 @@ class BottomTabController extends GetxController {
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SaveScreen(),
+    MyTopicScreen(),
     ProfileScreen()
   ];
 
