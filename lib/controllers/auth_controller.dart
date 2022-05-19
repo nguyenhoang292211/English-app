@@ -10,6 +10,8 @@ import 'package:vocabulary_learning/constants/storage.dart';
 import 'package:vocabulary_learning/models/user.dart';
 import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/screens/home/index.dart';
+import 'package:vocabulary_learning/screens/my_topic/create_topic_screen.dart';
+import 'package:vocabulary_learning/screens/my_topic/my_topic_screen.dart';
 import 'package:vocabulary_learning/screens/onboard/onboard_screen.dart';
 import 'package:vocabulary_learning/utils/showLoading.dart';
 import 'package:vocabulary_learning/utils/storeData.dart';
@@ -45,7 +47,7 @@ class AuthController extends GetxController {
       _initializeUserModel(_userId);
       Get.offAll(() => HomeIndexScreen());
     } else {
-      Get.offAll(() => SigninScreen());
+      Get.offAll(() => CreateTopicScreen());
     }
   }
 

@@ -116,6 +116,20 @@ class MyApp extends StatelessWidget {
                 fontSize: 16),
           ),
         ),
+        SalomonBottomBarItem(
+          icon: const Icon(
+            Icons.pages_rounded,
+            size: 30,
+            color: ksecondGradientBack,
+          ),
+          title: const Text(
+            "My topic",
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                fontSize: 16),
+          ),
+        ),
 
         /// Profile
         SalomonBottomBarItem(
