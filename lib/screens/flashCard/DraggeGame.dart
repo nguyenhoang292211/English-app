@@ -16,7 +16,7 @@ class DraggGame extends StatefulWidget {
 }
 
 class _DraggGameState extends State<DraggGame> {
-  final flashCardCtrl = Get.put(FlashCardController());
+  final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
   late List<ItemModel> items = [];
   late List<ItemModel> items2=[];
   late int score;
@@ -41,11 +41,6 @@ class _DraggGameState extends State<DraggGame> {
     }
     items2 = [...items];
     items2.shuffle();
-    for(int i=0; i<5; i++){
-      print(items2[i]);
-       print(items[i]);
-    }
- 
   }
   
   @override
