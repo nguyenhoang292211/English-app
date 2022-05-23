@@ -10,11 +10,11 @@ class ContentComponent extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: 175,
           width: size.width,
         ),
-        Positioned(
+        const Positioned(
           right: 0,
           top: 0,
           bottom: 0,
@@ -32,7 +32,7 @@ class ContentComponent extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: kGreenLight, borderRadius: BorderRadius.circular(10)),
-              child: Text(
+              child: const Text(
                 "The sercet of the getting ahead is getting started",
                 style: TextStyle(
                   fontFamily: kPoetsenOne,

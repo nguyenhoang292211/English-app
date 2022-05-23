@@ -1,42 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:vocabulary_learning/colors.dart';
-import 'package:vocabulary_learning/screens/question/question_screen.dart';
 
 class ButtonDetail extends StatelessWidget {
-  const ButtonDetail({Key? key, required this.title, required this.onPress}) : super(key: key);
+  const ButtonDetail(
+      {Key? key,
+      required this.title,
+      required this.onPress,
+      required this.color})
+      : super(key: key);
   final String title;
   final Function onPress;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: () {onPress();},
+      onTap: () {
+        onPress();
+      },
       child: Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
-           
             child: Container(
-              height: size.height*0.1,
+              height: size.height * 0.1,
               width: size.width,
               decoration: BoxDecoration(
-                color: kmainBrown,
+                color: color,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                      color: kmainBrown.withOpacity(0.5),
+                      color: color.withOpacity(0.5),
                       spreadRadius: 1.0,
                       blurRadius: 1.0,
-                      offset: Offset(3.0, 0)),
+                      offset: const Offset(3.0, 0)),
                 ],
               ),
             ),
           ),
-         
-          Text(this.title, style: TextStyle(
-            fontFamily: "PoetsenOne", fontSize: 28, color: Colors.white
-          ),)
+          Text(
+            title,
+            style: const TextStyle(
+                fontFamily: "PoetsenOne", fontSize: 28, color: Colors.white),
+          )
         ],
       ),
     );

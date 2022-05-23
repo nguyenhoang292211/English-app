@@ -1,34 +1,39 @@
-
-class ScoreGrammar {
+class ScoreGame {
   String? id;
-  String? idGrammar;
+  String? idContest;
+  String? title;
   String? idUser;
-  int? nCorrestQuestion;
-  int? nQuestion;
+  String? gameType;
+  List<dynamic>? questions;
+  List<dynamic>? corrects;
   DateTime? updatedAt;
   DateTime? createdAt;
 
-  ScoreGrammar({
-    this.id,
-    this.idGrammar,
-    this.idUser,
-    this.nCorrestQuestion,
-    this.nQuestion,
-    this.createdAt,
-    this.updatedAt
-  });
+  ScoreGame(
+      {this.id,
+      this.idContest,
+      this.title,
+      this.idUser,
+      this.questions,
+      this.corrects,
+      this.gameType,
+      this.createdAt,
+      this.updatedAt});
 
-   //data from server
-  factory ScoreGrammar.fromMap(map) {
-    return ScoreGrammar(
-      id: map['id'],
-       idGrammar : map['idGrammar'],
-      idUser: map['idUser'],
-      nCorrestQuestion: map['nCorrestQuestion'],
-      nQuestion: map['nQuestion'],
-      createdAt: map['createdAt'],
-      updatedAt: map['updatedAt']
-    );
+  //data from server
+  factory ScoreGame.fromMap(map) {
+    DateTime created = map['createdAt'].toDate();
+    DateTime updated = map['updatedAt'].toDate();
+    return ScoreGame(
+        id: map['id'],
+        idContest: map['idContest'],
+        idUser: map['idUser'],
+        title: map['title'],
+        questions: map['questions'],
+        corrects: map['corrects'],
+        gameType: map['gameType'],
+        createdAt: created,
+        updatedAt: updated);
   }
 
   //sending data from our server
@@ -36,35 +41,40 @@ class ScoreGrammar {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'idGrammar': idGrammar,
+      'idContest': idContest,
       'idUser': idUser,
-      'nCorrestQuestion': nCorrestQuestion,
-      'nQuestion': nQuestion,
+      'title': title,
+      'questions': questions,
+      'gameType': gameType,
+      'corrects': corrects,
       'createdAt': createdAt,
       'updatedAt': updatedAt
     };
   }
 
-  ScoreGrammar.fromJson(Map<String, dynamic> json) {
+  ScoreGame.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    idGrammar = json['idGrammar'];
+    idContest = json['idContest'];
     idUser = json['idUser'];
-    nCorrestQuestion = json['nCorrestQuestion'];
-    nQuestion = json['nQuestion'];
+    title = json['title'];
+    questions = json['questions'];
+    gameType = json['gameType'];
+    corrects = json['corrects'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['idGrammar'] = this.idGrammar;
-    data['idUser'] = this.idUser;
-    data['nCorrestQuestion'] = this.nCorrestQuestion;
-    data['nQuestion'] = this.nQuestion;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
+    data['id'] = id;
+    data['idContest'] = idContest;
+    data['idUser'] = idUser;
+    data['title'] = title;
+    data['questions'] = questions;
+    data['gameType'] = gameType;
+    data['corrects'] = corrects;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
     return data;
   }
 }

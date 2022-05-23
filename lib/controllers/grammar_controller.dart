@@ -61,7 +61,6 @@ class GrammarController extends GetxController {
 
   void goToDetailGrammar(Grammar grammar) {
     _grammarSelected.value = grammar;
-    print("_grammarSelected: ${_grammarSelected.value.title.toString()}");
     getAllQuestionBySelectedGrammar(grammar);
     update();
     Get.to(GrammarDetail(
