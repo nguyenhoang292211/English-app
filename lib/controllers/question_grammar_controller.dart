@@ -1,13 +1,24 @@
+// ignore_for_file: invalid_use_of_protected_member
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/constants/font.dart';
+import 'package:vocabulary_learning/constants/storage.dart';
+import 'package:vocabulary_learning/constants/type.dart';
 import 'package:vocabulary_learning/controllers/grammar_controller.dart';
 import 'package:vocabulary_learning/models/question_grammar.dart';
+import 'package:vocabulary_learning/models/score_grammar.dart';
 import 'package:vocabulary_learning/screens/grammar/score_screen.dart';
+import 'package:vocabulary_learning/screens/score/score_all_controller.dart';
+import 'package:vocabulary_learning/utils/storeData.dart';
 
 class QuestionGrammarController extends GetxController
     with SingleGetTickerProviderMixin {
+  Map<String, dynamic> userCurrent =
+      json.decode(getItemFromLocalStorage(STORAGE.USER));
+  ScoreAllController scoreAllController = Get.put(ScoreAllController());
   late AnimationController _animationController;
   late Animation _animation;
   Animation get animation => this._animation;
@@ -29,6 +40,11 @@ class QuestionGrammarController extends GetxController
   int _numOfCorrectAns = 0;
   int get numOfCorrectAns => this._numOfCorrectAns;
 
+  List<String> _listQuesionToScore = [];
+  List<String> get listQuesionToScore => this._listQuesionToScore;
+  List<bool> _listAnswerToScore = [];
+  List<bool> get listAnswerToScore => this._listAnswerToScore;
+
   late PageController _pageController;
   PageController get pageController => this._pageController;
 
@@ -39,7 +55,7 @@ class QuestionGrammarController extends GetxController
     _lQuestion.bindStream(grammarController
         .getListQuestionGrammar(grammarController.grammarSelected.value));
     _animationController =
-        AnimationController(duration: Duration(seconds: 60), vsync: this);
+        AnimationController(duration: const Duration(seconds: 60), vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
       ..addListener(() {
         update();
@@ -73,17 +89,26 @@ class QuestionGrammarController extends GetxController
     _isAnswer = true;
     _correctAns = question.answer!;
     _selectAns = selectIndex;
-
-    if (_correctAns == _selectAns) _numOfCorrectAns++;
+    if (lQuestion.value.indexOf(question) == 0) {
+      _listAnswerToScore = [];
+      _listQuesionToScore = [];
+    }
+    listQuesionToScore.add(question.question.toString());
+    if (_correctAns == _selectAns) {
+      _numOfCorrectAns++;
+      listAnswerToScore.add(true);
+    } else {
+      listAnswerToScore.add(false);
+    }
     Get.defaultDialog(
         title: "",
-        titleStyle: TextStyle(fontSize: 0),
+        titleStyle: const TextStyle(fontSize: 0),
         backgroundColor: kModalError,
         confirm: InkWell(
           onTap: () {
             Get.back(result: true);
           },
-          child: Text(
+          child: const Text(
             "Yes",
             style: TextStyle(
                 fontFamily: "PoetsenOne", fontSize: 26, color: kConfirmText),
@@ -94,24 +119,27 @@ class QuestionGrammarController extends GetxController
         content: Column(
           children: [
             Text(
-                "${(_correctAns == _selectAns) ? "Great!! You so good!" : "Opp!, You are wrong!!"}",
-                style: TextStyle(
+                (_correctAns == _selectAns)
+                    ? "Great!! You so good!"
+                    : "Opp!, You are wrong!!",
+                style: const TextStyle(
                     color: kred, fontFamily: kPoetsenOne, fontSize: 25))
           ],
         )).then((value) => {
           if (value)
             {
-              Future.delayed(Duration(seconds: 3), () {
+              Future.delayed(const Duration(seconds: 3), () {
                 _isAnswer = false;
                 if (_questionNumber.value < lQuestion.length) {
                   _pageController.nextPage(
-                      duration: Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 250),
                       curve: Curves.ease);
                   _animationController.reset();
 
                   _animationController.forward();
                 } else {
-                  Get.off(ScoreScreen());
+                  saveScoreGrammar();
+                  Get.off(const ScoreScreen());
                 }
               })
             }
@@ -120,11 +148,27 @@ class QuestionGrammarController extends GetxController
     update();
   }
 
+  void saveScoreGrammar() {
+    ScoreGame scoreGame = new ScoreGame(
+        idContest: this.grammarController.grammarSelected.value.id,
+        questions: listQuesionToScore,
+        title: this.grammarController.grammarSelected.value.title,
+        corrects: listAnswerToScore,
+        idUser: userCurrent['id'],
+        gameType: GAME_TYPE.GRAMMAR,
+        createdAt: new DateTime.now(),
+        updatedAt: new DateTime.now());
+    scoreAllController.saveToScore(scoreGame);
+    _listAnswerToScore = [];
+    _listQuesionToScore = [];
+    update();
+  }
+
   void nextQuestion() {
     if (_questionNumber.value != lQuestion.length) {
       _isAnswer = false;
       _pageController.nextPage(
-          duration: Duration(milliseconds: 250), curve: Curves.ease);
+          duration: const Duration(milliseconds: 250), curve: Curves.ease);
       _animationController.reset();
       _animationController.forward().whenComplete(nextQuestion);
     }

@@ -44,7 +44,7 @@ class GrammarDetail extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
-                        decoration: BoxDecoration(color: Colors.white),
+                        decoration: const BoxDecoration(color: Colors.white),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 30),
@@ -65,13 +65,14 @@ class GrammarDetail extends StatelessWidget {
                     child: ButtonDetail(
                       title: "Start test",
                       onPress: () {
-                        Get.to(QuestionScreen());
+                        Get.to(const QuestionScreen());
                       },
+                      color: kmainBrown,
                     )),
                 Positioned(
                   bottom: size.height * 0.05,
                   left: size.width * 0.05,
-                  child: Image(
+                  child: const Image(
                     image: AssetImage("./asset/images/fox_tree.png"),
                   ),
                 ),

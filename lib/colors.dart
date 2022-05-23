@@ -28,6 +28,7 @@ const kConfirmText = Color(0xFF04BF00);
 const kScoreScreen = Color(0xFF9EF16B);
 const kGreenFlashCard = Color(0xffAADB98);
 const kGreenLight = Color(0xffB7E9B9);
+const kBlueGray = Color(0xffC4D2DC);
 const kDefaultShadow = BoxShadow(
   offset: Offset(0, 15),
   blurRadius: 27,
@@ -39,3 +40,5 @@ const kYellowLight = Color(0xffE6DF63);
 const kGreenHightLight = Color(0xff67F0BE);
 const kGreenBold = Color(0xff29CD67);
 const kBlue = Color(0xff85F4FF);
+const kBlueLine = Color(0xff2FA6C2);
+const kRedBackground = Color(0xffF8C7BD);

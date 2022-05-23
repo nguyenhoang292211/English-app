@@ -10,15 +10,13 @@ class GrammarComponent extends StatelessWidget {
       : super(key: key);
 
   final Grammar grammar;
-  final Function onPress;
+  final VoidCallback onPress;
   final Color color;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        this.onPress();
-      },
+      onTap: onPress,
       child: Container(
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(8),

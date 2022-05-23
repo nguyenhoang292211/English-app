@@ -20,8 +20,8 @@ class QuestionScreen extends StatelessWidget {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              HeaderQuestion(),
-              ProcessBar(),
+              const HeaderQuestion(),
+              const ProcessBar(),
               Obx(
                 () => Expanded(
                   child: PageView.builder(

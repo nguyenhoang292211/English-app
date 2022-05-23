@@ -7,6 +7,7 @@ import 'package:vocabulary_learning/constants/storage.dart';
 import 'package:vocabulary_learning/models/user.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/utils/storeData.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SaveController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -33,29 +34,36 @@ class SaveController extends GetxController {
   }
 
   void onPressSave(String vocabId) {
+    _initializeUserModel(userCurrent['id']);
     UserModel userItem = userModel.value;
     List<dynamic> saves = userModel.value.savedVocabs!.toList();
-    !saves.contains(vocabId) ? saves.add(vocabId) : saves.remove(vocabId);
+    bool isExist = saves.contains(vocabId);
+    !isExist ? saves.add(vocabId) : saves.remove(vocabId);
     userItem.savedVocabs = saves;
-    saveToVocabulary(userItem);
+    print("onPress save");
     update();
+    saveToVocabulary(userItem, isExist);
   }
 
   bool isSave(String vocabId) {
     List<dynamic> saves = userModel.value.savedVocabs!.toList();
-    update();
     return saves.contains(vocabId) ? true : false;
   }
 
-  void saveToVocabulary(UserModel userItem) {
-    firebaseFirestore.collection(COLECTION.USER).doc(userCurrent['id']).set(
+  void saveToVocabulary(UserModel userItem, bool isUnSave) {
+    firebaseFirestore
+        .collection(COLECTION.USER)
+        .doc(userCurrent['id'])
+        .set(
           userItem.toMap(),
           SetOptions(
             merge: true,
           ),
-        );
+        )
+        .then((value) => Fluttertoast.showToast(
+            msg: isUnSave ? "Unsave success!" : "Save success!"));
     _initializeUserModel(userCurrent['id']);
-    update();
+    // update();
   }
 
   Stream<List<Vocabulary>> getListVocabulary(List<dynamic>? saves) {

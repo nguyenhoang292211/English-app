@@ -25,7 +25,7 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
     // GrammarController grammarController = Get.put(GrammarController());
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xFFE7FCE9),
+      backgroundColor: const Color(0xFFE7FCE9),
       body: SafeArea(
         // decoration: BoxDecoration(color: Color(0xFFE7FCE9)),
         child: Padding(
@@ -54,7 +54,7 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
                               fontFamily: "PoetsenOne",
                             ),
                             textAlign: TextAlign.center),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         )
                       ],
@@ -70,7 +70,7 @@ class _GrammarAllScreenState extends State<GrammarAllScreen> {
                     ),
                     Obx(() => GridView.builder(
                           shrinkWrap: true,
-                          physics: ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           itemCount: gController.grammarsSearch.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
