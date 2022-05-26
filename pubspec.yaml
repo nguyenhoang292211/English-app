@@ -49,6 +49,7 @@ dependencies:
   firebase_storage: ^10.2.15
   localstorage: ^4.0.0+1
   uuid: ^3.0.6
+  objectid: 2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/components/input_field.dart';
+import 'package:vocabulary_learning/controllers/my_topic_controller.dart';
+import 'package:vocabulary_learning/models/my_topic.dart';
+import 'package:vocabulary_learning/models/topic.dart';
 
 class CreateTopicScreen extends StatefulWidget {
-  CreateTopicScreen({Key? key}) : super(key: key);
-
-  @override
+  const CreateTopicScreen({Key? key}) : super(key: key);
   State<CreateTopicScreen> createState() => _CreateTopicScreenState();
 }
 
 class _CreateTopicScreenState extends State<CreateTopicScreen> {
+  late int vocabNum = 1;
+  late final Topic topicData;
+  final myTopicCtrl = Get.put<MyTopicController>(MyTopicController());
+
   final listColor = [
     const Color(0xffFFD6D6),
     const Color.fromARGB(255, 231, 116, 116),
@@ -19,6 +25,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
     const Color.fromARGB(255, 0, 255, 76),
     const Color.fromARGB(255, 79, 126, 255),
   ];
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -59,7 +66,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                     right: 0,
                     child: Image.asset(
                       'asset/images/note.png',
-                      height: 70,
+                      height: 60,
                       fit: BoxFit.fitHeight,
                     )),
               ]),
@@ -125,7 +132,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 10),
-                          height: 170,
+                          height: 150,
                           width: size.width * 0.9,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -214,7 +221,34 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                               ]),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Vocabularies",
+                              style: TextStyle(
+                                  fontFamily: "PoetsenOne",
+                                  fontSize: 22,
+                                  color: kmainBrown,
+                                  decoration: TextDecoration.none),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                myTopicCtrl.addMyVocab();
+                              },
+                              child: const Icon(
+                                Icons.add_circle,
+                                size: 35,
+                                color: kmainOrange,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
                         ),
                         Expanded(
                           flex: 1,
@@ -222,6 +256,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 10),
                               width: size.width * 0.9,
+                              height: size.height * 0.7,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: kwhite,
@@ -242,33 +277,16 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                                     )
                                   ]),
                               child: SingleChildScrollView(
-                                child: Column(children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        "Vocabularies",
-                                        style: TextStyle(
-                                            fontFamily: "PoetsenOne",
-                                            fontSize: 22,
-                                            color: kmainBrown,
-                                            decoration: TextDecoration.none),
-                                      ),
-                                      InkWell(
-                                        child: Icon(
-                                          Icons.add_circle,
-                                          size: 25,
-                                          color: kmainOrange,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  renderVocabItem()
-                                ]),
-                              )),
+                                  child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          myTopicCtrl.createdVocabs.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Text(myTopicCtrl
+                                            .createdVocabs[index].id);
+                                      }))),
                         )
                       ],
                     )),
@@ -280,47 +298,105 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
     );
   }
 
-  Widget renderVocabItem() {
+  Widget renderVocabItem(MyVocab item) {
     return Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.symmetric(vertical: 5),
-        decoration: const BoxDecoration(color: Color(0xffFCFFDF)),
+        decoration:
+            const BoxDecoration(color: Color.fromARGB(255, 255, 237, 217)),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
+              children: [
                 InkWell(
-                  child: Icon(
-                    Icons.pin_outlined,
+                  onTap: () {
+                    myTopicCtrl.removeMyVocab(item);
+                  },
+                  child: const Icon(
+                    Icons.delete_outline_rounded,
                     color: kredLight,
-                    size: 20,
+                    size: 22,
                   ),
                 )
               ],
             ),
-            Row(
-              children: const [
-                TextField(
-                  // maxLength: 40
-                  decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Word',
-                    // hintText: "Eg. Elephant",
-                    hintStyle: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Color.fromARGB(235, 178, 194, 194)),
-                    labelStyle: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: kfirstGradientBack),
-                  ),
+            const TextField(
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'Word',
+                // hintText: "Eg. Elephant",
+                hintStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(235, 178, 194, 194)),
+                labelStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                    color: kfirstGradientBack),
+              ),
+            ),
+            const TextField(
+              decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                labelText: 'Mean',
+                // hintText: "Eg. Elephant",
+                hintStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(235, 178, 194, 194)),
+                labelStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                    color: kfirstGradientBack),
+              ),
+            ),
+            Container(
+              width: 100,
+              child: const TextField(
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Type',
+                  // hintText: "Eg. Elephant",
+                  hintStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Color.fromARGB(235, 178, 194, 194)),
+                  labelStyle: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: kgrayTitleButton),
                 ),
-              ],
-            )
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const TextField(
+              maxLines: 3,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Translation',
+                // hintText: "Eg. Elephant",
+                hintStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Color.fromARGB(235, 178, 194, 194)),
+                labelStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: kfirstGradientBack),
+              ),
+            ),
           ],
         ));
   }

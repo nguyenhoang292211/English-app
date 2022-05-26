@@ -46,7 +46,7 @@ class MyTopicScreen extends StatelessWidget {
                       right: 0,
                       child: Image.asset(
                         'asset/images/note.png',
-                        height: 70,
+                        height: 60,
                         fit: BoxFit.fitHeight,
                       )),
                 ]),
