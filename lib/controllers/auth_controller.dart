@@ -47,7 +47,7 @@ class AuthController extends GetxController {
       _initializeUserModel(_userId);
       Get.offAll(() => HomeIndexScreen());
     } else {
-      Get.offAll(() => CreateTopicScreen());
+      Get.offAll(() => SigninScreen());
     }
   }
 

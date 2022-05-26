@@ -60,6 +60,20 @@ class HomeIndexScreen extends StatelessWidget {
                 fontSize: 16),
           ),
         ),
+        SalomonBottomBarItem(
+          icon: const Icon(
+            Icons.note_add_rounded,
+            size: 30,
+            color: ksecondGradientBack,
+          ),
+          title: const Text(
+            "My Topic",
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                fontSize: 16),
+          ),
+        ),
 
         /// Profile
         SalomonBottomBarItem(

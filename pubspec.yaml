@@ -50,6 +50,8 @@ dependencies:
   localstorage: ^4.0.0+1
   uuid: ^3.0.6
   objectid: 2.0.0
+  string_to_hex: 0.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
