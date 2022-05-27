@@ -18,10 +18,15 @@ class DraggGame extends StatefulWidget {
 class _DraggGameState extends State<DraggGame> {
   final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
   late List<ItemModel> items = [];
-  late List<ItemModel> items2=[];
+  late List<ItemModel> items2 = [];
   late int score;
   late bool gameOver;
 
+  int detectedRange = 100;
+  int moveDistance = 3;
+
+  final ScrollController _scroller = ScrollController();
+  final _listViewKey = GlobalKey();
   initGame() {
     gameOver = false;
     score = 0;
@@ -34,15 +39,13 @@ class _DraggGameState extends State<DraggGame> {
       ));
     }
     items.shuffle();
-    if(items.length>5)
-    {
-    items=items.sublist(0,5);
-      
+    if (items.length > 5) {
+      items = items.sublist(0, 5);
     }
     items2 = [...items];
     items2.shuffle();
   }
-  
+
   @override
   void initState() {
     // TODO: implement initState
@@ -53,6 +56,7 @@ class _DraggGameState extends State<DraggGame> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -60,7 +64,7 @@ class _DraggGameState extends State<DraggGame> {
           constraints: BoxConstraints.tightFor(),
           child: Container(
             height: size.height,
-            decoration: BoxDecoration(color: kBlueGrammar),
+            decoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/blue_sky_bg.png"), fit: BoxFit.fitHeight)),
             child: SingleChildScrollView(
               child: Column(children: [
                 SizedBox(
@@ -90,20 +94,22 @@ class _DraggGameState extends State<DraggGame> {
                     ],
                   ),
                 ),
-                if (!gameOver)   Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Text.rich(
-                    TextSpan(children: [
-                      TextSpan(
-                          text: 'Score $score',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: kwhite,
-                            fontFamily: 'PoetsenOne',
-                          ))
-                    ]),
+                if (!gameOver)
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Text.rich(
+                      TextSpan(children: [
+                        TextSpan(
+                            text: 'Score $score',
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: kwhite,
+                              fontFamily: 'PoetsenOne',
+                            )),
+                      
+                      ]),
+                    ),
                   ),
-                ),
                 if (!gameOver)
                   SingleChildScrollView(
                     //  scrollDirection: Axis.horizontal,
@@ -113,54 +119,82 @@ class _DraggGameState extends State<DraggGame> {
                       children: [
                         const Spacer(),
                         SingleChildScrollView(
+                          key: _listViewKey,
+                          controller: _scroller,
                           child: Column(
                             children: <Widget>[
                               for (var i = 0; i < items.length; i++) ...[
                                 Container(
                                   margin: const EdgeInsets.all(8),
-                                  child: Draggable(
-                                    data: i,
-                                    childWhenDragging: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: CircleAvatar(
-                                        radius: 59,
-                                        backgroundColor: kwhite,
+                                  child: Listener(
+                                    onPointerMove: (PointerMoveEvent event) {
+                                      RenderBox render = _listViewKey.currentContext?.findRenderObject() as RenderBox;
+                                      Offset position = render.localToGlobal(Offset.zero);
+                                      print(position);
+                                      double topY = position.dy;
+                                      double bottomY = topY + render.size.height;
+                                      print(_scroller.offset);
+                                      // if (event.position.dy > MediaQuery.of(context).size.height -100) {
+                                      //   // 120 is height of your draggable.
+                                      //   _scroller.jumpTo(_scroller.offset + 40);
+                                      // }
+                                      if (event.position.dy < topY + detectedRange) {
+                                        var to = _scroller.offset - moveDistance;
+                                        to = (to < 0) ? 0 : to;
+                                        _scroller.jumpTo(to);
+                                      }
+                                      if (event.position.dy > bottomY - detectedRange) {
+                                        _scroller.jumpTo(_scroller.offset + moveDistance);
+                                      }
+                                    },
+                                    child: Draggable(
+                                      data: i,
+                                      childWhenDragging: Padding(
+                                        padding: const EdgeInsets.all(8.0),
                                         child: CircleAvatar(
-                                          backgroundColor: Colors.white,
-                                          backgroundImage: NetworkImage(items[i].img),
-                                          radius: 55,
+                                          radius: 59,
+                                          backgroundColor: kwhite,
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            backgroundImage: NetworkImage(items[i].img),
+                                            radius: 55,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    feedback:!items[i].score ? CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      backgroundImage: NetworkImage(items[i].img),
-                                      radius: 65,
-                                    ) :SizedBox(height: 10,),
-                                    child: !items[i].score
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CircleAvatar(
-                                              radius: 59,
-                                              backgroundColor: kwhite,
+                                      feedback: !items[i].score
+                                          ? CircleAvatar(
+                                              backgroundColor: Colors.white,
+                                              backgroundImage: NetworkImage(items[i].img),
+                                              radius: 65,
+                                            )
+                                          : SizedBox(
+                                              height: 10,
+                                            ),
+                                      child: !items[i].score
+                                          ? Padding(
+                                              padding: const EdgeInsets.all(8.0),
                                               child: CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                backgroundImage: NetworkImage(items[i].img),
-                                                radius: 55,
+                                                radius: 59,
+                                                backgroundColor: kwhite,
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  backgroundImage: NetworkImage(items[i].img),
+                                                  radius: 55,
+                                                ),
+                                              ),
+                                            )
+                                          : Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                child: Image.asset(
+                                                  'asset/images/check_mark.png',
+                                                  fit: BoxFit.cover,
+                                                  height: 113,
+                                                  width: 113,
+                                                ),
                                               ),
                                             ),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              child: Image.asset(
-                                                'asset/images/check_mark.png',
-                                                fit: BoxFit.cover,
-                                                height: 113,
-                                                width: 113,
-                                              ),
-                                            ),
-                                          ),
+                                    ),
                                   ),
                                 )
                               ]
@@ -168,17 +202,15 @@ class _DraggGameState extends State<DraggGame> {
                           ),
                         ),
                         Spacer(),
-                        SingleChildScrollView(
-                          child: Column(children: [
-                            // const Spacer(),
-                            for (var j = 0; j < items.length; j++) ...[
-                              Container(
-                                child: _buildDragTarget(j),
-                                margin: EdgeInsets.all(8),
-                              )
-                            ]
-                          ]),
-                        ),
+                        Column(children: [
+                          // const Spacer(),
+                          for (var j = 0; j < items.length; j++) ...[
+                            Container(
+                              child: _buildDragTarget(j),
+                              margin: EdgeInsets.all(8),
+                            )
+                          ]
+                        ]),
                         const Spacer(),
                       ],
                     ),
@@ -287,7 +319,7 @@ class _DraggGameState extends State<DraggGame> {
           setState(() {
             // emoji.accepting = false;
             items[int.parse(receivedItem.toString())].score = true;
-             items2[index].score = true;
+            items2[index].score = true;
             for (int i = 0; i < items.length; i++) {
               if (items2[i].score == false) return;
             }
@@ -295,7 +327,9 @@ class _DraggGameState extends State<DraggGame> {
           });
         } else {
           score -= 5;
-          setState(() {items2[index].accepting = false;});
+          setState(() {
+            items2[index].accepting = false;
+          });
         }
       },
     );

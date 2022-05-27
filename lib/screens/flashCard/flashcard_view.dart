@@ -6,8 +6,9 @@ import 'package:vocabulary_learning/models/vocabulary.dart';
 class FlashCardViewBackSide extends StatelessWidget {
   final Vocabulary vocabulary;
   final CardState state;
+  final int index;
   const FlashCardViewBackSide(
-      {Key? key, required this.vocabulary, required this.state})
+      {Key? key, required this.vocabulary, required this.state,required  this.index})
       : super(key: key);
 
   @override
@@ -17,18 +18,21 @@ class FlashCardViewBackSide extends StatelessWidget {
       children: [
         Container(
 
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-          decoration: BoxDecoration(
-              color: const Color(0xffAADB98),
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 10,
-                  color: kgrayTitleButton.withOpacity(0.5),
-                  offset: const Offset(3, 3),
-                )
-              ]),
-          alignment: Alignment.center,
+ margin: const EdgeInsets.fromLTRB(8, 0,8,0),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white) ,
+            color: (( index % 2) == 0 ?  Color(0xFF40DFEF) : Color(0xFFE78EA9) ),
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 10,
+                color: kwhite,
+                // offset: const Offset(3, 3),
+                spreadRadius: 3
+                
+              )
+            ]),
+                  alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,22 +110,28 @@ class FlashCardViewBackSide extends StatelessWidget {
 class FlashCardViewFrontSide extends StatelessWidget {
   final Vocabulary vocabulary;
   final CardState state;
+  final int index;
   const FlashCardViewFrontSide(
-      {Key? key, required this.vocabulary, required this.state})
+      {Key? key, required this.vocabulary, required this.state, required this.index})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        margin: const EdgeInsets.fromLTRB(8, 0,8,0),
         decoration: BoxDecoration(
-            color: const Color(0xffAADB98),
+          border: Border.all(color: Colors.white) ,
+            color: (( index % 2) == 0 ?  Color(0xFF40DFEF) : Color(0xFFE78EA9) ),
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
                 blurRadius: 10,
-                color: kgrayTitleButton.withOpacity(0.5),
-                offset: const Offset(3, 3),
+                color: kwhite,
+                // offset: const Offset(3, 3),
+                spreadRadius: 3
+                
               )
             ]),
         alignment: Alignment.center,

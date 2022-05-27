@@ -142,46 +142,46 @@ class _AllVocabularyState extends State<AllVocabulary> {
                     ],
                   )),
             ),
-            Row(
-             children: [
-              Container(
-                width: 150,
-                alignment: Alignment.center,
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(16.0),
-                      primary: kwhite,
-                      backgroundColor: kfirstGradientBack,
-                    ),
-                    onPressed: () {
-                      Get.to(FlashCard());
-                    },
-                    child: Row(children: [Icon(Icons.card_giftcard), Text("Flash card")])),
-              ),
-              Container(
-                width: 150,
-                alignment: Alignment.center,
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(16.0),
-                      primary: kwhite,
-                      backgroundColor: kfirstGradientBack,
-                    ),
-                    onPressed: () {
-                      Get.to(DraggGame());
-                    },
-                    child: Row(children: [Icon(Icons.card_giftcard), Text("Draggame")])),
-              )
-            ]),
+            // Row(
+            //  children: [
+            //   Container(
+            //     width: 150,
+            //     alignment: Alignment.center,
+            //     child: TextButton(
+            //         style: TextButton.styleFrom(
+            //           padding: const EdgeInsets.all(16.0),
+            //           primary: kwhite,
+            //           backgroundColor: kfirstGradientBack,
+            //         ),
+            //         onPressed: () {
+            //           Get.to(FlashCard());
+            //         },
+            //         child: Row(children: [Icon(Icons.card_giftcard), Text("Flash card")])),
+            //   ),
+            //   Container(
+            //     width: 150,
+            //     alignment: Alignment.center,
+            //     child: TextButton(
+            //         style: TextButton.styleFrom(
+            //           padding: const EdgeInsets.all(16.0),
+            //           primary: kwhite,
+            //           backgroundColor: kfirstGradientBack,
+            //         ),
+            //         onPressed: () {
+            //           Get.to(DraggGame());
+            //         },
+            //         child: Row(children: [Icon(Icons.card_giftcard), Text("Draggame")])),
+            //   )
+            // ]),
           ],
         ),
-        // floatingActionButton: FloatingActionButton.extended(
-        //     backgroundColor: kfirstGradientBack,
-        //     icon: Icon(Icons.card_giftcard),
-        //     onPressed: () {
-        //       Get.to(FlashCard());
-        //     },
-        //     label: Text("Flash card")),
+        floatingActionButton: FloatingActionButton.extended(
+            backgroundColor: kfirstGradientBack,
+            icon: Icon(Icons.card_giftcard),
+            onPressed: () {
+              Get.to(FlashCard());
+            },
+            label: Text("Flash card")),
       ),
     );
   }

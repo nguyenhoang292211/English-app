@@ -124,19 +124,22 @@ class FlashCard extends GetWidget<FlashCardController> {
                                 : Container(
                                     child: SizedBox(
                                       width: size.width ,
-                                      height:  size.height * 0.64,
+                                      height:  size.height * 0.63,
                                       child: Swiper(
                                         // layout: SwiperLayout.TINDER,
 
                                         itemBuilder: (BuildContext context, int index) {
                                           return FlipCard(
+                                            
                                               front: FlashCardViewBackSide(
                                                 vocabulary: flashCardCtrl.listSelectedCard[index],
                                                 state: flashCardCtrl.listState[index],
+                                                index: index,
                                               ),
                                               back: FlashCardViewFrontSide(
                                                 vocabulary: flashCardCtrl.listSelectedCard[index],
                                                 state: flashCardCtrl.listState[index],
+                                                  index: index,
                                               ));
                                         },
                                         itemCount: flashCardCtrl.listSelectedCard.length,
@@ -152,7 +155,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                         },
                                         loop: false,
                                         viewportFraction: 0.7,
-                                        scale: 0.9,
+                                        scale: 0.8,
                                       ),
                                     ),
                                   ),

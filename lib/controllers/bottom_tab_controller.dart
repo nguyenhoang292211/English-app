@@ -12,7 +12,7 @@ class BottomTabController extends GetxController {
   final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SaveScreen(),
-    MyTopicScreen(),
+    // MyTopicScreen(),
     ProfileScreen()
   ];
 

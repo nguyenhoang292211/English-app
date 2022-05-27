@@ -12,10 +12,21 @@ class FlashCardController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   var currentIndex = 0.obs;
   var quantityStudyAgainWord = 0.obs;
+late CollectionReference docRef;
 
   @override
   onReady() {
     super.onReady();
+  //    docRef = firebaseFirestore.collection('topic');
+  // print("Thao hello");
+  //   docRef.where("id", isEqualTo: "3wMPI06xgQJnzqQinR9A").snapshots().listen(
+  //     (event) {
+  //       print('change topic ');
+  //       print(event);
+  //     },
+  //     onError: (error) => print("Listen failed: $error"),
+  //   );
+
     resetData();
   }
 

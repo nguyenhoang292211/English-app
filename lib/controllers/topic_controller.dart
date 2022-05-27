@@ -20,10 +20,13 @@ class TopicController extends GetxController {
   String collectionTopic = "topic";
   String collectionVocab = "vocabulary";
 
+  
+
   @override
   onReady() {
     super.onReady();
     topics.bindStream(getAllTopic());
+
     // grammarsSearch.bindStream(getAllGrammar());
   }
 
@@ -32,13 +35,11 @@ class TopicController extends GetxController {
     super.onInit();
 
     topics.bindStream(getAllTopic());
+
     // grammarsSearch.bindStream(getAllGrammar());
   }
 
-  Stream<List<Topic>> getAllTopic() =>
-  
-      firebaseFirestore.collection(collectionTopic).snapshots().map((query) =>
-          query.docs.map((item) => Topic.fromMap(item.data())).toList());
+  Stream<List<Topic>> getAllTopic() => firebaseFirestore.collection(collectionTopic).snapshots().map((query) => query.docs.map((item) => Topic.fromMap(item.data())).toList());
 
   void goToDetailTopic(Topic topic) {
     _topicSelected = topic;
@@ -46,12 +47,9 @@ class TopicController extends GetxController {
     Get.to(TopicScreen(vocabularies: vocabularys));
   }
 
-  Stream<List<Vocabulary>> getListVocabs() => firebaseFirestore
-      .collection(collectionVocab)
-      .where("topic", isEqualTo: _topicSelected.id)
-      .snapshots()
-      .map((query) =>
-          query.docs.map((item) => Vocabulary.fromMap(item.data())).toList());
+  Stream<List<Vocabulary>> getListVocabs() =>
+      firebaseFirestore.collection(collectionVocab).where("topic", isEqualTo: _topicSelected.id).snapshots().map((query) => query.docs.map((item) => Vocabulary.fromMap(item.data())).toList());
+
 
   // void searchGrammar(String textSearch) {
   //   List<Grammar> lTemp = [];
@@ -86,5 +84,17 @@ class TopicController extends GetxController {
     if ((index + 1) % 7 == 5) return kPurpleGrammar;
     if ((index + 1) % 7 == 6) return kPinkGrammar;
     return Colors.black;
+  }
+
+  void check() {
+    CollectionReference docRef = firebaseFirestore.collection('topic');
+    print("Thao hello");
+    docRef.where("id", isEqualTo: "3wMPI06xgQJnzqQinR9A").snapshots().listen(
+      (event) {
+        print('change topic ');
+        print(event);
+      },
+      onError: (error) => print("Listen failed: $error"),
+    );
   }
 }
