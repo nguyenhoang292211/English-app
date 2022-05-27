@@ -24,22 +24,29 @@ class ScoreComponent extends StatelessWidget {
         onTap: onPress,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "$title: $score score",
-                  style: TextStyle(fontFamily: kPoetsenOne, fontSize: 15),
+                  style: const TextStyle(fontFamily: kPoetsenOne, fontSize: 15),
                 ),
-                Text("${date}",
-                    style: TextStyle(fontFamily: kPoetsenOne, fontSize: 15))
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(),
+                    Text(date,
+                        style: const TextStyle(
+                            fontFamily: kPoetsenOne, fontSize: 15))
+                  ],
+                )
               ],
             ),
             Container(
               height: 2,
               width: size.width * 0.8,
-              decoration: BoxDecoration(color: kBlueLine),
+              decoration: const BoxDecoration(color: kBlueLine),
             )
           ],
         ),

@@ -182,7 +182,7 @@ class FlashCardViewFrontSide extends StatelessWidget {
               IconButton(
                 iconSize: 24,
                 color: Colors.blueGrey.shade200,
-                highlightColor: Colors.lightGreen.shade800,
+                highlightColor: Color.fromRGBO(85, 139, 47, 1),
                 icon: const Icon(Icons.favorite_border_outlined,
                     color: Color.fromARGB(255, 255, 146, 95), size: 28),
                 onPressed: () {},

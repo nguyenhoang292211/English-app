@@ -30,12 +30,17 @@ class QuestionAnswer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                question,
-                style: const TextStyle(
+              Container(
+                alignment: Alignment.center,
+                width: size.width * 0.8,
+                child: Text(
+                  question,
+                  style: const TextStyle(
                     fontSize: 14,
                     fontFamily: kPoppins,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Image(
                 image: AssetImage(

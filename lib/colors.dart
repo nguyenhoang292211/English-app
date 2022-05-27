@@ -42,3 +42,4 @@ const kGreenBold = Color(0xff29CD67);
 const kBlue = Color(0xff85F4FF);
 const kBlueLine = Color(0xff2FA6C2);
 const kRedBackground = Color(0xffF8C7BD);
+const kPink = Color(0xffFE4689);
