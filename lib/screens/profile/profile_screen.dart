@@ -205,10 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _getUserDetails() async {
-    print("=========================================-----------------");
     userModel = authController.userModel.value;
-    print(userModel?.email);
-    print(userModel?.name);
     setState(() {});
   }
 
@@ -231,8 +228,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       TaskSnapshot snapshot = await uploadTask;
 
       String profileImageUrl = await snapshot.ref.getDownloadURL();
-      print(1542);
-      print(profileImageUrl);
       authController.updateImageUrl(profileImageUrl);
       progressDialog.dismiss();
     } catch (e) {

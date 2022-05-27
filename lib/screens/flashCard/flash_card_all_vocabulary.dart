@@ -9,7 +9,7 @@ import 'package:vocabulary_learning/components/secondary_button.dart';
 import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
-import 'package:vocabulary_learning/screens/flashCard/crosswordWidget.dart';
+import 'package:vocabulary_learning/screens/flashCard/DraggeGame.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 
 const itemSize = 120.0;

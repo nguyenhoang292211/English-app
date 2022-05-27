@@ -12,9 +12,11 @@ class FlashCardViewBackSide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Container(
+
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
           decoration: BoxDecoration(
               color: const Color(0xffAADB98),

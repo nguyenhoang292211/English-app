@@ -9,6 +9,7 @@ import 'package:vocabulary_learning/controllers/game_controller.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
+import 'package:vocabulary_learning/screens/flashCard/DraggeGame.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_all_vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
@@ -106,6 +107,16 @@ class TopicScreen extends StatelessWidget {
                 onClick: () {
                   Get.to(AllVocabulary());
             
+                }),
+                const SizedBox(
+              height: 12,
+            ),
+            NavigationButton(
+                image: "asset/images/flashcard_icon.png",
+                text: 'Quick review',
+                background: kBlueGrammar,
+                onClick: () {
+                  Get.to(DraggGame());
                 })
           ],
         ),
