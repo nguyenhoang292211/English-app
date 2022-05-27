@@ -13,8 +13,7 @@ class MyTopicController extends GetxController
     with SingleGetTickerProviderMixin {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   RxInt vocabNum = 1.obs;
-  Map<String, dynamic> userCurrent =
-      json.decode(getItemFromLocalStorage(STORAGE.USER));
+  late Map<String, dynamic> userCurrent;
   late final RxList<MyTopic> _listTopics = RxList<MyTopic>([]);
   RxList<MyTopic> get listTopics => _listTopics;
   MyTopic seletedTopic = MyTopic(name: '');
@@ -25,29 +24,45 @@ class MyTopicController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    // userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
   }
 
-  void initTopic() {
+  void initTopic() async {
+    // userCurrent = await json.decode(getItemFromLocalStorage(STORAGE.USER));
+
     final vocab = MyVocab(id: generateId());
     createdVocabs.add(vocab);
     createdTopic.id = generateId();
-    createdTopic.userId = userCurrent['id'];
+    // createdTopic.userId = userCurrent['id'];
   }
 
   void saveTopic() async {
-    createdTopic.vocabularies?.addAll(createdVocabs);
+    createdTopic.vocabularies = createdVocabs;
+    print(createdVocabs);
+    final vocabs = [];
+    createdTopic.vocabularies?.forEach((item) {
+      final vocab = <String, dynamic>{
+        "id": item.id,
+        "word": item.word,
+        "mean": item.mean,
+        "type": item.type,
+        "translation": item.translation
+      };
+      vocabs.add(vocab);
+    });
+    print(vocabs);
     final data = <String, dynamic>{
       "id": createdTopic.id,
       "name": createdTopic.name,
       "color": createdTopic.color,
       "userId": createdTopic.userId,
-      "vocabularies": createdTopic.vocabularies
+      "vocabularies": vocabs
     };
+    print(data);
     isLoading = true.obs;
     await firebaseFirestore.collection("my_topic").add(data).then((value) {
       listTopics.add(createdTopic);
       saveSuccess = true.obs;
+      print(value);
     }).catchError((err) {
       saveSuccess = false.obs;
     });
