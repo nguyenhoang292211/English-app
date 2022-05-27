@@ -9,3 +9,6 @@ addItemsToLocalStorage(key, value) {
 getItemFromLocalStorage(key) {
   return storage.getItem(key);
 }
+clearLocalStorage(){
+  storage.clear();
+}

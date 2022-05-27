@@ -9,6 +9,7 @@ import 'package:vocabulary_learning/controllers/game_controller.dart';
 import 'package:vocabulary_learning/controllers/learning_controller.dart';
 import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
+import 'package:vocabulary_learning/screens/flashCard/DraggeGame.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_all_vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
 import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
@@ -16,6 +17,10 @@ import 'package:vocabulary_learning/screens/home/components/topic_background.dar
 import 'package:vocabulary_learning/screens/home/topic/components/navigation_button.dart';
 import 'package:vocabulary_learning/screens/home/topic/components/vocabulary_flashcard_item.dart';
 import 'package:vocabulary_learning/screens/home/topic/game/game_screen.dart';
+import 'package:vocabulary_learning/screens/warOnline/main_war_screen.dart';
+import 'package:vocabulary_learning/screens/warOnline/overview_competitor.dart';
+import 'package:vocabulary_learning/screens/warOnline/war_question.dart';
+import 'package:vocabulary_learning/utils/showLoading.dart';
 
 class TopicScreen extends StatelessWidget {
   // final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
@@ -29,9 +34,10 @@ class TopicScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final learningCtrl = Get.put<LearningController>(LearningController());
     final gameCtrl = Get.put<GameController>(GameController());
-
+ 
     final size = MediaQuery.of(context).size;
     flashCardController.setVocabularies(vocabularies);
+    topicCtrl.check();
     return TopicBackground(
       child: Padding(
         padding: const EdgeInsets.only(top: 45, right: 10, left: 10),
@@ -105,7 +111,20 @@ class TopicScreen extends StatelessWidget {
                 background: const Color(0xffAADB98),
                 onClick: () {
                   Get.to(AllVocabulary());
-            
+                }),
+            const SizedBox(
+              height: 12,
+            ),
+            NavigationButton(
+                image: "asset/images/timer.png",
+                text: 'Quick review',
+                background: kBlueGrammar,
+                onClick: () {
+                  // showInfoLoading("Waiting to find competitor");
+                  // var future = new Future.delayed(const Duration(milliseconds: 2000), () {
+                    // dismissLoadingWidget();
+                    Get.to(DraggGame());
+                  // });
                 })
           ],
         ),

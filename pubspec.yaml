@@ -53,6 +53,7 @@ dependencies:
   string_to_hex: 0.2.2
 
   flutter_local_notifications: ^9.5.3+1
+  table_calendar: ^3.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
