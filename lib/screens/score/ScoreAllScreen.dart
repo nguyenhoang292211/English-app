@@ -62,10 +62,6 @@ class _ScoreScreenState extends State<ScoreAllScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  const VocabularyScoreAll(),
-                  const SizedBox(
-                    height: 50,
-                  ),
                 ],
               ),
             ),
