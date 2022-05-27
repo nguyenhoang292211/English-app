@@ -1,13 +1,16 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/constants/colection.dart';
 import 'package:vocabulary_learning/constants/font.dart';
 import 'package:vocabulary_learning/constants/storage.dart';
 import 'package:vocabulary_learning/constants/type.dart';
 import 'package:vocabulary_learning/controllers/grammar_controller.dart';
+import 'package:vocabulary_learning/models/grammar.dart';
 import 'package:vocabulary_learning/models/question_grammar.dart';
 import 'package:vocabulary_learning/models/score_grammar.dart';
 import 'package:vocabulary_learning/screens/grammar/score_screen.dart';
@@ -16,6 +19,7 @@ import 'package:vocabulary_learning/utils/storeData.dart';
 
 class QuestionGrammarController extends GetxController
     with SingleGetTickerProviderMixin {
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   Map<String, dynamic> userCurrent =
       json.decode(getItemFromLocalStorage(STORAGE.USER));
   ScoreAllController scoreAllController = Get.put(ScoreAllController());
@@ -52,6 +56,8 @@ class QuestionGrammarController extends GetxController
   RxList<QuestionGrammar> get lQuestion => this._lQuestion;
   @override
   void onInit() {
+    print(
+        "------------------------ ${grammarController.grammarSelected.value.title}");
     _lQuestion.bindStream(grammarController
         .getListQuestionGrammar(grammarController.grammarSelected.value));
     _animationController =
@@ -70,6 +76,19 @@ class QuestionGrammarController extends GetxController
     super.onReady();
     _lQuestion.bindStream(grammarController
         .getListQuestionGrammar(grammarController.grammarSelected.value));
+    update();
+  }
+
+  void setGrammarSelectedById(String grammarId) async {
+    Grammar grammarSelected = await firebaseFirestore
+        .collection(COLECTION.GRAMMAR)
+        .doc(grammarId)
+        .get()
+        .then((doc) => Grammar.fromMap(doc));
+
+    grammarController.grammarSelected.value = grammarSelected;
+    _lQuestion
+        .bindStream(grammarController.getListQuestionGrammar(grammarSelected));
     update();
   }
 

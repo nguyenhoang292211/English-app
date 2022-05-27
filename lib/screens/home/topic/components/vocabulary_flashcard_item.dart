@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,8 +8,8 @@ import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/save/SaveController.dart';
 
 class VocabFlashcardItem extends StatelessWidget {
-  final Vocabulary vocabulary;
-  final SaveController saveController = Get.put(SaveController());
+  Vocabulary vocabulary;
+  SaveController saveController = Get.put(SaveController());
   VocabFlashcardItem({Key? key, required this.vocabulary}) : super(key: key);
 
   @override
@@ -150,12 +152,16 @@ class VocabFlashcardItem extends StatelessWidget {
                 iconSize: 24,
                 color: Colors.blueGrey.shade200,
                 highlightColor: Colors.lightGreen.shade800,
-                icon: Icon(
-                    (saveController.isSave(vocabulary.id.toString()) == true)
-                        ? Icons.favorite_rounded
-                        : Icons.favorite_border_outlined,
-                    color: Color.fromARGB(255, 255, 146, 95),
-                    size: 28),
+                icon: (saveController.userModel.value.savedVocabs == null)
+                    ? const Icon(Icons.favorite_border_outlined,
+                        color: Color.fromARGB(255, 255, 146, 95), size: 28)
+                    : Icon(
+                        (saveController.isSave(vocabulary.id.toString()) ==
+                                true)
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_border_outlined,
+                        color: const Color.fromARGB(255, 255, 146, 95),
+                        size: 28),
                 onPressed: () {
                   saveController.onPressSave(vocabulary.id.toString());
                 },

@@ -1,5 +1,8 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:vocabulary_learning/controllers/auth_controller.dart';
@@ -17,6 +20,8 @@ import 'package:vocabulary_learning/screens/home/topic/topic_screen.dart';
 
 import 'colors.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -33,6 +38,24 @@ Future<void> main() async {
   });
 
   //  final flashCardController = Get.put<FlashCardController>(FlashCardController());
+
+  // WidgetsFlutterBinding.ensureInitialized();
+
+  // var initializationSettingsAndroid = AndroidInitializationSettings('ic');
+  // var initializationSettingsIOS = IOSInitializationSettings(
+  //     requestAlertPermission: true,
+  //     requestBadgePermission: true,
+  //     requestSoundPermission: true,
+  //     onDidReceiveLocalNotification:
+  //         (int id, String? title, String? body, String? payload) async {});
+  // var initializationSettings = InitializationSettings(
+  //     android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+  // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+  //     onSelectNotification: (String? payload) async {
+  //   if (payload != null) {
+  //     debugPrint('notification payload: ' + payload);
+  //   }
+  // });
   runApp(MyApp());
 }
 
