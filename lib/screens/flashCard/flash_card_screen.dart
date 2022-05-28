@@ -122,34 +122,41 @@ class FlashCard extends GetWidget<FlashCardController> {
                                     ),
                                   )
                                 : Container(
-                                    child: Swiper(
-                                      layout: SwiperLayout.TINDER,
+                                    child: SizedBox(
+                                      width: size.width ,
+                                      height:  size.height * 0.63,
+                                      child: Swiper(
+                                        // layout: SwiperLayout.TINDER,
 
-                                      itemBuilder: (BuildContext context, int index) {
-                                        return FlipCard(
-                                            front: FlashCardViewBackSide(
-                                              vocabulary: flashCardCtrl.listSelectedCard[index],
-                                              state: flashCardCtrl.listState[index],
-                                            ),
-                                            back: FlashCardViewFrontSide(
-                                              vocabulary: flashCardCtrl.listSelectedCard[index],
-                                              state: flashCardCtrl.listState[index],
-                                            ));
-                                      },
-                                      itemCount: flashCardCtrl.listSelectedCard.length,
-                                      pagination: const SwiperPagination(
-                                        alignment: Alignment.bottomCenter,
-                                        builder: DotSwiperPaginationBuilder(color: kwhite, activeColor: ksecondGradientBack),
+                                        itemBuilder: (BuildContext context, int index) {
+                                          return FlipCard(
+                                            
+                                              front: FlashCardViewBackSide(
+                                                vocabulary: flashCardCtrl.listSelectedCard[index],
+                                                state: flashCardCtrl.listState[index],
+                                                index: index,
+                                              ),
+                                              back: FlashCardViewFrontSide(
+                                                vocabulary: flashCardCtrl.listSelectedCard[index],
+                                                state: flashCardCtrl.listState[index],
+                                                  index: index,
+                                              ));
+                                        },
+                                        itemCount: flashCardCtrl.listSelectedCard.length,
+                                        pagination: const SwiperPagination(
+                                          alignment: Alignment.bottomCenter,
+                                          builder: DotSwiperPaginationBuilder(color: kwhite, activeColor: ksecondGradientBack),
+                                        ),
+                                        itemWidth: size.width * 0.8,
+                                        itemHeight: size.height * 0.6,
+                                        controller: swiperController,
+                                        onIndexChanged: (value) {
+                                          flashCardCtrl.setIndex(value);
+                                        },
+                                        loop: false,
+                                        viewportFraction: 0.7,
+                                        scale: 0.8,
                                       ),
-                                      itemWidth: size.width * 0.8,
-                                      itemHeight: size.height * 0.6,
-                                      controller: swiperController,
-                                      onIndexChanged: (value) {
-                                        flashCardCtrl.setIndex(value);
-                                      },
-                                      loop: false,
-                                      viewportFraction: 0.6,
-                                      scale: 1,
                                     ),
                                   ),
                             const SizedBox(

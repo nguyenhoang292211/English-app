@@ -5,4 +5,5 @@ class COLECTION {
   static const String GRAMMAR = 'grammar';
   static const String VOCABULARY = 'vocabulary';
   static const String SCORE_GAME = 'ScoreGame';
+  static const String NOTE = 'Note';
 }

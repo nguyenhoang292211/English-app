@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/constants/firebase.dart';
 import 'package:vocabulary_learning/constants/storage.dart';
+import 'package:vocabulary_learning/models/accumulation.dart';
 import 'package:vocabulary_learning/models/user.dart';
 import 'package:vocabulary_learning/screens/auth/signin_screen.dart';
 import 'package:vocabulary_learning/screens/home/index.dart';
@@ -27,8 +29,14 @@ class AuthController extends GetxController {
   Rx<String> errPassword = "".obs;
 
   String usersCollection = "users";
+  String accumulationCollection = 'accumulation';
+
   Rx<UserModel> userModel = UserModel().obs;
   UserModel userCurrent = UserModel();
+
+  bool showCalendar = false;
+  RxList<Accumulation> dateAccumulation = RxList<Accumulation>([]);
+
   @override
   void onReady() {
     super.onReady();
@@ -36,6 +44,9 @@ class AuthController extends GetxController {
     firebaseUser.bindStream(auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
   }
+
+  Stream<List<Accumulation>> getDateAccumulation(email) =>
+      firebaseFirestore.collection(accumulationCollection).where("email", isEqualTo: email).snapshots().map((query) => query.docs.map((item) => Accumulation.fromMap(item.data())).toList());
 
   _setInitialScreen(User? user) async {
     if (user != null) {
@@ -45,8 +56,15 @@ class AuthController extends GetxController {
       String _userId = user.uid;
 
       _initializeUserModel(_userId);
+      dateAccumulation.bindStream(getDateAccumulation(user.email));
+      if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0,10)) < 0) {
+        var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0,10)];
+        updateDateLearning(listOnlineDay);
+      }
+      print(dateAccumulation);
       Get.offAll(() => HomeIndexScreen());
     } else {
+      // Get.offAll(() => CreateTopicScreen());
       Get.offAll(() => SigninScreen());
     }
   }
@@ -54,21 +72,20 @@ class AuthController extends GetxController {
   void signIn() async {
     try {
       showLoading();
-      await auth
-          .signInWithEmailAndPassword(
-              email: email.text.trim(), password: password.text.trim())
-          .then((result) {
+      await auth.signInWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((result) {
         String _userId = result.user!.uid;
 
         _initializeUserModel(_userId);
         userCurrent.id = _userId;
         userCurrent.email = email.text.trim();
         userCurrent.password = password.text.trim();
-        var user = json.encode({
-          "id": _userId,
-          "email": email.text.trim(),
-          "password": password.text.trim()
-        });
+        dateAccumulation.bindStream(getDateAccumulation(email.text.trim()));
+        if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0,10)) < 0) {
+          var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0,10)];
+          updateDateLearning(listOnlineDay);
+        }
+        print(dateAccumulation);
+        var user = json.encode({"id": _userId, "email": email.text.trim(), "password": password.text.trim()});
         addItemsToLocalStorage(STORAGE.USER, user);
         _clearControllers();
         Get.offAll(() => HomeIndexScreen());
@@ -97,10 +114,7 @@ class AuthController extends GetxController {
     errPassword = "".obs;
     update();
     try {
-      await auth
-          .createUserWithEmailAndPassword(
-              email: email.text.trim(), password: password.text.trim())
-          .then((result) {
+      await auth.createUserWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((result) {
         String _userId = result.user!.uid;
         _addUserToFirestore(_userId);
         _initializeUserModel(_userId);
@@ -113,20 +127,17 @@ class AuthController extends GetxController {
   }
 
   void signOut() async {
+  clearLocalStorage();
     auth.signOut();
   }
 
   _addUserToFirestore(String userId) {
-    firebaseFirestore.collection(usersCollection).doc(userId).set(
-        {"name": name.text.trim(), "id": userId, "email": email.text.trim()});
+    firebaseFirestore.collection(usersCollection).doc(userId).set({"name": name.text.trim(), "id": userId, "email": email.text.trim()});
   }
 
   _initializeUserModel(String userId) async {
-    userModel.value = await firebaseFirestore
-        .collection(usersCollection)
-        .doc(userId)
-        .get()
-        .then((doc) => UserModel.fromSnapshot(doc));
+    userModel.value = await firebaseFirestore.collection(usersCollection).doc(userId).get().then((doc) => UserModel.fromSnapshot(doc));
+
     update();
   }
 
@@ -137,15 +148,27 @@ class AuthController extends GetxController {
   }
 
   void updateImageUrl(urlImage) async {
-    print("108");
-    print(userModel.value.id);
-    var result = await firebaseFirestore
-        .collection(usersCollection)
-        .doc(userModel.value.id)
-        .update({'image': urlImage}).then((value) {});
+
+    var result = await firebaseFirestore.collection(usersCollection).doc(userModel.value.id).update({'image': urlImage}).then((value) {});
 
     print(result);
     userModel.value.image = urlImage;
     update();
+  }
+
+  void useCalendar(bool isShow) {
+    showCalendar = isShow;
+    print(isShow);
+    update();
+  }
+
+  void updateDateLearning(List<String> mDateAccumulation) async {
+    final userInfo = await firebaseFirestore.collection(accumulationCollection).where("email", isEqualTo: userCurrent.email).limit(1).get().then((QuerySnapshot snapshot) {
+      return snapshot.docs[0].reference;
+    });
+
+    var batch = firebaseFirestore.batch();
+    batch.update(userInfo, {'dateAccumulation': mDateAccumulation});
+    batch.commit();
   }
 }

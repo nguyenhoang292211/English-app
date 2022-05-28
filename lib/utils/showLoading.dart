@@ -13,3 +13,11 @@ dismissLoadingWidget(){
   // Get.back();
   Navigator.of(Get.overlayContext!).pop(); 
 }
+
+showInfoLoading(String message){
+    Get.defaultDialog(
+    title: message,
+    content: CircularProgressIndicator(),
+    barrierDismissible: false
+  );
+}

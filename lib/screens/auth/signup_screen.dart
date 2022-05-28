@@ -70,6 +70,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Container(
                 height: size.height * 0.8,
                 width: size.width,
+                
                 child: Form(
                   key:_formKey,
                   child: Column(children: [
@@ -84,7 +85,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       isEmailText: true,
                       widthSize: 0.8,
                       controllerField: authController.email,
-                      validateInput: validateEmail,
+                      // validateInput: validateEmail,
                     ),
                     const SizedBox(
                       height: 3,
@@ -92,7 +93,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     InputField(
                       hintText: "Full name",
                       icon: Icons.auto_fix_normal_outlined,
-                      onChange: (value) {},
+                      onChange: (value) {
+                       
+                      },
                       widthSize: 0.8,
                       controllerField: authController.name,
                     ),
@@ -106,7 +109,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       widthSize: 0.8,
                       controllerField: authController.password,
                       obscureText: true,
-                      validateInput: validatePasswordConfirm,
+                      // validateInput: validatePasswordConfirm,
 
                     ),
                     const SizedBox(

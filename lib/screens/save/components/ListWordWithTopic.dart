@@ -6,11 +6,10 @@ import 'package:vocabulary_learning/screens/save/components/HeaderTopicCustom.da
 import 'package:vocabulary_learning/screens/save/components/WordComponent.dart';
 
 class ListWordWithTopic extends StatelessWidget {
-  const ListWordWithTopic(
-      {Key? key, required this.topicName, required this.words})
+  ListWordWithTopic({Key? key, required this.topicName, required this.words})
       : super(key: key);
-  final String topicName;
-  final List<Vocabulary> words;
+  String topicName;
+  List<Vocabulary> words;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

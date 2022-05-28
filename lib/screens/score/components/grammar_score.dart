@@ -7,6 +7,7 @@ import 'package:vocabulary_learning/constants/font.dart';
 import 'package:vocabulary_learning/models/score_grammar.dart';
 import 'package:vocabulary_learning/screens/score/components/score_component.dart';
 import 'package:vocabulary_learning/screens/score/detail/grammars/grammar_detail_score.dart';
+import 'package:vocabulary_learning/utils/utils.dart';
 
 class GrammarScoreAll extends StatelessWidget {
   GrammarScoreAll({Key? key, required this.scoreGames}) : super(key: key);
@@ -43,11 +44,15 @@ class GrammarScoreAll extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return (ScoreComponent(
                     onPress: () {
-                      Get.to(GrammarDetailScore());
+                      Get.to(GrammarDetailScore(
+                          questions: scoreGames[index].questions?.toList(),
+                          corrects: scoreGames[index].corrects?.toList(),
+                          grammarId: scoreGames[index].idContest));
                     },
                     title: "${scoreGames[index].title}",
-                    score: "${scoreGames[index].corrects?.length.toString()}",
-                    date: "${scoreGames[index].updatedAt}"));
+                    score: getScore(scoreGames[index].corrects ?? []),
+                    date: dateFormDatetime(
+                        scoreGames[index].updatedAt ?? DateTime.now())));
               },
             ),
           ]),

@@ -16,8 +16,8 @@ class QuestionCard extends StatelessWidget {
     QuestionGrammarController questionGrammarController =
         Get.put(QuestionGrammarController());
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           Stack(
@@ -53,11 +53,15 @@ class QuestionCard extends StatelessWidget {
                     height: size.height * 0.25,
                     width: size.width,
                   ),
-                  Text(
-                    questionGrammar.question!,
-                    style: const TextStyle(
-                        color: Colors.white, fontFamily: "Poppins"),
-                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: size.width * 0.5,
+                    child: Text(
+                      questionGrammar.question!,
+                      style: const TextStyle(
+                          color: Colors.white, fontFamily: "Poppins"),
+                    ),
+                  )
                 ],
               ),
               Stack(
@@ -68,11 +72,15 @@ class QuestionCard extends StatelessWidget {
                     height: size.height * 0.25,
                     width: size.width,
                   ),
-                  Text(
-                    questionGrammar.question!,
-                    style: const TextStyle(
-                        color: Colors.white, fontFamily: "Poppins"),
-                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: size.width * 0.5,
+                    child: Text(
+                      questionGrammar.question!,
+                      style: const TextStyle(
+                          color: Colors.white, fontFamily: "Poppins"),
+                    ),
+                  )
                 ],
               ),
               Positioned(

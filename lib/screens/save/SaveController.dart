@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
@@ -40,14 +42,18 @@ class SaveController extends GetxController {
     bool isExist = saves.contains(vocabId);
     !isExist ? saves.add(vocabId) : saves.remove(vocabId);
     userItem.savedVocabs = saves;
-    print("onPress save");
     update();
     saveToVocabulary(userItem, isExist);
   }
 
   bool isSave(String vocabId) {
+    _initializeUserModel(userCurrent['id']);
     List<dynamic> saves = userModel.value.savedVocabs!.toList();
-    return saves.contains(vocabId) ? true : false;
+    //return saves.contains(vocabId) ? true : false;
+    if (saves != null || saves.isNotEmpty) {
+      return saves.contains(vocabId) ? true : false;
+    } else
+      return false;
   }
 
   void saveToVocabulary(UserModel userItem, bool isUnSave) {
@@ -63,7 +69,6 @@ class SaveController extends GetxController {
         .then((value) => Fluttertoast.showToast(
             msg: isUnSave ? "Unsave success!" : "Save success!"));
     _initializeUserModel(userCurrent['id']);
-    // update();
   }
 
   Stream<List<Vocabulary>> getListVocabulary(List<dynamic>? saves) {

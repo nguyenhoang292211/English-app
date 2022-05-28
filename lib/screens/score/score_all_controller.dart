@@ -23,7 +23,6 @@ class ScoreAllController extends GetxController {
     scoreGames
         .bindStream(getAllScoreGrammar(userCurrent['id'], GAME_TYPE.GRAMMAR));
     update();
-    print("$scoreGames ${userCurrent['id']} ");
   }
 
   @override
@@ -40,8 +39,8 @@ class ScoreAllController extends GetxController {
   Stream<List<ScoreGame>> getAllScoreGrammar(String userId, String type) =>
       firebaseFirestore
           .collection(COLECTION.SCORE_GAME)
-          // .where('idUser', isEqualTo: userId)
-          // .where('gameType', isEqualTo: type)
+          .where('idUser', isEqualTo: userId)
+          .where('gameType', isEqualTo: type)
           .snapshots()
           .map((query) => query.docs
               .map((item) => ScoreGame.fromMap(item.data()))
