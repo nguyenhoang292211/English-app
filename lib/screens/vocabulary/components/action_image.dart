@@ -50,7 +50,7 @@ class ActionImage extends StatelessWidget {
                   icon: const Icon(Icons.alarm_rounded,
                       color: Color.fromARGB(255, 37, 138, 140), size: 28),
                   onPressed: () {
-                    // scheduleAlarm(DateTime.now(), vocabulary);
+                    scheduleAlarm(DateTime.now(), vocabulary);
                   },
                 ),
               )
@@ -76,27 +76,27 @@ class ActionImage extends StatelessWidget {
     );
   }
 
-  // void scheduleAlarm(
-  //     DateTime scheduledNotificationDateTime, Vocabulary vocab) async {
-  //   // ignore: prefer_const_constructors
-  //   var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-  //     'alarm_notif',
-  //     'alarm_notif',
-  //     icon: 'codex_logo',
-  //     sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
-  //     largeIcon: DrawableResourceAndroidBitmap('codex_logo'),
-  //   );
+  void scheduleAlarm(
+      DateTime scheduledNotificationDateTime, Vocabulary vocab) async {
+    // ignore: prefer_const_constructors
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'alarm_notif',
+      'alarm_notif',
+      icon: 'app_icon',
+      //sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
+      largeIcon: DrawableResourceAndroidBitmap('app_icon'),
+    );
 
-  //   var iOSPlatformChannelSpecifics = IOSNotificationDetails(
-  //       sound: 'a_long_cold_sting.wav',
-  //       presentAlert: true,
-  //       presentBadge: true,
-  //       presentSound: true);
-  //   var platformChannelSpecifics = NotificationDetails(
-  //       android: androidPlatformChannelSpecifics,
-  //       iOS: iOSPlatformChannelSpecifics);
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails(
+        sound: 'a_long_cold_sting.wav',
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true);
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
 
-  //   await flutterLocalNotificationsPlugin.schedule(0, 'Office', vocab.word,
-  //       scheduledNotificationDateTime, platformChannelSpecifics);
-  // }
+    await flutterLocalNotificationsPlugin.schedule(0, 'Office', vocab.word,
+        scheduledNotificationDateTime, platformChannelSpecifics);
+  }
 }
