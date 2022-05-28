@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool isShowcalendar = false;
   // var dateAccumulation =['2022-05-11T00:00:00.000Z','2022-05-27T00:00:00.000Z', '2022-05-16T00:00:00.000Z'];
-  var dateAccumulation = authController.dateAccumulation[0].dateAccumulation;
+  var dateAccumulation = [];
 
   @override
   void initState() {
@@ -261,7 +261,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       lastDay: DateTime.utc(2030, 3, 14),
                       onDaySelected: (date, events) {},
                       selectedDayPredicate: (date) {
-                        if (dateAccumulation!.indexOf(date.toIso8601String().substring(0, 10)) >= 0) return true;
+                        if (dateAccumulation.indexOf(date.toIso8601String().substring(0, 10)) >= 0) return true;
 
                         return false;
                       },

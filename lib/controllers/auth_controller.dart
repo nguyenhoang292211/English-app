@@ -57,9 +57,11 @@ class AuthController extends GetxController {
 
       _initializeUserModel(_userId);
       dateAccumulation.bindStream(getDateAccumulation(user.email));
-      if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0,10)) < 0) {
-        var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0,10)];
-        updateDateLearning(listOnlineDay);
+      if (dateAccumulation.length > 0) {
+        if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
+          var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
+          updateDateLearning(listOnlineDay);
+        }
       }
       print(dateAccumulation);
       Get.offAll(() => HomeIndexScreen());
@@ -80,8 +82,8 @@ class AuthController extends GetxController {
         userCurrent.email = email.text.trim();
         userCurrent.password = password.text.trim();
         dateAccumulation.bindStream(getDateAccumulation(email.text.trim()));
-        if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0,10)) < 0) {
-          var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0,10)];
+        if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
+          var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
           updateDateLearning(listOnlineDay);
         }
         print(dateAccumulation);
@@ -127,7 +129,7 @@ class AuthController extends GetxController {
   }
 
   void signOut() async {
-  clearLocalStorage();
+    clearLocalStorage();
     auth.signOut();
   }
 
@@ -148,7 +150,6 @@ class AuthController extends GetxController {
   }
 
   void updateImageUrl(urlImage) async {
-
     var result = await firebaseFirestore.collection(usersCollection).doc(userModel.value.id).update({'image': urlImage}).then((value) {});
 
     print(result);
