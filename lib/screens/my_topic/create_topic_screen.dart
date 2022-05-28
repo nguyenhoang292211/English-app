@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:string_to_hex/string_to_hex.dart';
 import 'package:vocabulary_learning/colors.dart';
+import 'package:vocabulary_learning/components/customSnackBar.dart';
 import 'package:vocabulary_learning/components/input_field.dart';
 import 'package:vocabulary_learning/controllers/my_topic_controller.dart';
 import 'package:vocabulary_learning/models/my_topic.dart';
@@ -24,7 +25,6 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    myTopicCtrl.dispose();
     for (var element in myInputCtrl) {
       element.dispose();
     }
@@ -148,7 +148,56 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                                         onTap: () {
                                           myTopicCtrl.createdTopic.name =
                                               topicTextCtrl.text;
-                                          myTopicCtrl.saveTopic();
+                                          myTopicCtrl.saveTopic().then((value) {
+                                            if (value == false) {
+                                              Get.snackbar(
+                                                'Save fail!',
+                                                'You have to fill all field.',
+                                                snackPosition:
+                                                    SnackPosition.BOTTOM,
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 240, 196, 0),
+                                                borderRadius: 100,
+                                                duration:
+                                                    const Duration(seconds: 3),
+                                                colorText: kwhite,
+                                                isDismissible: true,
+                                                maxWidth: size.width * 0.9,
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                shouldIconPulse: true,
+                                                snackStyle: SnackStyle.FLOATING,
+                                                barBlur: 0.7,
+                                              );
+                                            } else {
+                                              Get.snackbar(
+                                                'Success!',
+                                                'Your topic have been saved.',
+                                                snackPosition:
+                                                    SnackPosition.BOTTOM,
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 0, 122, 37),
+                                                borderRadius: 20,
+                                                duration:
+                                                    const Duration(seconds: 4),
+                                                colorText: kwhite,
+                                                isDismissible: true,
+                                                maxWidth: size.width * 0.9,
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 10),
+                                                shouldIconPulse: true,
+                                                snackStyle: SnackStyle.FLOATING,
+                                                barBlur: 0.7,
+                                              );
+                                              Future.delayed(
+                                                  const Duration(seconds: 2),
+                                                  () {
+                                                Get.back();
+                                              });
+                                            }
+                                          });
                                         },
                                         child: const Image(
                                           image: AssetImage(
@@ -357,7 +406,8 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                                                 myInputCtrl
                                                     .getRange(index * 4,
                                                         index * 4 + 4)
-                                                    .toList());
+                                                    .toList(),
+                                                index * 4);
                                           })),
                                     ))
                               ],
@@ -382,10 +432,38 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
       }
       print(myTopicCtrl.createdVocabs.length);
     }
+    Get.snackbar(
+      'Saved vocabularies',
+      '',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: const Color.fromARGB(255, 2, 166, 216),
+      borderRadius: 100,
+      duration: const Duration(seconds: 2),
+      colorText: kwhite,
+      isDismissible: true,
+      maxWidth: 250,
+      margin: const EdgeInsets.only(bottom: 10),
+      shouldIconPulse: true,
+      snackStyle: SnackStyle.FLOATING,
+      titleText: const Text(
+        "Saved vocabulary",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 17,
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w600,
+            color: kwhite),
+      ),
+      messageText: Text(
+        "",
+        style: TextStyle(fontSize: 2),
+      ),
+      barBlur: 0.7,
+    );
   }
 
   Widget renderVocabItem(
-      MyVocab item, List<TextEditingController> myInputCtrl) {
+      MyVocab item, List<TextEditingController> inputCtrl, int startIndex) {
     print(item.id);
     final size = MediaQuery.of(context).size;
 
@@ -405,10 +483,10 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                   onTap: () {
                     MyVocab vocab = MyVocab(
                         id: myTopicCtrl.generateId(),
-                        word: myInputCtrl[0].text,
-                        mean: myInputCtrl[1].text,
-                        type: myInputCtrl[2].text,
-                        translation: myInputCtrl[3].text);
+                        word: inputCtrl[0].text,
+                        mean: inputCtrl[1].text,
+                        type: inputCtrl[2].text,
+                        translation: inputCtrl[3].text);
                     onSaveVocab(vocab, item.id);
                   },
                   child: const Icon(
@@ -420,9 +498,12 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                 InkWell(
                   onTap: () {
                     myTopicCtrl.removeMyVocab(item);
-                    // for (var element in myInputCtrl) {
-                    //   element.dispose();
-                    // }
+                    var index = startIndex;
+                    for (var element in inputCtrl) {
+                      // ignore: unrelated_type_equality_checks
+                      myInputCtrl.removeAt(index);
+                      index++;
+                    }
                   },
                   child: const Icon(
                     Icons.delete_outline_rounded,
@@ -433,7 +514,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
               ],
             ),
             TextField(
-              controller: myInputCtrl[0],
+              controller: inputCtrl[0],
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
                 labelText: 'Word',
@@ -451,7 +532,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
               ),
             ),
             TextField(
-              controller: myInputCtrl[1],
+              controller: inputCtrl[1],
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
                 labelText: 'Mean',
@@ -471,7 +552,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
             Container(
               width: 100,
               child: TextField(
-                controller: myInputCtrl[2],
+                controller: inputCtrl[2],
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
                   labelText: 'Type',
@@ -493,7 +574,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
               height: 10,
             ),
             TextField(
-              controller: myInputCtrl[3],
+              controller: inputCtrl[3],
               maxLines: 3,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
