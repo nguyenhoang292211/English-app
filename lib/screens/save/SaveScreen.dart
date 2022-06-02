@@ -19,7 +19,7 @@ class SaveScreen extends StatelessWidget {
               () => HeaderSave(
                 numberTopics: '5',
                 numberWords:
-                    "${saveController.userModel.value.savedVocabs != null ? saveController.userModel.value.savedVocabs!.length : 0}",
+                    "${saveController.userModel.value.savedVocabs != null && saveController.userModel.value.savedVocabs != [] && saveController.userModel.value.savedVocabs!.isEmpty ? saveController.userModel.value.savedVocabs?.length : 0}",
               ),
             ),
             const SizedBox(

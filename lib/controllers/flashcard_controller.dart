@@ -96,7 +96,8 @@ late CollectionReference docRef;
   }
 
   bool isLastIndex() {
-    return currentIndex.value == listState.length;
+    print(currentIndex.value );
+    return currentIndex.value == listState.length ;
   }
   // void saveWord(String id, String )
 }

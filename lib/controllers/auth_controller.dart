@@ -26,7 +26,12 @@ class AuthController extends GetxController {
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController passwordConfirm = TextEditingController();
+
   Rx<String> errPassword = "".obs;
+  Rx<String> errName = "".obs;
+  Rx<String> errEmail = "".obs;
+  Rx<String> errPasswordConfirm = "".obs;
+  Rx<String> errLogin = "".obs;
 
   String usersCollection = "users";
   String accumulationCollection = 'accumulation';
@@ -55,15 +60,17 @@ class AuthController extends GetxController {
       print(user);
       String _userId = user.uid;
 
-      _initializeUserModel(_userId);
-      dateAccumulation.bindStream(getDateAccumulation(user.email));
-      if (dateAccumulation.length > 0) {
-        if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
-          var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
-          updateDateLearning(listOnlineDay);
-        }
-      }
-      print(dateAccumulation);
+      _initializeUserModel(_userId, user.email.toString());
+      // var mUser = json.encode({"id": _userId, "email": user.email});
+      // addItemsToLocalStorage(STORAGE.USER, mUser);
+      // dateAccumulation.bindStream(getDateAccumulation(user.email));
+      // if (dateAccumulation.length > 0) {
+      //   if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
+      //     var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
+      //     updateDateLearning(listOnlineDay);
+      //   }
+      // }
+      // print(dateAccumulation);
       Get.offAll(() => HomeIndexScreen());
     } else {
       // Get.offAll(() => CreateTopicScreen());
@@ -77,22 +84,25 @@ class AuthController extends GetxController {
       await auth.signInWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((result) {
         String _userId = result.user!.uid;
 
-        _initializeUserModel(_userId);
-        userCurrent.id = _userId;
-        userCurrent.email = email.text.trim();
-        userCurrent.password = password.text.trim();
-        dateAccumulation.bindStream(getDateAccumulation(email.text.trim()));
-        if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
-          var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
-          updateDateLearning(listOnlineDay);
-        }
-        print(dateAccumulation);
-        var user = json.encode({"id": _userId, "email": email.text.trim(), "password": password.text.trim()});
-        addItemsToLocalStorage(STORAGE.USER, user);
-        _clearControllers();
+        _initializeUserModel(_userId, email.text.trim());
+        // userCurrent.id = _userId;
+        // userCurrent.email = email.text.trim();
+        // userCurrent.password = password.text.trim();
+        // dateAccumulation.bindStream(getDateAccumulation(email.text.trim()));
+        // if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
+        //   var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
+        //   updateDateLearning(listOnlineDay);
+        // }
+        // print(dateAccumulation);
+        // var user = json.encode({"id": _userId, "email": email.text.trim(), "password": password.text.trim()});
+        // addItemsToLocalStorage(STORAGE.USER, user);
+        // _clearControllers();
         Get.offAll(() => HomeIndexScreen());
       });
     } catch (e) {
+      errLogin = 'Email or password was incorrect'.obs;
+      update();
+      dismissLoadingWidget();
       debugPrint(e.toString());
       Get.snackbar("Sign In Failed", "Try again");
     }
@@ -100,6 +110,22 @@ class AuthController extends GetxController {
 
   void signUp() async {
     showLoading();
+    clearError();
+
+    if (name.text.trim().isEmpty) {
+      errName = "Your name can't be empty".obs;
+      update();
+      dismissLoadingWidget();
+      return;
+    }
+
+    bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email.text.trim());
+    if (!emailValid) {
+      errEmail = "Your email is incorrect".obs;
+      update();
+      dismissLoadingWidget();
+      return;
+    }
     //Validate input
     if (password.text.trim().length < 6) {
       errPassword = "Password must have least 6 character".obs;
@@ -108,7 +134,7 @@ class AuthController extends GetxController {
       return;
     }
     if (password.text.trim() != passwordConfirm.text.trim()) {
-      errPassword = "Password not match".obs;
+      errPasswordConfirm = "Password not match".obs;
       update();
       dismissLoadingWidget();
       return;
@@ -119,7 +145,7 @@ class AuthController extends GetxController {
       await auth.createUserWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((result) {
         String _userId = result.user!.uid;
         _addUserToFirestore(_userId);
-        _initializeUserModel(_userId);
+        _initializeUserModel(_userId, email.text.trim());
         _clearControllers();
       });
     } catch (e) {
@@ -134,13 +160,31 @@ class AuthController extends GetxController {
   }
 
   _addUserToFirestore(String userId) {
-    firebaseFirestore.collection(usersCollection).doc(userId).set({"name": name.text.trim(), "id": userId, "email": email.text.trim()});
+    firebaseFirestore.collection(usersCollection).doc(userId).set({"name": name.text.trim(), "id": userId, "email": email.text.trim(), "saved-vocabs": [], "image": ""});
+    firebaseFirestore.collection(accumulationCollection).doc(userId).set({"email": email.text.trim(), "dateAccumulation": []});
   }
 
-  _initializeUserModel(String userId) async {
-    userModel.value = await firebaseFirestore.collection(usersCollection).doc(userId).get().then((doc) => UserModel.fromSnapshot(doc));
+  _initializeUserModel(String userId, String mEmail) async {
+    userModel.value = await firebaseFirestore.collection(usersCollection).doc(userId).get().then((doc) {
+      return UserModel.fromSnapshot(doc);
+    });
 
+    print(167);
+    print(userModel);
+    userCurrent.id = userId;
+    userCurrent.email = mEmail;
+    // userCurrent.password = password.text.trim();
+    dateAccumulation.bindStream(getDateAccumulation(mEmail));
+    if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
+      var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
+      updateDateLearning(listOnlineDay);
+    }
+    print(dateAccumulation);
+    var user = json.encode({"id": userId, "email": mEmail});
+    addItemsToLocalStorage(STORAGE.USER, user);
+    _clearControllers();
     update();
+
   }
 
   _clearControllers() {
@@ -171,5 +215,20 @@ class AuthController extends GetxController {
     var batch = firebaseFirestore.batch();
     batch.update(userInfo, {'dateAccumulation': mDateAccumulation});
     batch.commit();
+  }
+
+  void clearInputWhenChangePage() {
+    name.clear();
+    email.clear();
+    password.clear();
+    passwordConfirm.clear();
+  }
+
+  void clearError() {
+    errEmail = ''.obs;
+    errName = ''.obs;
+    errPassword = ''.obs;
+    errPasswordConfirm = ''.obs;
+    update();
   }
 }

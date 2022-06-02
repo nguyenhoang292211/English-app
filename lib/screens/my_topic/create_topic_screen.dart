@@ -171,6 +171,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                                                 barBlur: 0.7,
                                               );
                                             } else {
+                                              Navigator.pop(context);
                                               Get.snackbar(
                                                 'Success!',
                                                 'Your topic have been saved.',
@@ -191,11 +192,12 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                                                 snackStyle: SnackStyle.FLOATING,
                                                 barBlur: 0.7,
                                               );
-                                              Future.delayed(
-                                                  const Duration(seconds: 2),
-                                                  () {
-                                                Get.back();
-                                              });
+                                             
+                                              // Future.delayed(
+                                              //     const Duration(seconds: 2),
+                                              //     () {
+                                              //   Get.back();
+                                              // });
                                             }
                                           });
                                         },
@@ -284,7 +286,7 @@ class _CreateTopicScreenState extends State<CreateTopicScreen> {
                                         Container(
                                           width: size.width * 0.85,
                                           alignment: Alignment.center,
-                                          height: 30,
+                                          height: 27,
                                           child: ListView.builder(
                                               scrollDirection: Axis.horizontal,
                                               itemCount: listColor.length,
