@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool isShowcalendar = false;
   // var dateAccumulation =['2022-05-11T00:00:00.000Z','2022-05-27T00:00:00.000Z', '2022-05-16T00:00:00.000Z'];
-  var dateAccumulation = authController.dateAccumulation[0].dateAccumulation;
+  var dateAccumulation = authController.dateAccumulation.length > 0 ? authController.dateAccumulation[0].dateAccumulation : [];
 
   @override
   void initState() {
@@ -105,9 +105,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         radius: 80,
                         backgroundImage: showLocalFile
                             ? FileImage(imageFile!) as ImageProvider
-                            : userModel!.image == ''
-                                ? const NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGrQoGh518HulzrSYOTee8UO517D_j6h4AYQ&usqp=CAU')
-                                : NetworkImage(userModel?.image ?? " ")),
+                            : userModel?.image == ''
+                                ? const NetworkImage('https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png')
+                                : NetworkImage(userModel?.image ?? "https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png")),
                   ),
                 ),
               ),
@@ -219,7 +219,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               radius: 44,
               backgroundColor: kred,
               child: CircleAvatar(
-              radius: 40,
+                radius: 40,
                 backgroundImage: AssetImage("asset/images/gift.gif"),
               ),
             ),

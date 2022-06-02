@@ -20,7 +20,7 @@ class QuestionAnswer extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         alignment: Alignment.center,
-        width: size.width * 0.9,
+        width: size.width * 0.85,
         decoration: BoxDecoration(
             color: isCorrest ? kScoreScreen : kRedBackground,
             border: Border.all(
@@ -45,7 +45,7 @@ class QuestionAnswer extends StatelessWidget {
               Image(
                 image: AssetImage(
                     isCorrest ? "asset/images/tick.png" : "asset/images/x.png"),
-                height: 50,
+                height: 35,
               )
             ]),
       ),

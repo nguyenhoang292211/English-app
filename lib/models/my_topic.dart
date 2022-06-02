@@ -1,4 +1,5 @@
 class MyTopic {
+  String? docID;
   String? id;
   String? userId;
   String? color;
@@ -9,17 +10,21 @@ class MyTopic {
       this.userId,
       this.color,
       this.vocabularies,
+      this.docID,
       required this.name});
 
-  factory MyTopic.fromMap(map) {
+  factory MyTopic.fromMap(map, id) {
     final vocabs = map['vocabularies'] as List<dynamic>;
 
     return MyTopic(
+      docID: id,
       id: map['id'],
       userId: map['userId'],
       color: map['color'],
       name: map['name'],
-      vocabularies: vocabs.map((item) => MyVocab.fromMap(item)).toList(),
+      vocabularies: vocabs.isNotEmpty
+          ? vocabs.map((item) => MyVocab.fromMap(item)).toList()
+          : [],
     );
   }
 }
@@ -38,7 +43,7 @@ class MyVocab {
     return MyVocab(
       id: map['id'],
       word: map['word'],
-      translation: map['definition'],
+      translation: map['translation'],
       type: map['type'],
       mean: map['mean'],
     );
