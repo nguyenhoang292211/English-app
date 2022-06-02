@@ -14,24 +14,28 @@ import 'package:fluttertoast/fluttertoast.dart';
 class SaveController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   RxList<Vocabulary> vocabularys = RxList<Vocabulary>([]);
-  Map<String, dynamic> userCurrent =
-      json.decode(getItemFromLocalStorage(STORAGE.USER));
+  late Map<String, dynamic> userCurrent;
   Rx<UserModel> userModel = UserModel().obs;
 
   UserModel? user;
   @override
   void onInit() {
     super.onInit();
-    userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
-    _initializeUserModel(userCurrent['id']);
+    if (getItemFromLocalStorage(STORAGE.USER) != null) {
+      userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
+      _initializeUserModel(userCurrent['id']);
+    }
+
     update();
   }
 
   @override
   onReady() {
     super.onReady();
-    userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
-    _initializeUserModel(userCurrent['id']);
+    if (getItemFromLocalStorage(STORAGE.USER) != null) {
+      userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
+      _initializeUserModel(userCurrent['id']);
+    }
     update();
   }
 
@@ -47,6 +51,7 @@ class SaveController extends GetxController {
   }
 
   bool isSave(String vocabId) {
+    if (userCurrent['id'] == null) return false;
     _initializeUserModel(userCurrent['id']);
     List<dynamic> saves = userModel.value.savedVocabs!.toList();
     //return saves.contains(vocabId) ? true : false;
@@ -81,12 +86,14 @@ class SaveController extends GetxController {
   }
 
   _initializeUserModel(String userId) async {
-    userModel.value = await firebaseFirestore
-        .collection(COLECTION.USER)
-        .doc(userId)
-        .get()
-        .then((doc) => UserModel.fromSnapshot(doc));
-    vocabularys
-        .bindStream(getListVocabulary(userModel.value.savedVocabs?.toList()));
+    if (userId != null) {
+      userModel.value = await firebaseFirestore
+          .collection(COLECTION.USER)
+          .doc(userId)
+          .get()
+          .then((doc) => UserModel.fromSnapshot(doc));
+      vocabularys
+          .bindStream(getListVocabulary(userModel.value.savedVocabs?.toList()));
+    }
   }
 }
