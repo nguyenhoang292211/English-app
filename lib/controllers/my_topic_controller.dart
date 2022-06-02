@@ -80,18 +80,18 @@ class MyTopicController extends GetxController
       print("==========data==========");
 
       print(data);
-      await firebaseFirestore.collection("my_topic").add(data).then((value) {
+      return firebaseFirestore.collection("my_topic").add(data).then((value) {
         createdTopic.docID = value.id;
         listTopics.add(createdTopic);
         saveSuccess = true.obs;
+          isLoading = false.obs;
+      update();
+        return true;
       }).catchError((err) {
         saveSuccess = false.obs;
+        return false;
       });
 
-      isLoading = false.obs;
-      update();
-
-      return true;
     } on NullThrownError catch (e) {
       //Handle exception of type SomeException
       print("Null Exception===>>>" + e.toString());

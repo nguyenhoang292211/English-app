@@ -111,7 +111,7 @@ class TopicSection extends StatelessWidget {
                     });
                   },
                   child: const Image(
-                    image: AssetImage("asset/images/Garbage.jpg"),
+                    image: AssetImage("asset/images/garbage.jpg"),
                     height: 30,
                     fit: BoxFit.fitHeight,
                   )),
