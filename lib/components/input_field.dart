@@ -65,7 +65,7 @@ class _InputFieldState extends State<InputField> {
               border: InputBorder.none,
               suffixIcon: widget.obscureText
                   ? IconButton(
-                      icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                      icon: Icon(_isObscure ? Icons.visibility_off :  Icons.visibility),
                       onPressed: () {
                         this.setState(() {
                           _isObscure = !_isObscure;

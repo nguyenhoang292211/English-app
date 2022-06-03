@@ -126,7 +126,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                                       width: size.width ,
                                       height:  size.height * 0.63,
                                       child: Swiper(
-                                        // layout: SwiperLayout.TINDER,
+                                        layout: SwiperLayout.STACK,
 
                                         itemBuilder: (BuildContext context, int index) {
                                           return FlipCard(

@@ -65,16 +65,7 @@ class AuthController extends GetxController {
       String _userId = user.uid;
 
       _initializeUserModel(_userId, user.email.toString());
-      // var mUser = json.encode({"id": _userId, "email": user.email});
-      // addItemsToLocalStorage(STORAGE.USER, mUser);
-      // dateAccumulation.bindStream(getDateAccumulation(user.email));
-      // if (dateAccumulation.length > 0) {
-      //   if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
-      //     var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
-      //     updateDateLearning(listOnlineDay);
-      //   }
-      // }
-      // print(dateAccumulation);
+
       Get.offAll(() => HomeIndexScreen());
     } else {
       // Get.offAll(() => CreateTopicScreen());
@@ -101,13 +92,14 @@ class AuthController extends GetxController {
         //   updateDateLearning(listOnlineDay);
         // }
         // print(dateAccumulation);
-        var user = json.encode({
-          "id": _userId,
-          "email": email.text.trim(),
-          "password": password.text.trim()
-        });
-        addItemsToLocalStorage(STORAGE.USER, user);
+        // var user = json.encode({
+        //   "id": _userId,
+        //   "email": email.text.trim(),
+        //   "password": password.text.trim()
+        // });
+        // addItemsToLocalStorage(STORAGE.USER, user);
         // _clearControllers();
+      
         Get.offAll(() => HomeIndexScreen());
       });
     } catch (e) {
@@ -168,7 +160,7 @@ class AuthController extends GetxController {
         addItemsToLocalStorage(STORAGE.USER, user);
         _addUserToFirestore(_userId);
         _initializeUserModel(_userId, email.text.trim());
-        _clearControllers();
+        clearControllers();
       });
     } catch (e) {
       debugPrint(e.toString());
@@ -177,9 +169,13 @@ class AuthController extends GetxController {
   }
 
   void signOut() async {
+  
+    userModel.value=new UserModel();
     clearLocalStorage();
     auth.signOut();
   }
+
+
 
   _addUserToFirestore(String userId) {
     firebaseFirestore.collection(usersCollection).doc(userId).set({
@@ -223,14 +219,22 @@ class AuthController extends GetxController {
     print(dateAccumulation);
     var user = json.encode({"id": userId, "email": mEmail});
     addItemsToLocalStorage(STORAGE.USER, user);
-    _clearControllers();
+    clearControllers();
     update();
   }
 
-  _clearControllers() {
-    name.clear();
+  clearControllers() {
+  name.clear();
     email.clear();
     password.clear();
+    passwordConfirm.clear();
+        errEmail = ''.obs;
+    errName = ''.obs;
+    errPassword = ''.obs;
+    errPasswordConfirm = ''.obs;
+    errEmail = ''.obs;
+    errLogin = ''.obs;
+       update();
   }
 
   void updateImageUrl(urlImage) async {
@@ -263,13 +267,6 @@ class AuthController extends GetxController {
     var batch = firebaseFirestore.batch();
     batch.update(userInfo, {'dateAccumulation': mDateAccumulation});
     batch.commit();
-  }
-
-  void clearInputWhenChangePage() {
-    name.clear();
-    email.clear();
-    password.clear();
-    passwordConfirm.clear();
   }
 
   void clearError() {
