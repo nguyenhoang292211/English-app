@@ -12,8 +12,7 @@ import 'package:vocabulary_learning/utils/storeData.dart';
 class ScoreAllController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   RxList<ScoreGame> scoreGames = RxList<ScoreGame>([]);
-  Map<String, dynamic> userCurrent =
-      json.decode(getItemFromLocalStorage(STORAGE.USER));
+  late Map<String, dynamic> userCurrent;
   Rx<UserModel> userModel = UserModel().obs;
   @override
   onReady() {

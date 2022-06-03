@@ -11,8 +11,7 @@ import '../../utils/storeData.dart';
 
 class VocabularyController extends GetxController {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  Map<String, dynamic> userCurrent =
-      json.decode(getItemFromLocalStorage(STORAGE.USER));
+  late Map<String, dynamic> userCurrent;
   var uuid = const Uuid();
 
   Future<String?> getNoteByVocabIdAndUserId(String vocabId) {
@@ -23,10 +22,11 @@ class VocabularyController extends GetxController {
         .get()
         .then((doc) {
       print(Note.fromMap(doc).note);
-      if (doc != null)
+      if (doc != null) {
         return Note.fromMap(doc).note;
-      else
+      } else {
         return "";
+      }
     }).catchError((error) {
       return "";
     });
