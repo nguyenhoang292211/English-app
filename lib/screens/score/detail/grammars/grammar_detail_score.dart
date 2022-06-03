@@ -37,7 +37,24 @@ class GrammarDetailScore extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Row(
-              children: [],
+              children: [
+                InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Image(
+                            image: AssetImage("asset/images/ArrowLeft.png"),
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    )),
+              ],
             ),
           ),
           ListView.separated(

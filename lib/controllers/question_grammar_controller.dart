@@ -20,42 +20,45 @@ import 'package:vocabulary_learning/utils/storeData.dart';
 class QuestionGrammarController extends GetxController
     with SingleGetTickerProviderMixin {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  Map<String, dynamic> userCurrent =
-      json.decode(getItemFromLocalStorage(STORAGE.USER));
+  late Map<String, dynamic> userCurrent;
+
   ScoreAllController scoreAllController = Get.put(ScoreAllController());
   late AnimationController _animationController;
   late Animation _animation;
-  Animation get animation => this._animation;
+  Animation get animation => _animation;
 
   RxInt _questionNumber = 1.obs;
-  RxInt get questionNumber => this._questionNumber;
+  RxInt get questionNumber => _questionNumber;
 
   GrammarController grammarController = Get.put(GrammarController());
 
   bool _isAnswer = false;
-  bool get isAnswer => this._isAnswer;
+  bool get isAnswer => _isAnswer;
 
   late int _correctAns;
-  int get correctAns => this._correctAns;
+  int get correctAns => _correctAns;
 
   late int _selectAns;
-  int get selectedAns => this._selectAns;
+  int get selectedAns => _selectAns;
 
   int _numOfCorrectAns = 0;
-  int get numOfCorrectAns => this._numOfCorrectAns;
+  int get numOfCorrectAns => _numOfCorrectAns;
 
   List<String> _listQuesionToScore = [];
-  List<String> get listQuesionToScore => this._listQuesionToScore;
+  List<String> get listQuesionToScore => _listQuesionToScore;
   List<bool> _listAnswerToScore = [];
-  List<bool> get listAnswerToScore => this._listAnswerToScore;
+  List<bool> get listAnswerToScore => _listAnswerToScore;
 
   late PageController _pageController;
-  PageController get pageController => this._pageController;
+  PageController get pageController => _pageController;
 
   RxList<QuestionGrammar> _lQuestion = RxList<QuestionGrammar>([]);
-  RxList<QuestionGrammar> get lQuestion => this._lQuestion;
+  RxList<QuestionGrammar> get lQuestion => _lQuestion;
   @override
   void onInit() {
+    if (getItemFromLocalStorage(STORAGE.USER) != null) {
+      userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
+    }
     print(
         "------------------------ ${grammarController.grammarSelected.value.title}");
     _lQuestion.bindStream(grammarController
@@ -74,6 +77,11 @@ class QuestionGrammarController extends GetxController
   @override
   onReady() {
     super.onReady();
+    if (getItemFromLocalStorage(STORAGE.USER) != null) {
+      userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
+    }
+    print(
+        "------------------------ ${grammarController.grammarSelected.value.title}");
     _lQuestion.bindStream(grammarController
         .getListQuestionGrammar(grammarController.grammarSelected.value));
     update();
@@ -168,16 +176,20 @@ class QuestionGrammarController extends GetxController
   }
 
   void saveScoreGrammar() {
-    ScoreGame scoreGame = new ScoreGame(
-        idContest: this.grammarController.grammarSelected.value.id,
-        questions: listQuesionToScore,
-        title: this.grammarController.grammarSelected.value.title,
-        corrects: listAnswerToScore,
-        idUser: userCurrent['id'],
-        gameType: GAME_TYPE.GRAMMAR,
-        createdAt: new DateTime.now(),
-        updatedAt: new DateTime.now());
-    scoreAllController.saveToScore(scoreGame);
+    if (getItemFromLocalStorage(STORAGE.USER) != null) {
+      userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
+      ScoreGame scoreGame = ScoreGame(
+          idContest: grammarController.grammarSelected.value.id,
+          questions: listQuesionToScore,
+          title: grammarController.grammarSelected.value.title,
+          corrects: listAnswerToScore,
+          idUser: userCurrent['id'],
+          gameType: GAME_TYPE.GRAMMAR,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now());
+      scoreAllController.saveToScore(scoreGame);
+    }
+
     _listAnswerToScore = [];
     _listQuesionToScore = [];
     update();

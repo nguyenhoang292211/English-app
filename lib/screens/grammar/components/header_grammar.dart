@@ -11,23 +11,31 @@ class HeaderGrammar extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height*0.1,
+      height: size.height * 0.1,
       width: size.width,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           InkWell(
               onTap: () {
                 goBack();
               },
-              child: Image(image: AssetImage("asset/images/ArrowLeft.png"))),
-          Text(this.headerString,
-              style: TextStyle(
-                  fontFamily: "PoetsenOne", fontSize: 24, color: Colors.white)),
-          SizedBox(
-            height: 20,
-          )
+              child:
+                  const Image(image: AssetImage("asset/images/ArrowLeft.png"))),
+          const SizedBox(
+            width: 15,
+          ),
+          Flexible(
+            fit: FlexFit.loose,
+            child: Text(headerString,
+                maxLines: 3,
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                    fontFamily: "PoetsenOne",
+                    fontSize: 24,
+                    color: Colors.white)),
+          ),
         ],
       ),
     );

@@ -31,95 +31,97 @@ class TopicScreen extends StatelessWidget {
     flashCardController.setVocabularies(vocabularies);
     topicCtrl.check();
     return TopicBackground(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 45, right: 10, left: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                InkWell(
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    size: 24,
-                    color: kgrayTitleButton,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 45, right: 10, left: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  InkWell(
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      size: 24,
+                      color: kgrayTitleButton,
+                    ),
+                    onTap: () {
+                      Get.back();
+                    },
                   ),
-                  onTap: () {
-                    Get.back();
-                  },
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                const Text(
-                  'Topic:',
-                  style: TextStyle(
-                      color: kblack, fontSize: 22, fontFamily: 'PoetsenOne'),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  '${topicCtrl.topicSelected.name}',
-                  overflow: TextOverflow.clip,
-                  style: const TextStyle(
-                    color: kmainBrown,
-                    fontSize: 27,
-                    fontFamily: 'PoetsenOne',
+                  const SizedBox(
+                    width: 5,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            renderFlashCards(size),
-            const SizedBox(
-              height: 25,
-            ),
-            NavigationButton(
-                image: "asset/images/learn_icon.png",
-                text: 'Learning',
-                background: const Color(0xffF8C7BD),
-                onClick: () {
-                  learningCtrl.gotoLearningScreen(topicCtrl.topicSelected.id);
-                }),
-            const SizedBox(
-              height: 12,
-            ),
-            NavigationButton(
-                image: "asset/images/game_icon.png",
-                text: 'Game',
-                background: const Color(0xffFAFC95),
-                onClick: () {
-                  gameCtrl.goToGameScreen();
-                }),
-            const SizedBox(
-              height: 12,
-            ),
-            NavigationButton(
-                image: "asset/images/flashcard_icon.png",
-                text: 'Flash card',
-                background: const Color(0xffAADB98),
-                onClick: () {
-                  Get.to(AllVocabulary());
-                }),
-            const SizedBox(
-              height: 12,
-            ),
-            NavigationButton(
-                image: "asset/images/timer.png",
-                text: 'Quick review',
-                background: kBlueGrammar,
-                onClick: () {
-                  // showInfoLoading("Waiting to find competitor");
-                  // var future = new Future.delayed(const Duration(milliseconds: 2000), () {
-                  // dismissLoadingWidget();
-                  Get.to(DraggGame());
-                  // });
-                })
-          ],
+                  const Text(
+                    'Topic:',
+                    style: TextStyle(
+                        color: kblack, fontSize: 22, fontFamily: 'PoetsenOne'),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '${topicCtrl.topicSelected.name}',
+                    overflow: TextOverflow.clip,
+                    style: const TextStyle(
+                      color: kmainBrown,
+                      fontSize: 27,
+                      fontFamily: 'PoetsenOne',
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              renderFlashCards(size),
+              const SizedBox(
+                height: 25,
+              ),
+              NavigationButton(
+                  image: "asset/images/learn_icon.png",
+                  text: 'Learning',
+                  background: const Color(0xffF8C7BD),
+                  onClick: () {
+                    learningCtrl.gotoLearningScreen(topicCtrl.topicSelected.id);
+                  }),
+              const SizedBox(
+                height: 12,
+              ),
+              NavigationButton(
+                  image: "asset/images/game_icon.png",
+                  text: 'Game',
+                  background: const Color(0xffFAFC95),
+                  onClick: () {
+                    gameCtrl.goToGameScreen();
+                  }),
+              const SizedBox(
+                height: 12,
+              ),
+              NavigationButton(
+                  image: "asset/images/flashcard_icon.png",
+                  text: 'Flash card',
+                  background: const Color(0xffAADB98),
+                  onClick: () {
+                    Get.to(AllVocabulary());
+                  }),
+              const SizedBox(
+                height: 12,
+              ),
+              NavigationButton(
+                  image: "asset/images/timer.png",
+                  text: 'Quick review',
+                  background: kBlueGrammar,
+                  onClick: () {
+                    // showInfoLoading("Waiting to find competitor");
+                    // var future = new Future.delayed(const Duration(milliseconds: 2000), () {
+                    // dismissLoadingWidget();
+                    Get.to(DraggGame());
+                    // });
+                  })
+            ],
+          ),
         ),
       ),
     );

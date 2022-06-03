@@ -40,10 +40,13 @@ class GrammarComponent extends StatelessWidget {
               fontSize: 19,
             ),
           ),
-          Text(
-            grammar.document!,
-            maxLines: 2,
-            style: TextStyle(color: Colors.black54, fontSize: 16),
+          Flexible(
+            child: Text(
+              grammar.document!,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: TextStyle(color: Colors.black54, fontSize: 16),
+            ),
           )
         ]),
       ),

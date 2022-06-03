@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/grammar_controller.dart';
+import 'package:vocabulary_learning/controllers/question_grammar_controller.dart';
 import 'package:vocabulary_learning/models/grammar.dart';
 import 'package:vocabulary_learning/screens/grammar/components/button_detail.dart';
 import 'package:vocabulary_learning/screens/grammar/components/header_grammar.dart';
@@ -15,6 +16,8 @@ class GrammarDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final topicController =
+        Get.put<QuestionGrammarController>(QuestionGrammarController());
     return Scaffold(
       body: GetBuilder<GrammarController>(
           init: GrammarController(),

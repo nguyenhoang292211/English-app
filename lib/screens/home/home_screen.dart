@@ -15,12 +15,42 @@ import '../../models/topic.dart';
 
 // ignore: unnecessary_new
 const List topic = [
-  {"name": "Animal", "color": Color.fromARGB(255, 243, 223, 152), "image": 'asset/images/elephant.png', "id": "acb"},
-  {"name": "Animal", "color": Color.fromARGB(248, 245, 180, 180), "image": 'asset/images/elephant.png', "id": "acb"},
-  {"name": "Animal", "color": Color.fromARGB(255, 185, 208, 218), "image": 'asset/images/elephant.png', "id": "acb"},
-  {"name": "Animal", "color": Color.fromARGB(255, 218, 182, 106), "image": 'asset/images/elephant.png', "id": "acb"},
-  {"name": "Animal", "color": Color.fromARGB(255, 159, 206, 145), "image": 'asset/images/elephant.png', "id": "acb"},
-  {"name": "Animal", "color": Color.fromARGB(255, 163, 165, 196), "image": 'asset/images/elephant.png', "id": "acb"}
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 243, 223, 152),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(248, 245, 180, 180),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 185, 208, 218),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 218, 182, 106),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 159, 206, 145),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  },
+  {
+    "name": "Animal",
+    "color": Color.fromARGB(255, 163, 165, 196),
+    "image": 'asset/images/elephant.png',
+    "id": "acb"
+  }
 ];
 
 class HomeScreen extends StatelessWidget {
@@ -33,7 +63,8 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Stack(children: [
         Container(
-            padding: const EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 10),
+            padding:
+                const EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 10),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: [
@@ -61,16 +92,20 @@ class HomeScreen extends StatelessWidget {
                             color: kblack,
                           ),
                         ),
-                        Obx(() => Text(authController.userModel.value.name ?? "Helen", style: const TextStyle(fontFamily: "PoetsenOne", fontSize: 32, color: kmainOrange)))
+                        Obx(() => Text(
+                            authController.userModel.value.name ?? "Helen",
+                            style: const TextStyle(
+                                fontFamily: "PoetsenOne",
+                                fontSize: 32,
+                                color: kmainOrange)))
                       ],
                     ),
                     CircleAvatar(
                       radius: 22,
-                      backgroundColor: Colors.greenAccent[400],
-                      child: const Text(
-                        'HN',
-                        style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: "Poppins"),
-                      ),
+                      backgroundColor: Color.fromARGB(255, 33, 172, 105),
+                      backgroundImage: NetworkImage(authController
+                              .userModel.value.image ??
+                          'https://img.freepik.com/free-vector/cute-panda-sipping-boba-milk-tea-cartoon-icon-illustration-animal-food-icon-concept-isolated-flat-cartoon-style_138676-2173.jpg?w=2000'),
                     )
                   ],
                 ),
@@ -81,25 +116,43 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Positioned(
                         child: Padding(
-                      padding: const EdgeInsets.only(top: 25, right: 10, bottom: 10),
+                      padding:
+                          const EdgeInsets.only(top: 25, right: 10, bottom: 10),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 8),
                         height: size.height * 0.15,
                         width: size.width * 0.9,
-                        decoration: BoxDecoration(color: const Color.fromARGB(255, 253, 255, 143), borderRadius: const BorderRadius.all(Radius.circular(15)), boxShadow: [
-                          BoxShadow(
-                            blurRadius: 5,
-                            color: const Color.fromARGB(255, 80, 78, 78).withOpacity(0.2),
-                            offset: const Offset(2, 3),
-                          )
-                        ]),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
-                          Text("Vocabulary", style: TextStyle(fontFamily: "PoetsenOne", fontSize: 27, color: kblack)),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text("Everyday with 30min to know new\n words", style: TextStyle(fontFamily: "Poppins", fontSize: 14, color: kblack, fontWeight: FontWeight.w400))
-                        ]),
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 253, 255, 143),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(15)),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 5,
+                                color: const Color.fromARGB(255, 80, 78, 78)
+                                    .withOpacity(0.2),
+                                offset: const Offset(2, 3),
+                              )
+                            ]),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text("Vocabulary",
+                                  style: TextStyle(
+                                      fontFamily: "PoetsenOne",
+                                      fontSize: 27,
+                                      color: kblack)),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text("Everyday with 30min to know new\n words",
+                                  style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      fontSize: 14,
+                                      color: kblack,
+                                      fontWeight: FontWeight.w400))
+                            ]),
                       ),
                     )),
                     Positioned(
@@ -124,12 +177,9 @@ class HomeScreen extends StatelessWidget {
                 const GrammarHome()
               ],
             )),
-       
       ]),
     );
   }
-
-  
 
   Column vocabularySection(Size size, BuildContext context) {
     return Column(children: [
@@ -165,13 +215,15 @@ class HomeScreen extends StatelessWidget {
             physics: const ScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: topicController.topics.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
             itemBuilder: (BuildContext context, int index) {
               return TopicCard(
                 topic: topicController.topics[index],
                 color: topicController.getColorByIndex(index),
                 onTap: () {
-                  topicController.goToDetailTopic(topicController.topics[index]);
+                  topicController
+                      .goToDetailTopic(topicController.topics[index]);
                 },
               );
             })),
