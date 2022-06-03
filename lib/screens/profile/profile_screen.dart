@@ -59,279 +59,285 @@ class _ProfileScreenState extends State<ProfileScreen> {
     print(42);
     print(dateAccumulation);
     return Scaffold(
-        body: SafeArea(
-      child: Stack(children: [
-        Container(
-          width: size.width,
-          height: size.height,
-          padding:
-              const EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 241, 255, 179),
-                    Color.fromARGB(255, 242, 255, 207),
-                    Color.fromARGB(255, 210, 255, 206),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0.2, 0.45, 0.9])),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  'My profile',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: kblack,
-                    fontSize: 22,
-                    fontFamily: 'PoetsenOne',
+        body: SingleChildScrollView(
+      child: SafeArea(
+        child: Stack(children: [
+          Container(
+            width: size.width,
+            height: size.height,
+            padding:
+                const EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(255, 241, 255, 179),
+                      Color.fromARGB(255, 242, 255, 207),
+                      Color.fromARGB(255, 210, 255, 206),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: [0.2, 0.45, 0.9])),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-            Stack(children: [
-              Center(
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-                  child: CircleAvatar(
-                    radius: 86,
-                    backgroundColor: kredLight,
+                  const Text(
+                    'My profile',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: kblack,
+                      fontSize: 22,
+                      fontFamily: 'PoetsenOne',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+              Stack(children: [
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 30, horizontal: 30),
                     child: CircleAvatar(
-                        radius: 80,
-                        backgroundImage: showLocalFile
-                            ? FileImage(imageFile!) as ImageProvider
-                            : userModel?.image == ''
-                                ? const NetworkImage(
-                                    'https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png')
-                                : NetworkImage(userModel?.image ??
-                                    "https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png")),
+                      radius: 86,
+                      backgroundColor: kredLight,
+                      child: CircleAvatar(
+                          radius: 80,
+                          backgroundImage: showLocalFile
+                              ? FileImage(imageFile!) as ImageProvider
+                              : userModel?.image == ''
+                                  ? const NetworkImage(
+                                      'https://img.freepik.com/free-vector/cute-panda-sipping-boba-milk-tea-cartoon-icon-illustration-animal-food-icon-concept-isolated-flat-cartoon-style_138676-2173.jpg?w=2000')
+                                  : NetworkImage(userModel?.image ??
+                                      "https://img.freepik.com/free-vector/cute-panda-sipping-boba-milk-tea-cartoon-icon-illustration-animal-food-icon-concept-isolated-flat-cartoon-style_138676-2173.jpg?w=2000")),
+                    ),
                   ),
                 ),
+                Positioned(
+                  left: size.width * 0.5 + 10,
+                  bottom: 10,
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: kredLight,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.camera_alt,
+                        color: kwhite,
+                      ),
+                      onPressed: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ListTile(
+                                      leading: const Icon(Icons.image),
+                                      title: const Text('From Gallery'),
+                                      onTap: () {
+                                        _pickImageFromGallery();
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: const Icon(Icons.camera_alt),
+                                      title: const Text('From Camera'),
+                                      onTap: () {
+                                        _pickImageFromCamera();
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
+                      },
+                    ),
+                  ),
+                ),
+              ]),
+              ProfileItem(
+                image: "asset/images/woman.png",
+                text: userModel?.name ?? " ",
+                background: kYellowLight,
+                onClick: () {},
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              ProfileItem(
+                image: "asset/images/email.png",
+                text: userModel?.email ?? " ",
+                background: kGreenHightLight,
+                onClick: () {},
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              ProfileItem(
+                image: "asset/images/grade.png",
+                text: "My score",
+                background: kGreenBold,
+                onClick: () {
+                  Get.to(const ScoreAllScreen());
+                },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              ProfileItem(
+                image: "asset/images/logout_2.png",
+                text: "Logout",
+                background: kPurpleGrammar,
+                onClick: () {
+                  authController.signOut();
+                },
               ),
               Positioned(
-                left: size.width * 0.5 + 10,
-                bottom: 10,
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: kredLight,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      color: kwhite,
-                    ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ListTile(
-                                    leading: const Icon(Icons.image),
-                                    title: const Text('From Gallery'),
-                                    onTap: () {
-                                      _pickImageFromGallery();
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  ListTile(
-                                    leading: const Icon(Icons.camera_alt),
-                                    title: const Text('From Camera'),
-                                    onTap: () {
-                                      _pickImageFromCamera();
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
-                    },
+                bottom: size.height * 0.05,
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  child: Image.asset(
+                    'asset/images/panda_onboard.png',
+                    width: size.width * 0.3,
+                    height: size.width * 0.25,
+                    fit: BoxFit.cover,
+                    color: Colors.white.withOpacity(0.8),
+                    colorBlendMode: BlendMode.modulate,
                   ),
                 ),
-              ),
+              )
             ]),
-            ProfileItem(
-              image: "asset/images/woman.png",
-              text: userModel?.name ?? " ",
-              background: kYellowLight,
-              onClick: () {},
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            ProfileItem(
-              image: "asset/images/email.png",
-              text: userModel?.email ?? " ",
-              background: kGreenHightLight,
-              onClick: () {},
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            ProfileItem(
-              image: "asset/images/grade.png",
-              text: "My score",
-              background: kGreenBold,
-              onClick: () {
-                Get.to(ScoreAllScreen());
-              },
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            ProfileItem(
-              image: "asset/images/logout_2.png",
-              text: "Logout",
-              background: kPurpleGrammar,
-              onClick: () {
-                authController.signOut();
-              },
-            ),
-            Container(
-              alignment: Alignment.bottomRight,
-              child: Image.asset(
-                'asset/images/panda_onboard.png',
-                width: size.width * 0.3,
-                height: size.width * 0.3,
-                fit: BoxFit.cover,
-                color: Colors.white.withOpacity(0.8),
-                colorBlendMode: BlendMode.modulate,
-              ),
-            )
-          ]),
-        ),
-        Positioned(
-          top: 30,
-          right: 5,
-          child: InkWell(
-            onTap: (() {
-              setState(() {
-                isShowcalendar = !isShowcalendar;
-              });
-            }),
-            child: CircleAvatar(
-              radius: 44,
-              backgroundColor: kred,
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: AssetImage("asset/images/gift.gif"),
+          ),
+          Positioned(
+            top: 30,
+            right: 5,
+            child: InkWell(
+              onTap: (() {
+                setState(() {
+                  isShowcalendar = !isShowcalendar;
+                });
+              }),
+              child: const CircleAvatar(
+                radius: 44,
+                backgroundColor: kred,
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage("asset/images/gift.gif"),
+                ),
               ),
             ),
           ),
-        ),
-        if (isShowcalendar)
-          Positioned(
-              top: size.height * 0.15,
-              left: size.width * 0.1,
-              child: Container(
-                height: size.height * 0.6,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("asset/images/board_1.png"),
-                        fit: BoxFit.fitHeight)),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(children: [
-                    SizedBox(
-                      height: 15,
-                    ),
-                    const Text(
-                      "Attendence table",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: kwhite,
-                        fontSize: 22,
-                        fontFamily: 'PoetsenOne',
+          if (isShowcalendar)
+            Positioned(
+                left: size.width * 0.05,
+                top: size.height * 0.15,
+                child: Container(
+                  height: size.height * 0.7,
+                  width: size.width * 0.9,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("asset/images/board_1.png"),
+                          fit: BoxFit.cover)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(children: [
+                      const SizedBox(
+                        height: 15,
                       ),
-                    ),
-                    TableCalendar(
-                      headerStyle: HeaderStyle(
-                          formatButtonVisible: false,
-                          titleTextStyle: TextStyle(color: Colors.white)),
-                      calendarStyle: CalendarStyle(
-                        weekendTextStyle: TextStyle(color: Colors.white),
-                        defaultTextStyle: TextStyle(color: kBlueGrammar),
-                        todayDecoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage("asset/images/tree2.png"),
-                                fit: BoxFit.cover)),
+                      const Text(
+                        "Attendence table",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: kwhite,
+                          fontSize: 22,
+                          fontFamily: 'PoetsenOne',
+                        ),
                       ),
-                      calendarFormat: CalendarFormat.month,
-                      firstDay: DateTime.utc(2010, 10, 16),
-                      focusedDay: DateTime.now(),
-                      lastDay: DateTime.utc(2030, 3, 14),
-                      onDaySelected: (date, events) {},
-                      selectedDayPredicate: (date) {
-                        if (dateAccumulation!.indexOf(
-                                date.toIso8601String().substring(0, 10)) >=
-                            0) return true;
+                      TableCalendar(
+                        headerStyle: const HeaderStyle(
+                            formatButtonVisible: false,
+                            titleTextStyle: TextStyle(color: Colors.white)),
+                        calendarStyle: const CalendarStyle(
+                          weekendTextStyle: TextStyle(color: Colors.white),
+                          defaultTextStyle: TextStyle(color: kBlueGrammar),
+                          todayDecoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("asset/images/tree2.png"),
+                                  fit: BoxFit.cover)),
+                        ),
+                        calendarFormat: CalendarFormat.month,
+                        firstDay: DateTime.utc(2010, 10, 16),
+                        focusedDay: DateTime.now(),
+                        lastDay: DateTime.utc(2030, 3, 14),
+                        onDaySelected: (date, events) {},
+                        selectedDayPredicate: (date) {
+                          if (dateAccumulation!.indexOf(
+                                  date.toIso8601String().substring(0, 10)) >=
+                              0) return true;
 
-                        return false;
-                      },
-                      calendarBuilders: CalendarBuilders(
-                        selectedBuilder: ((context, date, focusedDay) {
-                          return Container(
-                              margin: const EdgeInsets.all(4.0),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage("asset/images/tree2.png"),
-                                      fit: BoxFit.cover)),
-                              child: Text(
-                                date.day.toString(),
-                                style: TextStyle(color: kCancelText),
-                              ));
-                        }),
+                          return false;
+                        },
+                        calendarBuilders: CalendarBuilders(
+                          selectedBuilder: ((context, date, focusedDay) {
+                            return Container(
+                                margin: const EdgeInsets.all(4.0),
+                                alignment: Alignment.center,
+                                decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "asset/images/tree2.png"),
+                                        fit: BoxFit.cover)),
+                                child: Text(
+                                  date.day.toString(),
+                                  style: const TextStyle(color: kCancelText),
+                                ));
+                          }),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    if (authController.dateAccumulation.length <= 1)
-                      Text(
-                        "Fighting. Start a new journey",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold),
-                      )
-                    else if (authController.dateAccumulation.length <= 7)
-                      Text(
-                        "Very good, English is so easy",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold),
-                      )
-                    else
-                      Text(
-                        "You can do it. Try more.",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold),
-                      )
-                  ]),
-                ),
-              ))
-      ]),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if (authController.dateAccumulation.length <= 1)
+                        const Text(
+                          "Fighting. Start a new journey",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold),
+                        )
+                      else if (authController.dateAccumulation.length <= 7)
+                        const Text(
+                          "Very good, English is so easy",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold),
+                        )
+                      else
+                        const Text(
+                          "You can do it. Try more.",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold),
+                        )
+                    ]),
+                  ),
+                ))
+        ]),
+      ),
     ));
   }
 

@@ -45,7 +45,8 @@ class QuestionAnswer extends StatelessWidget {
               Image(
                 image: AssetImage(
                     isCorrest ? "asset/images/tick.png" : "asset/images/x.png"),
-                height: 35,
+                height: 28,
+                fit: BoxFit.cover,
               )
             ]),
       ),
