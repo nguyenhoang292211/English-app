@@ -21,18 +21,21 @@ class MyTopicController extends GetxController
   RxBool isLoading = false.obs;
   RxBool cantCreateTopic = false.obs;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    listTopics.bindStream(getMyTopic());
-    update();
+
+    if (getItemFromLocalStorage(STORAGE.USER) != null) {
+      userCurrent = await json.decode(getItemFromLocalStorage(STORAGE.USER));
+      listTopics.bindStream(getMyTopic());
+      update();
+    }
   }
 
   void initTopic() async {
-    // userCurrent = await json.decode(getItemFromLocalStorage(STORAGE.USER));
     if (createdVocabs.isEmpty) {
       final vocab = MyVocab(id: generateId());
       createdVocabs.add(vocab);
-      // createdTopic.userId = userCurrent['id'];
+      createdTopic.userId = userCurrent['id'];
     }
 
     createdTopic.id = generateId();
@@ -40,6 +43,7 @@ class MyTopicController extends GetxController
 
   Stream<List<MyTopic>> getMyTopic() => firebaseFirestore
       .collection('my_topic')
+      .where("userId", isEqualTo: userCurrent['id'])
       .snapshots()
       .map((query) => query.docs
           .map((item) => MyTopic.fromMap(item.data(), item.id))
@@ -55,8 +59,6 @@ class MyTopicController extends GetxController
         return false;
       }
       createdTopic.vocabularies = createdVocabs;
-      print("==========Created topic==========");
-      print(createdTopic);
       final vocabs = [];
       createdTopic.vocabularies?.forEach((item) {
         final vocab = <String, dynamic>{
@@ -77,21 +79,17 @@ class MyTopicController extends GetxController
         "vocabularies": vocabs
       };
       isLoading = true.obs;
-      print("==========data==========");
-
-      print(data);
       return firebaseFirestore.collection("my_topic").add(data).then((value) {
         createdTopic.docID = value.id;
-        listTopics.add(createdTopic);
+        // listTopics.add(createdTopic);
         saveSuccess = true.obs;
-          isLoading = false.obs;
-      update();
+        isLoading = false.obs;
+        update();
         return true;
       }).catchError((err) {
         saveSuccess = false.obs;
         return false;
       });
-
     } on NullThrownError catch (e) {
       //Handle exception of type SomeException
       print("Null Exception===>>>" + e.toString());

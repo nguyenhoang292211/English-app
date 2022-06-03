@@ -5,6 +5,7 @@ import 'package:string_to_hex/string_to_hex.dart';
 import 'package:vocabulary_learning/colors.dart';
 import 'package:vocabulary_learning/controllers/my_topic_controller.dart';
 import 'package:vocabulary_learning/models/my_topic.dart';
+import 'package:vocabulary_learning/screens/my_topic/flashCard.dart';
 
 class TopicSection extends StatelessWidget {
   final MyTopic topic;
@@ -57,18 +58,12 @@ class TopicSection extends StatelessWidget {
                 child: Container(),
               ),
               InkWell(
-                  onTap: () => {},
+                  onTap: () {
+                    Get.to(FlashCardMyTopic(vocabs: topic.vocabularies!));
+                  },
                   child: const Image(
                     image: AssetImage("asset/images/flashcard.png"),
                     height: 45,
-                    fit: BoxFit.fitHeight,
-                  )),
-              const SizedBox(width: 10),
-              InkWell(
-                  onTap: () => {},
-                  child: const Image(
-                    image: AssetImage("asset/images/Edit.png"),
-                    height: 30,
                     fit: BoxFit.fitHeight,
                   )),
               const SizedBox(width: 10),
@@ -82,7 +77,7 @@ class TopicSection extends StatelessWidget {
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: Color.fromARGB(255, 240, 196, 0),
                           borderRadius: 100,
-                          duration: Duration(seconds: 3),
+                          duration: Duration(seconds: 2),
                           colorText: kwhite,
                           isDismissible: true,
                           maxWidth: size.width * 0.9,
@@ -98,7 +93,7 @@ class TopicSection extends StatelessWidget {
                           snackPosition: SnackPosition.BOTTOM,
                           backgroundColor: Color.fromARGB(255, 0, 122, 37),
                           borderRadius: 20,
-                          duration: Duration(seconds: 4),
+                          duration: Duration(seconds: 2),
                           colorText: kwhite,
                           isDismissible: true,
                           maxWidth: size.width * 0.9,
@@ -168,10 +163,11 @@ class TopicSection extends StatelessWidget {
             ),
             Text(vocab.mean!,
                 style: const TextStyle(
-                    color: kblack,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18)),
+                  color: kblack,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                )),
             const SizedBox(
               height: 7,
             ),
@@ -222,12 +218,16 @@ class TopicSection extends StatelessWidget {
                       color: kblack,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      fontSize: 18),
+                      fontSize: 18,
+                      overflow: TextOverflow.ellipsis),
                 ),
                 Text(
                   vocab.mean!,
                   style: const TextStyle(
-                      color: kblack, fontFamily: 'Poppins', fontSize: 18),
+                      color: kblack,
+                      fontFamily: 'Poppins',
+                      fontSize: 18,
+                      overflow: TextOverflow.fade),
                 )
               ],
             ),

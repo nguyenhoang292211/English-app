@@ -71,14 +71,6 @@ class VocabFlashcardItem extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          IconButton(
-            iconSize: 34,
-            color: Colors.blueGrey.shade200,
-            highlightColor: Colors.lightGreen.shade800,
-            icon: Icon(Icons.g_translate_rounded,
-                color: Colors.blueAccent.shade400, size: 32),
-            onPressed: () {},
-          ),
         ],
       ),
     );

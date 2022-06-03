@@ -18,7 +18,8 @@ import 'package:vocabulary_learning/screens/score/ScoreAllScreen.dart';
 
 String getRandomString(int len) {
   var r = Random();
-  return String.fromCharCodes(List.generate(len, (index) => r.nextInt(33) + 89));
+  return String.fromCharCodes(
+      List.generate(len, (index) => r.nextInt(33) + 89));
 }
 
 class ProfileScreen extends StatefulWidget {
@@ -38,7 +39,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   bool isShowcalendar = false;
   // var dateAccumulation =['2022-05-11T00:00:00.000Z','2022-05-27T00:00:00.000Z', '2022-05-16T00:00:00.000Z'];
-  var dateAccumulation = authController.dateAccumulation.length > 0 ? authController.dateAccumulation[0].dateAccumulation : [];
+  var dateAccumulation = authController.dateAccumulation.length > 0
+      ? authController.dateAccumulation[0].dateAccumulation
+      : [];
 
   @override
   void initState() {
@@ -61,7 +64,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Container(
           width: size.width,
           height: size.height,
-          padding: const EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
+          padding:
+              const EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 10),
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [
@@ -106,8 +110,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         backgroundImage: showLocalFile
                             ? FileImage(imageFile!) as ImageProvider
                             : userModel?.image == ''
-                                ? const NetworkImage('https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png')
-                                : NetworkImage(userModel?.image ?? "https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png")),
+                                ? const NetworkImage(
+                                    'https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png')
+                                : NetworkImage(userModel?.image ??
+                                    "https://347xj63da3uu3x11jfmmklg9-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/6.png")),
                   ),
                 ),
               ),
@@ -232,7 +238,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Container(
                 height: size.height * 0.6,
                 width: size.width * 0.8,
-                decoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/board_1.png"), fit: BoxFit.fitHeight)),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("asset/images/board_1.png"),
+                        fit: BoxFit.fitHeight)),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(children: [
@@ -249,11 +258,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     TableCalendar(
-                      headerStyle: HeaderStyle(formatButtonVisible: false, titleTextStyle: TextStyle(color: Colors.white)),
+                      headerStyle: HeaderStyle(
+                          formatButtonVisible: false,
+                          titleTextStyle: TextStyle(color: Colors.white)),
                       calendarStyle: CalendarStyle(
                         weekendTextStyle: TextStyle(color: Colors.white),
                         defaultTextStyle: TextStyle(color: kBlueGrammar),
-                        todayDecoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/tree2.png"), fit: BoxFit.cover)),
+                        todayDecoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("asset/images/tree2.png"),
+                                fit: BoxFit.cover)),
                       ),
                       calendarFormat: CalendarFormat.month,
                       firstDay: DateTime.utc(2010, 10, 16),
@@ -261,7 +275,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       lastDay: DateTime.utc(2030, 3, 14),
                       onDaySelected: (date, events) {},
                       selectedDayPredicate: (date) {
-                        if (dateAccumulation!.indexOf(date.toIso8601String().substring(0, 10)) >= 0) return true;
+                        if (dateAccumulation!.indexOf(
+                                date.toIso8601String().substring(0, 10)) >=
+                            0) return true;
 
                         return false;
                       },
@@ -270,7 +286,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           return Container(
                               margin: const EdgeInsets.all(4.0),
                               alignment: Alignment.center,
-                              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/tree2.png"), fit: BoxFit.cover)),
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image:
+                                          AssetImage("asset/images/tree2.png"),
+                                      fit: BoxFit.cover)),
                               child: Text(
                                 date.day.toString(),
                                 style: TextStyle(color: kCancelText),
@@ -284,17 +304,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (authController.dateAccumulation.length <= 1)
                       Text(
                         "Fighting. Start a new journey",
-                        style: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold),
                       )
                     else if (authController.dateAccumulation.length <= 7)
                       Text(
                         "Very good, English is so easy",
-                        style: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold),
                       )
                     else
                       Text(
                         "You can do it. Try more.",
-                        style: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold),
                       )
                   ]),
                 ),
@@ -318,7 +350,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       var fileName = (getRandomString(10)) + '.jpg';
 
-      UploadTask uploadTask = FirebaseStorage.instance.ref().child('profile_images').child(fileName).putFile(imageFile!);
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref()
+          .child('profile_images')
+          .child(fileName)
+          .putFile(imageFile!);
 
       TaskSnapshot snapshot = await uploadTask;
 
@@ -395,7 +431,13 @@ class ProfileItem extends StatelessWidget {
   final String text;
   final Color background;
   final Function onClick;
-  const ProfileItem({Key? key, required this.image, required this.text, required this.background, required this.onClick}) : super(key: key);
+  const ProfileItem(
+      {Key? key,
+      required this.image,
+      required this.text,
+      required this.background,
+      required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -405,8 +447,15 @@ class ProfileItem extends StatelessWidget {
         margin: const EdgeInsets.only(left: 5, right: 5),
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        decoration:
-            BoxDecoration(color: background, borderRadius: BorderRadius.circular(15), boxShadow: [BoxShadow(blurRadius: 7, color: Colors.grey.shade500.withOpacity(0.4), offset: const Offset(4, 4))]),
+        decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 7,
+                  color: Colors.grey.shade500.withOpacity(0.4),
+                  offset: const Offset(4, 4))
+            ]),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -425,7 +474,11 @@ class ProfileItem extends StatelessWidget {
                 child: Text(
                   text,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: kblack, fontSize: 14, fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      color: kblack,
+                      fontSize: 14,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             )
