@@ -343,7 +343,7 @@ class _DraggGameState extends State<DraggGame> {
             }
             gameOver = true;
           });
-          Future.delayed(const Duration(seconds: 4), () {
+          Future.delayed(const Duration(seconds: 3), () {
             setState(() {
               isShowUpdateScore = false;
               updateScore = "";
@@ -358,7 +358,7 @@ class _DraggGameState extends State<DraggGame> {
             items2[index].accepting = false;
           });
 
-          Future.delayed(const Duration(seconds: 4), () {
+          Future.delayed(const Duration(seconds: 3), () {
             setState(() {
               isShowUpdateScore = false;
               updateScore = "";

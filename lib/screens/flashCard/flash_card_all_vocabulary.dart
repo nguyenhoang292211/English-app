@@ -57,11 +57,11 @@ class _AllVocabularyState extends State<AllVocabulary> {
             SizedBox(
               height: 35,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(2, 2, 0, 8),
+                    padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back_ios, color: kfirstGradientBack),
                       onPressed: () => Navigator.of(context).pop(),
@@ -70,14 +70,11 @@ class _AllVocabularyState extends State<AllVocabulary> {
                   const Text("Flash card",
                       style: TextStyle(
                         color: kfirstGradientBack,
-                        fontSize: 30,
+                        fontSize: 27,
                         fontFamily: "PoetsenOne",
                       ),
                       textAlign: TextAlign.center),
-                  const SizedBox(
-                    height: 20,
-                    width: 20,
-                  )
+                 
                 ],
               ),
             ),

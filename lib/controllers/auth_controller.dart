@@ -50,12 +50,8 @@ class AuthController extends GetxController {
     ever(firebaseUser, _setInitialScreen);
   }
 
-  Stream<List<Accumulation>> getDateAccumulation(email) => firebaseFirestore
-      .collection(accumulationCollection)
-      .where("email", isEqualTo: email)
-      .snapshots()
-      .map((query) =>
-          query.docs.map((item) => Accumulation.fromMap(item.data())).toList());
+  Stream<List<Accumulation>> getDateAccumulation(email) =>
+      firebaseFirestore.collection(accumulationCollection).where("email", isEqualTo: email).snapshots().map((query) => query.docs.map((item) => Accumulation.fromMap(item.data())).toList());
 
   _setInitialScreen(User? user) async {
     if (user != null) {
@@ -76,10 +72,14 @@ class AuthController extends GetxController {
   void signIn() async {
     try {
       showLoading();
-      await auth
-          .signInWithEmailAndPassword(
-              email: email.text.trim(), password: password.text.trim())
-          .then((result) {
+      if (email.text.trim().isEmpty || password.text.trim().isEmpty) {
+        errLogin = 'Email or password can not is empty'.obs;
+        update();
+        dismissLoadingWidget();
+        return;
+      }
+      
+      await auth.signInWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((result) {
         String _userId = result.user!.uid;
 
         _initializeUserModel(_userId, email.text.trim());
@@ -99,7 +99,7 @@ class AuthController extends GetxController {
         // });
         // addItemsToLocalStorage(STORAGE.USER, user);
         // _clearControllers();
-      
+
         Get.offAll(() => HomeIndexScreen());
       });
     } catch (e) {
@@ -122,9 +122,7 @@ class AuthController extends GetxController {
       return;
     }
 
-    bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email.text.trim());
+    bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email.text.trim());
     if (!emailValid) {
       errEmail = "Your email is incorrect".obs;
       update();
@@ -147,16 +145,9 @@ class AuthController extends GetxController {
     errPassword = "".obs;
     update();
     try {
-      await auth
-          .createUserWithEmailAndPassword(
-              email: email.text.trim(), password: password.text.trim())
-          .then((result) {
+      await auth.createUserWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((result) {
         String _userId = result.user!.uid;
-        var user = json.encode({
-          "id": _userId,
-          "email": email.text.trim(),
-          "password": password.text.trim()
-        });
+        var user = json.encode({"id": _userId, "email": email.text.trim(), "password": password.text.trim()});
         addItemsToLocalStorage(STORAGE.USER, user);
         _addUserToFirestore(_userId);
         _initializeUserModel(_userId, email.text.trim());
@@ -169,34 +160,18 @@ class AuthController extends GetxController {
   }
 
   void signOut() async {
-  
-    userModel.value=new UserModel();
+    userModel.value = new UserModel();
     clearLocalStorage();
     auth.signOut();
   }
 
-
-
   _addUserToFirestore(String userId) {
-    firebaseFirestore.collection(usersCollection).doc(userId).set({
-      "name": name.text.trim(),
-      "id": userId,
-      "email": email.text.trim(),
-      "saved-vocabs": [],
-      "image": ""
-    });
-    firebaseFirestore
-        .collection(accumulationCollection)
-        .doc(userId)
-        .set({"email": email.text.trim(), "dateAccumulation": []});
+    firebaseFirestore.collection(usersCollection).doc(userId).set({"name": name.text.trim(), "id": userId, "email": email.text.trim(), "saved-vocabs": [], "image": ""});
+    firebaseFirestore.collection(accumulationCollection).doc(userId).set({"email": email.text.trim(), "dateAccumulation": []});
   }
 
   _initializeUserModel(String userId, String mEmail) async {
-    userModel.value = await firebaseFirestore
-        .collection(usersCollection)
-        .doc(userId)
-        .get()
-        .then((doc) {
+    userModel.value = await firebaseFirestore.collection(usersCollection).doc(userId).get().then((doc) {
       return UserModel.fromSnapshot(doc);
     });
 
@@ -206,14 +181,8 @@ class AuthController extends GetxController {
     userCurrent.email = mEmail;
     // userCurrent.password = password.text.trim();
     dateAccumulation.bindStream(getDateAccumulation(mEmail));
-    if (dateAccumulation[0]
-            .dateAccumulation!
-            .indexOf(DateTime.now().toIso8601String().substring(0, 10)) <
-        0) {
-      var listOnlineDay = [
-        ...dateAccumulation[0].dateAccumulation!,
-        DateTime.now().toIso8601String().substring(0, 10)
-      ];
+    if (dateAccumulation[0].dateAccumulation!.indexOf(DateTime.now().toIso8601String().substring(0, 10)) < 0) {
+      var listOnlineDay = [...dateAccumulation[0].dateAccumulation!, DateTime.now().toIso8601String().substring(0, 10)];
       updateDateLearning(listOnlineDay);
     }
     print(dateAccumulation);
@@ -224,24 +193,21 @@ class AuthController extends GetxController {
   }
 
   clearControllers() {
-  name.clear();
+    name.clear();
     email.clear();
     password.clear();
     passwordConfirm.clear();
-        errEmail = ''.obs;
+    errEmail = ''.obs;
     errName = ''.obs;
     errPassword = ''.obs;
     errPasswordConfirm = ''.obs;
     errEmail = ''.obs;
     errLogin = ''.obs;
-       update();
+    update();
   }
 
   void updateImageUrl(urlImage) async {
-    var result = await firebaseFirestore
-        .collection(usersCollection)
-        .doc(userModel.value.id)
-        .update({'image': urlImage}).then((value) {});
+    var result = await firebaseFirestore.collection(usersCollection).doc(userModel.value.id).update({'image': urlImage}).then((value) {});
 
     print(result);
     userModel.value.image = urlImage;
@@ -255,12 +221,7 @@ class AuthController extends GetxController {
   }
 
   void updateDateLearning(List<String> mDateAccumulation) async {
-    final userInfo = await firebaseFirestore
-        .collection(accumulationCollection)
-        .where("email", isEqualTo: userCurrent.email)
-        .limit(1)
-        .get()
-        .then((QuerySnapshot snapshot) {
+    final userInfo = await firebaseFirestore.collection(accumulationCollection).where("email", isEqualTo: userCurrent.email).limit(1).get().then((QuerySnapshot snapshot) {
       return snapshot.docs[0].reference;
     });
 

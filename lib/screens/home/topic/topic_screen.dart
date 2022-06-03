@@ -34,7 +34,7 @@ class TopicScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final learningCtrl = Get.put<LearningController>(LearningController());
     final gameCtrl = Get.put<GameController>(GameController());
- 
+
     final size = MediaQuery.of(context).size;
     flashCardController.setVocabularies(vocabularies);
     topicCtrl.check();
@@ -122,8 +122,8 @@ class TopicScreen extends StatelessWidget {
                 onClick: () {
                   // showInfoLoading("Waiting to find competitor");
                   // var future = new Future.delayed(const Duration(milliseconds: 2000), () {
-                    // dismissLoadingWidget();
-                    Get.to(DraggGame());
+                  // dismissLoadingWidget();
+                  Get.to(DraggGame());
                   // });
                 })
           ],

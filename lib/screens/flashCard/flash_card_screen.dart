@@ -55,7 +55,7 @@ class FlashCard extends GetWidget<FlashCardController> {
                             SizedBox(
                               height: 35,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Padding(
@@ -68,13 +68,11 @@ class FlashCard extends GetWidget<FlashCardController> {
                                   const Text("Flash card",
                                       style: TextStyle(
                                         color: kmainBrown,
-                                        fontSize: 30,
+                                        fontSize: 27,
                                         fontFamily: "PoetsenOne",
                                       ),
                                       textAlign: TextAlign.center),
-                                  const SizedBox(
-                                    height: 20,
-                                  )
+                            
                                 ],
                               ),
                             ),
