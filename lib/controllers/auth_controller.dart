@@ -210,10 +210,9 @@ class AuthController extends GetxController {
     userCurrent.email = mEmail;
     // userCurrent.password = password.text.trim();
     dateAccumulation.bindStream(getDateAccumulation(mEmail));
-    if (dateAccumulation[0]
-            .dateAccumulation!
-            .indexOf(DateTime.now().toIso8601String().substring(0, 10)) <
-        0) {
+    if (!dateAccumulation[0]
+        .dateAccumulation!
+        .contains(DateTime.now().toIso8601String().substring(0, 10))) {
       var listOnlineDay = [
         ...dateAccumulation[0].dateAccumulation!,
         DateTime.now().toIso8601String().substring(0, 10)

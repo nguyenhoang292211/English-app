@@ -19,10 +19,11 @@ class SaveController extends GetxController {
 
   UserModel? user;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
+
     if (getItemFromLocalStorage(STORAGE.USER) != null) {
-      userCurrent = json.decode(getItemFromLocalStorage(STORAGE.USER));
+      userCurrent = await json.decode(getItemFromLocalStorage(STORAGE.USER));
       _initializeUserModel(userCurrent['id']);
     }
 
@@ -40,6 +41,7 @@ class SaveController extends GetxController {
   }
 
   void onPressSave(String vocabId) {
+    print(userCurrent['id']);
     _initializeUserModel(userCurrent['id']);
     UserModel userItem = userModel.value;
     List<dynamic> saves = userModel.value.savedVocabs!.toList();

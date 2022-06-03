@@ -63,7 +63,8 @@ class _AllVocabularyState extends State<AllVocabulary> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios, color: kfirstGradientBack),
+                      icon: const Icon(Icons.arrow_back_ios,
+                          color: kfirstGradientBack),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
@@ -74,7 +75,6 @@ class _AllVocabularyState extends State<AllVocabulary> {
                         fontFamily: "PoetsenOne",
                       ),
                       textAlign: TextAlign.center),
-                 
                 ],
               ),
             ),
@@ -108,11 +108,14 @@ class _AllVocabularyState extends State<AllVocabulary> {
                       //   delegate: MyCustomHeader(),
                       // ),
                       SliverList(
-                          delegate: SliverChildBuilderDelegate((context, index) {
-                        final mVocabulary = flashCardController.listSelectedCard[index];
+                          delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                        final mVocabulary =
+                            flashCardController.listSelectedCard[index];
 
                         final itemPositionOffset = index * itemSize;
-                        final difference = scrollController.offset - itemPositionOffset;
+                        final difference =
+                            scrollController.offset - itemPositionOffset;
                         final percent = 1 - (difference / itemSize);
 
                         double opacity = percent;
@@ -125,7 +128,8 @@ class _AllVocabularyState extends State<AllVocabulary> {
                             opacity: opacity,
                             child: Transform(
                                 alignment: Alignment.center,
-                                transform: Matrix4.identity()..scale(scale, 1.0),
+                                transform: Matrix4.identity()
+                                  ..scale(scale, 1.0),
                                 child: FlipCard(
                                   direction: FlipDirection.VERTICAL,
                                   front: BuildCard(
@@ -133,9 +137,15 @@ class _AllVocabularyState extends State<AllVocabulary> {
                                     title: mVocabulary.word.toString(),
                                     content: mVocabulary.definition.toString(),
                                   ),
-                                  back: BuildCard(image: mVocabulary.image.toString(), title: mVocabulary.mean.toString(), content: mVocabulary.translatedDefinition.toString()),
+                                  back: BuildCard(
+                                      image: mVocabulary.image.toString(),
+                                      title: mVocabulary.mean.toString(),
+                                      content: mVocabulary.translatedDefinition
+                                          .toString()),
                                 )));
-                      }, childCount: flashCardController.listSelectedCard.length))
+                      },
+                              childCount:
+                                  flashCardController.listSelectedCard.length))
                     ],
                   )),
             ),
@@ -188,7 +198,12 @@ class BuildCard extends StatelessWidget {
   final String image;
   final String title;
   final String content;
-  const BuildCard({Key? key, required this.image, required this.title, required this.content}) : super(key: key);
+  const BuildCard(
+      {Key? key,
+      required this.image,
+      required this.title,
+      required this.content})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +226,10 @@ class BuildCard extends StatelessWidget {
                     Container(
                       width: 60,
                       height: 60,
-                      decoration: BoxDecoration(color: kred, borderRadius: BorderRadius.circular(60 / 2), image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(image))),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(60 / 2),
+                          image: DecorationImage(
+                              fit: BoxFit.cover, image: NetworkImage(image))),
                     ),
                     const SizedBox(
                       width: 20,
@@ -227,7 +245,8 @@ class BuildCard extends StatelessWidget {
                                 style: TextStyle(fontSize: 17),
                               )),
                           Container(
-                            decoration: BoxDecoration(color: kfirstGradientBack),
+                            decoration:
+                                BoxDecoration(color: kfirstGradientBack),
                             height: 1,
                             width: 25,
                           ),
@@ -269,7 +288,8 @@ class MyCustomHeader extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     // TODO: implement build
     return Text(" ");
   }

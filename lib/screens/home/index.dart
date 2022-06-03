@@ -62,7 +62,7 @@ class HomeIndexScreen extends StatelessWidget {
         ),
         SalomonBottomBarItem(
           icon: const Icon(
-            Icons.note_add_rounded,
+            Icons.palette_rounded,
             size: 30,
             color: ksecondGradientBack,
           ),

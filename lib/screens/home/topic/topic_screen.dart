@@ -2,7 +2,6 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocabulary_learning/colors.dart';
-import 'package:vocabulary_learning/components/customSnackBar.dart';
 import 'package:vocabulary_learning/constants/controllers.dart';
 import 'package:vocabulary_learning/controllers/flashcard_controller.dart';
 import 'package:vocabulary_learning/controllers/game_controller.dart';
@@ -11,16 +10,9 @@ import 'package:vocabulary_learning/controllers/topic_controller.dart';
 import 'package:vocabulary_learning/models/vocabulary.dart';
 import 'package:vocabulary_learning/screens/flashCard/DraggeGame.dart';
 import 'package:vocabulary_learning/screens/flashCard/flash_card_all_vocabulary.dart';
-import 'package:vocabulary_learning/screens/flashCard/flash_card_screen.dart';
-import 'package:vocabulary_learning/screens/grammar/grammar_all_screen.dart';
 import 'package:vocabulary_learning/screens/home/components/topic_background.dart';
 import 'package:vocabulary_learning/screens/home/topic/components/navigation_button.dart';
 import 'package:vocabulary_learning/screens/home/topic/components/vocabulary_flashcard_item.dart';
-import 'package:vocabulary_learning/screens/home/topic/game/game_screen.dart';
-import 'package:vocabulary_learning/screens/warOnline/main_war_screen.dart';
-import 'package:vocabulary_learning/screens/warOnline/overview_competitor.dart';
-import 'package:vocabulary_learning/screens/warOnline/war_question.dart';
-import 'package:vocabulary_learning/utils/showLoading.dart';
 
 class TopicScreen extends StatelessWidget {
   // final flashCardCtrl = Get.put<FlashCardController>(FlashCardController());
@@ -62,7 +54,8 @@ class TopicScreen extends StatelessWidget {
                 ),
                 const Text(
                   'Topic:',
-                  style: TextStyle(color: kblack, fontSize: 22, fontFamily: 'PoetsenOne'),
+                  style: TextStyle(
+                      color: kblack, fontSize: 22, fontFamily: 'PoetsenOne'),
                 ),
                 const SizedBox(
                   width: 10,
