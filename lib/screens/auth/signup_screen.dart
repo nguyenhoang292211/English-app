@@ -34,6 +34,7 @@ class _SignupScreenState extends State<SignupScreen> {
     final _formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         body: Container(
       decoration:
           BoxDecoration(gradient: LinearGradient(colors: [kfirstGradientBack, ksecondGradientBack.withOpacity(0.9)], begin: Alignment.topLeft, end: Alignment.bottomRight, stops: const [0.3, 1])),
@@ -159,7 +160,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  authController.clearInputWhenChangePage();
+                                  authController.clearControllers();
                                   Get.to(SigninScreen());
                                 },
                                 child: const Text(

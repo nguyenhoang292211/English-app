@@ -80,6 +80,7 @@ class _SigninScreenState extends State<SigninScreen> {
                       onChange: (value) {},
                       controllerField: aController.password,
                       errorText: aController.errLogin.value,
+                      obscureText: true,
                     ),
                     const SizedBox(
                       height: 5,
@@ -122,7 +123,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      authController.clearInputWhenChangePage();
+                      authController.clearControllers();
                       Get.to(SignupScreen());
                     },
                     child: const Text(

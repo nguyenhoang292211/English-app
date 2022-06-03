@@ -24,6 +24,8 @@ class _DraggGameState extends State<DraggGame> {
 
   int detectedRange = 100;
   int moveDistance = 3;
+  bool isShowUpdateScore = false;
+  String updateScore = '';
 
   final ScrollController _scroller = ScrollController();
   final _listViewKey = GlobalKey();
@@ -100,13 +102,29 @@ class _DraggGameState extends State<DraggGame> {
                     child: Text.rich(
                       TextSpan(children: [
                         TextSpan(
-                            text: 'Score $score',
-                            style: TextStyle(
+                            text: 'Score $score  ',
+                            style: const TextStyle(
                               fontSize: 24,
                               color: kwhite,
                               fontFamily: 'PoetsenOne',
                             )),
-                      
+                        if (isShowUpdateScore)
+                          WidgetSpan(
+                              child: Container(
+                            padding: EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                            child: IntrinsicWidth(
+                              child: Text(updateScore,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    color: kwhite,
+                                    fontFamily: 'PoetsenOne',
+                                  )),
+                            ),
+                          )),
                       ]),
                     ),
                   ),
@@ -130,10 +148,8 @@ class _DraggGameState extends State<DraggGame> {
                                     onPointerMove: (PointerMoveEvent event) {
                                       RenderBox render = _listViewKey.currentContext?.findRenderObject() as RenderBox;
                                       Offset position = render.localToGlobal(Offset.zero);
-                                      print(position);
                                       double topY = position.dy;
                                       double bottomY = topY + render.size.height;
-                                      print(_scroller.offset);
                                       // if (event.position.dy > MediaQuery.of(context).size.height -100) {
                                       //   // 120 is height of your draggable.
                                       //   _scroller.jumpTo(_scroller.offset + 40);
@@ -317,6 +333,8 @@ class _DraggGameState extends State<DraggGame> {
         if (items2[index].name == items[int.parse(receivedItem.toString())].name) {
           score += 10;
           setState(() {
+            updateScore = "+10";
+            isShowUpdateScore = true;
             // emoji.accepting = false;
             items[int.parse(receivedItem.toString())].score = true;
             items2[index].score = true;
@@ -325,10 +343,26 @@ class _DraggGameState extends State<DraggGame> {
             }
             gameOver = true;
           });
+          Future.delayed(const Duration(seconds: 3), () {
+            setState(() {
+              isShowUpdateScore = false;
+              updateScore = "";
+            });
+          });
         } else {
           score -= 5;
+
           setState(() {
+            updateScore = "-5";
+            isShowUpdateScore = true;
             items2[index].accepting = false;
+          });
+
+          Future.delayed(const Duration(seconds: 3), () {
+            setState(() {
+              isShowUpdateScore = false;
+              updateScore = "";
+            });
           });
         }
       },
